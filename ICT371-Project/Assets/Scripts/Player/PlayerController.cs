@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         controls = new InputMaster();//Creating a new inputMaster component
-        controls.Player.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());// Assigning the camera action to the Look function
+        controls.Player.MovementX.performed += ctx => Move(ctx.ReadValue<float>());// Assigning the MovementX action to the MoveX function
+        controls.Player.MovementY.performed += ctx => Move(ctx.ReadValue<float>());// Assigning the MovementY action to the MoveY function
 
     }
 
@@ -30,17 +31,20 @@ public class PlayerController : MonoBehaviour
         controls.Player.Disable();
     }
 
-    void Move(Vector2 input)//This Function triggers on button down and up
+    void MoveX(float input)//This Function triggers on button down and up
     {
-        if(input.x != x)//Checking if the x/y value has changed i.e. player released button and now we need to stop moving
+        if(input != x)//Checking if the x/y value has changed i.e. player released button and now we need to stop moving
         {
-            x = input.x;
+            x = input;
         }
-        if(input.y != z)
+    }
+
+    void MoveY(float input)//This Function triggers on button down and up
+    { 
+        if (input != z)//Checking if the x/y value has changed i.e. player released button and now we need to stop moving
         {
-            z = input.y;
+            z = input;
         }
-        
     }
 
     void Update()
