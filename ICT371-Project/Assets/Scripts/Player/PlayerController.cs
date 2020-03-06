@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         controls = new InputMaster();//Creating a new inputMaster component
-        controls.Player.MovementX.performed += ctx => Move(ctx.ReadValue<float>());// Assigning the MovementX action to the MoveX function
-        controls.Player.MovementY.performed += ctx => Move(ctx.ReadValue<float>());// Assigning the MovementY action to the MoveY function
+        controls.Player.MovementX.performed += ctx => MoveX(ctx.ReadValue<float>());// Assigning the MovementX action to the MoveX function
+        controls.Player.MovementY.performed += ctx => MoveY(ctx.ReadValue<float>());// Assigning the MovementY action to the MoveY function
 
     }
 

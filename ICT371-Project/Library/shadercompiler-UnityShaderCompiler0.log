@@ -1,10 +1,13 @@
 Base path: '/Applications/Unity/Hub/Editor/2019.3.2f1/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.3.2f1/PlaybackEngines'
 Cmd: initializeCompiler
-Cmd: initializeCompiler
+Cmd: preprocess
+  insize=1431 outsize=281 ok=1
 Cmd: preprocess
   insize=1268 outsize=443 ok=1
 Cmd: preprocess
   insize=5828 outsize=2007 ok=1
+Cmd: preprocess
+  insize=4091 outsize=758 ok=1
 Cmd: preprocess
   insize=4377 outsize=462 ok=1
 Cmd: preprocess
@@ -13,6 +16,8 @@ Cmd: preprocess
   insize=1760 outsize=643 ok=1
 Cmd: preprocess
   insize=7490 outsize=1486 ok=1
+Cmd: preprocess
+  insize=18513 outsize=2654 ok=1
 Cmd: preprocess
   insize=1749 outsize=1131 ok=1
 Cmd: preprocess
@@ -34,11 +39,17 @@ Cmd: preprocess
 Cmd: preprocess
   insize=7055 outsize=4409 ok=1
 Cmd: preprocess
+  insize=3365 outsize=414 ok=1
+Cmd: preprocess
   insize=3242 outsize=1030 ok=1
 Cmd: preprocess
   insize=746 outsize=340 ok=1
 Cmd: preprocess
+  insize=1227 outsize=298 ok=1
+Cmd: preprocess
   insize=6994 outsize=924 ok=1
+Cmd: preprocess
+  insize=3962 outsize=392 ok=1
 Cmd: preprocess
   insize=6698 outsize=4187 ok=1
 Cmd: preprocess
@@ -58,9 +69,17 @@ Cmd: preprocess
 Cmd: preprocess
   insize=12359 outsize=1982 ok=1
 Cmd: preprocess
+  insize=1091 outsize=185 ok=1
+Cmd: preprocess
   insize=7983 outsize=2095 ok=1
 Cmd: preprocess
+  insize=978 outsize=231 ok=1
+Cmd: preprocess
   insize=8662 outsize=379 ok=1
+Cmd: preprocess
+  insize=1772 outsize=388 ok=1
+Cmd: preprocess
+  insize=428 outsize=428 ok=1
 Cmd: preprocess
   insize=8294 outsize=3719 ok=1
 Cmd: preprocess
@@ -72,6 +91,8 @@ Cmd: preprocess
 Cmd: preprocess
   insize=3092 outsize=358 ok=1
 Cmd: preprocess
+  insize=3207 outsize=1205 ok=1
+Cmd: preprocess
   insize=4572 outsize=1825 ok=1
 Cmd: preprocess
   insize=3766 outsize=404 ok=1
@@ -79,10 +100,6 @@ Cmd: preprocess
   insize=7460 outsize=857 ok=1
 Cmd: preprocess
   insize=9192 outsize=2471 ok=1
-Cmd: compileSnippet
-  api=14 type=0 insize=2203 outsize=5598 kw=_ADDITIONAL_LIGHTS _TERRAIN_INSTANCED_PERPIXEL_NORMAL pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING ok=1
-Cmd: compileSnippet
-  api=14 type=1 insize=2203 outsize=14687 kw=_ADDITIONAL_LIGHTS _TERRAIN_INSTANCED_PERPIXEL_NORMAL pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING ok=1
 Cmd: preprocess
   insize=71592 outsize=3597 ok=1
 Cmd: preprocess
@@ -97,5 +114,3 @@ Cmd: preprocess
   insize=67975 outsize=3698 ok=1
 Cmd: preprocess
   insize=63079 outsize=3545 ok=1
-Cmd: preprocess
-  insize=67329 outsize=3250 ok=1
