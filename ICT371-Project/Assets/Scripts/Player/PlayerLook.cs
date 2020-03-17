@@ -22,6 +22,7 @@ public class PlayerLook : MonoBehaviour
         controls = new InputMaster();//Creating a new inputMaster component
         controls.Player.Camera.performed += ctx => Look(ctx.ReadValue<Vector2>());// Assigning the camera action to the Look function
         
+        
     }
 
     private void OnEnable()//Enables camera controls if camera is enabled

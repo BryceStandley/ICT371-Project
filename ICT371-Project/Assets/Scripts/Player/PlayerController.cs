@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
         controls = new InputMaster();//Creating a new inputMaster component
         controls.Player.MovementX.performed += ctx => MoveX(ctx.ReadValue<float>());// Assigning the MovementX action to the MoveX function
         controls.Player.MovementY.performed += ctx => MoveY(ctx.ReadValue<float>());// Assigning the MovementY action to the MoveY function
-
+        
     }
 
     private void OnEnable()//Enables movement controls if player is enabled

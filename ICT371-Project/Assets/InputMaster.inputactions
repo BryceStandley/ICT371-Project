@@ -142,6 +142,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "TestKeys",
+            "id": "9afc5e94-f880-4a83-9578-c94b9d3c7aa2",
+            "actions": [
+                {
+                    "name": "DialogueTrigger",
+                    "type": "Button",
+                    "id": "dafa99db-dcdf-4363-a729-6d5ff89db533",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a890d7d1-3454-4ff1-8400-5305fe09c5eb",
+                    "path": "<Keyboard>/p",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "DialogueTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
