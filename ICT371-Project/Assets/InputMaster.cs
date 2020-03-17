@@ -155,6 +155,33 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""TestKeys"",
+            ""id"": ""9afc5e94-f880-4a83-9578-c94b9d3c7aa2"",
+            ""actions"": [
+                {
+                    ""name"": ""DialogueTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""dafa99db-dcdf-4363-a729-6d5ff89db533"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a890d7d1-3454-4ff1-8400-5305fe09c5eb"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""DialogueTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -192,6 +219,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_MovementX = m_Player.FindAction("MovementX", throwIfNotFound: true);
         m_Player_Camera = m_Player.FindAction("Camera", throwIfNotFound: true);
         m_Player_MovementY = m_Player.FindAction("MovementY", throwIfNotFound: true);
+        // TestKeys
+        m_TestKeys = asset.FindActionMap("TestKeys", throwIfNotFound: true);
+        m_TestKeys_DialogueTrigger = m_TestKeys.FindAction("DialogueTrigger", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -286,6 +316,39 @@ public class @InputMaster : IInputActionCollection, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // TestKeys
+    private readonly InputActionMap m_TestKeys;
+    private ITestKeysActions m_TestKeysActionsCallbackInterface;
+    private readonly InputAction m_TestKeys_DialogueTrigger;
+    public struct TestKeysActions
+    {
+        private @InputMaster m_Wrapper;
+        public TestKeysActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @DialogueTrigger => m_Wrapper.m_TestKeys_DialogueTrigger;
+        public InputActionMap Get() { return m_Wrapper.m_TestKeys; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TestKeysActions set) { return set.Get(); }
+        public void SetCallbacks(ITestKeysActions instance)
+        {
+            if (m_Wrapper.m_TestKeysActionsCallbackInterface != null)
+            {
+                @DialogueTrigger.started -= m_Wrapper.m_TestKeysActionsCallbackInterface.OnDialogueTrigger;
+                @DialogueTrigger.performed -= m_Wrapper.m_TestKeysActionsCallbackInterface.OnDialogueTrigger;
+                @DialogueTrigger.canceled -= m_Wrapper.m_TestKeysActionsCallbackInterface.OnDialogueTrigger;
+            }
+            m_Wrapper.m_TestKeysActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @DialogueTrigger.started += instance.OnDialogueTrigger;
+                @DialogueTrigger.performed += instance.OnDialogueTrigger;
+                @DialogueTrigger.canceled += instance.OnDialogueTrigger;
+            }
+        }
+    }
+    public TestKeysActions @TestKeys => new TestKeysActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -309,5 +372,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMovementX(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
         void OnMovementY(InputAction.CallbackContext context);
+    }
+    public interface ITestKeysActions
+    {
+        void OnDialogueTrigger(InputAction.CallbackContext context);
     }
 }
