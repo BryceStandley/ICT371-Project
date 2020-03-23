@@ -35,6 +35,7 @@ public class PauseMenu : MonoBehaviour
 
 
         //Added, see pause function
+        GetComponent<AudioSource>().Play();
         playerController.enabled = true;
         playerLook.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -49,6 +50,7 @@ public class PauseMenu : MonoBehaviour
 
 
         //Added to pause player input and show the cursor
+        GetComponent<AudioSource>().Pause();
         playerController.enabled = false;
         playerLook.enabled = false;
         Cursor.lockState = CursorLockMode.None;
