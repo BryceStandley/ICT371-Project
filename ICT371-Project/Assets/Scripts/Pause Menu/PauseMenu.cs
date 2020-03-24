@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool isGamePaused = false;
     public GameObject pauseMenuUI;
+    public GameObject gameplayUI;
 
     public PlayerInputController playerInputController;
 
@@ -32,6 +33,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         //Time.timeScale = 1.0f; // Disable,see Pause function
         isGamePaused = false;
+        gameplayUI.SetActive(true);
 
 
         //Added, see pause function
@@ -47,6 +49,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         //Time.timeScale = 0f; //Disabled, this stops game loops and doesnt show the cursor
         isGamePaused = true;
+        gameplayUI.SetActive(false);
 
 
         //Added to pause player input and show the cursor
