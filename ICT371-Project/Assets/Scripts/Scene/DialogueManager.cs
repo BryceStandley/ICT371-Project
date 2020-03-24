@@ -7,9 +7,8 @@ using DG.Tweening;
 
 public class DialogueManager : MonoBehaviour
 {
-    //References to allow player input to be turned on and off
-    public PlayerController playerController;
-    public PlayerLook playerLook;
+    //Reference to allow player input to be turned on and off
+    public PlayerInputController playerInputController;
 
     public TextMeshProUGUI dialogueName;
     public TextMeshProUGUI dialogueSentence;
@@ -21,8 +20,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
-        playerLook = FindObjectOfType<PlayerLook>();
-        playerController = FindObjectOfType<PlayerController>();
+        playerInputController = FindObjectOfType<PlayerInputController>();
     }
 
     public void StartDialogue(Dialogue dialogue)//Method triggered when a dialogue is triggered
@@ -30,7 +28,7 @@ public class DialogueManager : MonoBehaviour
         
         dialogueName.text = dialogue.name;
 
-        DisablePlayerControls();//Stopping the player from being able to look and move
+        playerInputController.DisablePlayerControls();//Stopping the player from being able to look and move
 
         sentences.Clear();//Clearing the sentence queue of any old sentences
 
@@ -58,21 +56,7 @@ public class DialogueManager : MonoBehaviour
     {
         //Debug.Log("Dialogue Ended...");
         dialogueBox.DOAnchorPos(new Vector2(0, -125), 0.5f);//Animates dialogue box out of cameras view
-        EnablePlayerControls();
+        playerInputController.EnablePlayerControls();
         
-    }
-
-    public void DisablePlayerControls()//Disables player input to look and move, also shows the cursor
-    {
-        playerController.enabled = false;
-        playerLook.enabled = false;
-        Cursor.lockState = CursorLockMode.None;
-    }
-
-    public void EnablePlayerControls()//Inverts Disable controls method
-    {
-        playerController.enabled = true;
-        playerLook.enabled = true;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 }
