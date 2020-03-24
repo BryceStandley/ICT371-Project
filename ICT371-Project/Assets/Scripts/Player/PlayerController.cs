@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,16 +10,26 @@ public class PlayerController : MonoBehaviour
     public CharacterController controller; //Reference to main player character controller
 
     public float speed = 6f;
+    public float jumpHeight = 5f;
+    public float gravity = 20f;
 
-    private float x = 0f;
-    private float z = 0f;
+
+    private Vector2 input;
+    private bool jumping = false;
+    private Animator animator;
+
+    private Vector3 movementDirection = Vector3.zero;
+    private CharacterController character;
 
     private void Awake()
     {
-        controls = new InputMaster();//Creating a new inputMaster component
-        controls.Player.MovementX.performed += ctx => MoveX(ctx.ReadValue<float>());// Assigning the MovementX action to the MoveX function
-        controls.Player.MovementY.performed += ctx => MoveY(ctx.ReadValue<float>());// Assigning the MovementY action to the MoveY function
-        
+        controls = new InputMaster();//Creating a new inputMaster component  
+    }
+
+    private void Start()
+    {
+        character = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>(); //Disabled For now, Will add animations later and trigger states here
     }
 
     private void OnEnable()//Enables movement controls if player is enabled
@@ -31,26 +42,49 @@ public class PlayerController : MonoBehaviour
         controls.Player.Disable();
     }
 
-    void MoveX(float input)//This Function triggers on button down and up
+    public void OnMoveInput(InputAction.CallbackContext context)//Input for character movement
     {
-        if(input != x)//Checking if the x/y value has changed i.e. player released button and now we need to stop moving
+        input = context.ReadValue<Vector2>(); 
+    }
+    
+
+    public void OnJumpInput(InputAction.CallbackContext context)//Input for Jumping
+    {
+        if(character.isGrounded)
         {
-            x = input;
+            jumping = true;
         }
     }
 
-    void MoveY(float input)//This Function triggers on button down and up
-    { 
-        if (input != z)//Checking if the x/y value has changed i.e. player released button and now we need to stop moving
-        {
-            z = input;
-        }
-    }
-
-    void Update()
+    private void FixedUpdate()//Applying movement and applying jumping mechanics
     {
-        Vector3 move = transform.right * x + transform.forward * z; // Making move vector in the correct local directions of movement
-        controller.Move(move * speed * Time.deltaTime);//Applying movement vector with a speed and time delta
+        var localDirection = new Vector3(input.x, 0, input.y) * speed;
+        var worldSpaceDirection = transform.TransformDirection(localDirection);
+        if(controller.isGrounded)
+        {
+            animator.SetFloat("velocity", input.magnitude);
+            if(input.magnitude < 0.2f)
+            {
+                animator.SetFloat("velocity", 0);
+            }
+            if(jumping)
+            {
+                jumping = false;
+                worldSpaceDirection.y = jumpHeight;
+                if(localDirection.magnitude > 0)
+                {
+                    animator.SetFloat("velocity", 0);
+                }
+            }
+            else
+            {
+                worldSpaceDirection.y = 0;
+            }
+            movementDirection = worldSpaceDirection;
+        }
+        movementDirection.y -= gravity * Time.deltaTime;
+
+        character.Move(movementDirection * Time.deltaTime);
 
     }
 }

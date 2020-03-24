@@ -7,9 +7,9 @@ public class PauseMenu : MonoBehaviour
     public static bool isGamePaused = false;
     public GameObject pauseMenuUI;
 
-    public PlayerController playerController;
-    public PlayerLook playerLook;
+    public PlayerInputController playerInputController;
 
+    public AudioSource audioSource;
 
     // Update is called once per frame
     void Update()
@@ -35,10 +35,10 @@ public class PauseMenu : MonoBehaviour
 
 
         //Added, see pause function
-        GetComponent<AudioSource>().Play();
-        playerController.enabled = true;
-        playerLook.enabled = true;
-        Cursor.lockState = CursorLockMode.Locked;
+
+        audioSource.Play();// Changed to have direct reference to audio source to stop delay
+
+        playerInputController.EnablePlayerControls();
 
     }
 
@@ -50,10 +50,10 @@ public class PauseMenu : MonoBehaviour
 
 
         //Added to pause player input and show the cursor
-        GetComponent<AudioSource>().Pause();
-        playerController.enabled = false;
-        playerLook.enabled = false;
-        Cursor.lockState = CursorLockMode.None;
+
+        audioSource.Pause(); //Changed to have direct reference to audio source to stop delay
+
+        playerInputController.DisablePlayerControls();
     }
 
     public void SaveGame() 
