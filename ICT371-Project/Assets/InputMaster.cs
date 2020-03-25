@@ -68,7 +68,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""58a3ce06-bdba-45c0-ae74-d123ca96d4fb"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=10,y=10)"",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Camera"",
                     ""isComposite"": false,
@@ -176,7 +176,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f678d0ef-c083-47f8-a8fb-aa5303254fb0"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",

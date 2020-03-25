@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         Debug.Log("Loading New Game...");
+        SceneManager.LoadScene("Backyard");
     }
 
     public void LoadGame()

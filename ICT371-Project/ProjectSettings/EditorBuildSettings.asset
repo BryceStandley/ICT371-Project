@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/testScene/TestScene.unity
     guid: 9c77ae02555cd4f2d95ca3d3238c2da0
+  - enabled: 1
+    path: Assets/Scenes/Backyard/Backyard.unity
+    guid: 5e528f7da4222463fae69f2211f5e9ab
   m_configObjects: {}
