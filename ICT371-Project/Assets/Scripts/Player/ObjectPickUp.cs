@@ -8,6 +8,7 @@ public class ObjectPickUp : MonoBehaviour
 {
     public Image pointer;
     public Sprite handClosed, handOpen, defaultPointer;
+    public bool disabledInput = false;
 
     public float pickupDistance = 5f;
     public float holdDistance = 5f;
@@ -64,21 +65,24 @@ public class ObjectPickUp : MonoBehaviour
 
     public void OnObjectPickUp(InputAction.CallbackContext context)
     {
-        if(canPickUp && !holding)
+        if(!disabledInput)
         {
-            //can pick the item up and were not holding a item already
-            //pick up the item
-            pointer.sprite = handClosed;
-            holding = true;
-            PickUpItem(lookedAtItem);
-        }
-        else if (canPickUp && holding)
-        {
-            //can pick up the item and currently holding a item
-            //drop the item
-            pointer.sprite = defaultPointer;
-            holding = false;
-            DropItem(heldItem);
+            if (canPickUp && !holding)
+            {
+                //can pick the item up and were not holding a item already
+                //pick up the item
+                pointer.sprite = handClosed;
+                holding = true;
+                PickUpItem(lookedAtItem);
+            }
+            else if (canPickUp && holding)
+            {
+                //can pick up the item and currently holding a item
+                //drop the item
+                pointer.sprite = defaultPointer;
+                holding = false;
+                DropItem(heldItem);
+            }
         }
     }
 

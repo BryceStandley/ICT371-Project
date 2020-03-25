@@ -13,7 +13,7 @@ public class PlayerLook : MonoBehaviour
     private Quaternion headOriginOrientation, bodyOriginOrientation;// References to the original Rotation Origins
     private float currentYaw = 0f, currentPitch = 0f; //Base X and Y values
 
-    public float sensitivity = 100f; //Mouse input sensitivity
+    public float sensitivity; // Sensitivity used for calc
 
     public Transform playerBody; //Reference to main player transform
 
@@ -44,7 +44,9 @@ public class PlayerLook : MonoBehaviour
 
     void Look(InputAction.CallbackContext context)// Maps the delta of the mouse between -1 to 1 for both mouse X and Y
     {
+
         var delta = context.ReadValue<Vector2>();
+
 
         x = delta.x;
         y = delta.y;
