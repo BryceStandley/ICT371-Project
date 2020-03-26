@@ -133,8 +133,9 @@ GameObject:
   - component: {fileID: 564394953}
   - component: {fileID: 564394952}
   - component: {fileID: 564394951}
-  - component: {fileID: 564394955}
   - component: {fileID: 564394956}
+  - component: {fileID: 564394957}
+  - component: {fileID: 564394955}
   m_Layer: 9
   m_Name: Cube (2)
   m_TagString: PickUp
@@ -245,6 +246,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &564394957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564394950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a503537c218a4a2b8f7427b8fcb6137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Cube 3
+  itemStats: No Stats
 --- !u!1 &730765226
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,8 +335,9 @@ GameObject:
   - component: {fileID: 799207381}
   - component: {fileID: 799207380}
   - component: {fileID: 799207379}
-  - component: {fileID: 799207383}
   - component: {fileID: 799207384}
+  - component: {fileID: 799207385}
+  - component: {fileID: 799207383}
   m_Layer: 9
   m_Name: Cube
   m_TagString: PickUp
@@ -360,7 +376,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5287bae98d08142979e29ca74e1d33d5, type: 2}
+  - {fileID: 2100000, guid: 4a123a186feaa49a78abbf4032443f4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -424,7 +440,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799207378}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -432,6 +448,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &799207385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799207378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a503537c218a4a2b8f7427b8fcb6137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Cube 1
+  itemStats: No Stats
 --- !u!114 &847368640 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2381808128843183137, guid: 3127f65b6c0d947a8a0d0225bf081c94,
@@ -738,8 +768,9 @@ GameObject:
   - component: {fileID: 1980962190}
   - component: {fileID: 1980962189}
   - component: {fileID: 1980962188}
-  - component: {fileID: 1980962192}
   - component: {fileID: 1980962193}
+  - component: {fileID: 1980962194}
+  - component: {fileID: 1980962192}
   m_Layer: 9
   m_Name: Cube (1)
   m_TagString: PickUp
@@ -850,6 +881,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1980962194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980962187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a503537c218a4a2b8f7427b8fcb6137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Cube 2
+  itemStats: No Stats
 --- !u!114 &2011239267 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3056856365838794053, guid: 3127f65b6c0d947a8a0d0225bf081c94,
@@ -1047,11 +1092,61 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5328513989439251674, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513989439251674, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513989439251674, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513989439251674, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513989439251674, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6099223305960011915, guid: 3127f65b6c0d947a8a0d0225bf081c94,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1180171542}
+    - target: {fileID: 7374232589510055706, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374232589510055706, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374232589510055706, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374232589510055706, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374232589510055706, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8135916886998940536, guid: 3127f65b6c0d947a8a0d0225bf081c94,
         type: 3}
       propertyPath: m_LocalPosition.x
