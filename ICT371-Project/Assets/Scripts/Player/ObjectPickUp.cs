@@ -47,19 +47,22 @@ public class ObjectPickUp : MonoBehaviour
                 if (!holding)
                 {
                     pointer.sprite = handOpen;
-                    
+                    ObjectInformationToolTip.ShowTip(lookedAtItem.GetComponent<ObjectInformation>().itemName, lookedAtItem.GetComponent<ObjectInformation>().itemStats);
+
                 }
             }
             else
             {
                 canPickUp = false;
                 pointer.sprite = defaultPointer;
+                ObjectInformationToolTip.HideTip();
             }
             
         }
         else
         {
             pointer.sprite = defaultPointer;
+            ObjectInformationToolTip.HideTip();
         }
     }
 
@@ -74,6 +77,7 @@ public class ObjectPickUp : MonoBehaviour
                 pointer.sprite = handClosed;
                 holding = true;
                 PickUpItem(lookedAtItem);
+                ObjectInformationToolTip.HideTip();
             }
             else if (canPickUp && holding)
             {
@@ -97,13 +101,16 @@ public class ObjectPickUp : MonoBehaviour
             item.GetComponent<PickUp>().pickedUp = true;
             item.GetComponent<PickUp>().SetHoldPoint(holdPoint);
             heldItem = item;
+            ObjectInformationToolTip.HideTip();
         }
     }
 
     private void DropItem(GameObject item)
     {
         item.GetComponent<PickUp>().pickedUp = false;
+        item.GetComponent<PickUp>().DropItem();
         heldItem = null;
+        ObjectInformationToolTip.HideTip();
     }
     
 
