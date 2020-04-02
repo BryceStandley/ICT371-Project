@@ -10,10 +10,14 @@ public class PickUp : MonoBehaviour
 
     private GameObject holdPoint;
     private Rigidbody rb;
+    private Collider col;
+    private GameObject ground;
 
     private void Awake()
     {
+        col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        ground = GameObject.FindGameObjectWithTag("Ground");
     }
 
 
@@ -27,16 +31,24 @@ public class PickUp : MonoBehaviour
         rb.velocity = new Vector3(0, -9.5f * 0.7f, 0);
         rb.angularVelocity = Vector3.zero;
         rb.freezeRotation = false;
+        col.enabled = true;
+        //transform.parent = null;
+        rb.useGravity = true;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if(pickedUp)
         {
             //constantly move towards a pickup point of the player
             transform.position = holdPoint.transform.position;
+            rb.useGravity = false;
+            col.enabled = false;
+            //transform.parent = holdPoint.transform;
             rb.freezeRotation = true;
+
      
         }
+        
     }
 }

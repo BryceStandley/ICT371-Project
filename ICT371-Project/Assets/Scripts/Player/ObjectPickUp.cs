@@ -19,11 +19,13 @@ public class ObjectPickUp : MonoBehaviour
     private bool canPickUp = false;
 
     private GameObject lookedAtItem;
-    private GameObject heldItem;
+    public GameObject heldItem;
 
     private float screenWidth, screenHeight;
 
     public GameObject holdPoint;
+
+    private bool detailsDisplaying = false;
 
     private void Start()
     {
@@ -44,31 +46,52 @@ public class ObjectPickUp : MonoBehaviour
                 canPickUp = true; //object can be picked up
                 lookedAtItem = hit.transform.gameObject;
 
-                if (!holding)
+                if (!holding && !detailsDisplaying)
                 {
                     pointer.sprite = handOpen;
-                    ObjectInformationToolTip.ShowTip(lookedAtItem.GetComponent<ObjectInformation>().itemName, lookedAtItem.GetComponent<ObjectInformation>().itemStats);
-
+                    ObjectInformationToolTip.ShowPrompt();
                 }
             }
             else
             {
                 canPickUp = false;
                 pointer.sprite = defaultPointer;
+                ObjectInformationToolTip.HidePrompt();
                 ObjectInformationToolTip.HideTip();
+                detailsDisplaying = false;
             }
             
         }
         else
         {
             pointer.sprite = defaultPointer;
+            ObjectInformationToolTip.HidePrompt();
             ObjectInformationToolTip.HideTip();
+            detailsDisplaying = false;
+        }
+    }
+
+    public void OnObjectDetailsDisplayed(InputAction.CallbackContext context)
+    {
+        if(context.performed && !detailsDisplaying && !holding)
+        {
+
+            detailsDisplaying = true;
+            ObjectInformationToolTip.ShowTip(lookedAtItem.GetComponent<ObjectInformation>().itemName, lookedAtItem.GetComponent<ObjectInformation>().itemStats);
+            ObjectInformationToolTip.HidePrompt();
+
+        }
+        else if (context.performed && detailsDisplaying && !holding)
+        {
+            ObjectInformationToolTip.HideTip();
+            ObjectInformationToolTip.ShowPrompt();
+            detailsDisplaying = false;
         }
     }
 
     public void OnObjectPickUp(InputAction.CallbackContext context)
     {
-        if(!disabledInput)
+        if (!disabledInput && context.performed)
         {
             if (canPickUp && !holding)
             {
@@ -77,12 +100,20 @@ public class ObjectPickUp : MonoBehaviour
                 pointer.sprite = handClosed;
                 holding = true;
                 PickUpItem(lookedAtItem);
+                ObjectInformationToolTip.HidePrompt();
                 ObjectInformationToolTip.HideTip();
+                detailsDisplaying = false;
             }
             else if (canPickUp && holding)
             {
                 //can pick up the item and currently holding a item
                 //drop the item
+                pointer.sprite = defaultPointer;
+                holding = false;
+                DropItem(heldItem);
+            }
+            else if(holding && heldItem != null)
+            {
                 pointer.sprite = defaultPointer;
                 holding = false;
                 DropItem(heldItem);
@@ -101,7 +132,9 @@ public class ObjectPickUp : MonoBehaviour
             item.GetComponent<PickUp>().pickedUp = true;
             item.GetComponent<PickUp>().SetHoldPoint(holdPoint);
             heldItem = item;
+            ObjectInformationToolTip.HidePrompt();
             ObjectInformationToolTip.HideTip();
+            detailsDisplaying = false;
         }
     }
 

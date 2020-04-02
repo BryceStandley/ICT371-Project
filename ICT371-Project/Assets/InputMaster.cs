@@ -49,6 +49,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ShowObjectInformation"",
+                    ""type"": ""Button"",
+                    ""id"": ""125f65d3-56e5-4d4d-8b89-187c18a63d2e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -58,7 +66,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": ""PC"",
                     ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -91,7 +99,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": ""PC"",
                     ""action"": ""movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -102,7 +110,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": ""PC"",
                     ""action"": ""movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -113,7 +121,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": ""PC"",
                     ""action"": ""movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -124,7 +132,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": ""PC"",
                     ""action"": ""movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -157,7 +165,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": ""PC"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -168,7 +176,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": ""PC"",
                     ""action"": ""PickUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -181,6 +189,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""54ec6200-d698-469d-a769-1b348c263ff9"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""ShowObjectInformation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcd373bd-2977-445e-bf92-8a98bab5b804"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ShowObjectInformation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -206,7 +236,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": ""PC"",
                     ""action"": ""DialogueTrigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -216,8 +246,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""Keyboard and Mouse"",
-            ""bindingGroup"": ""Keyboard and Mouse"",
+            ""name"": ""PC"",
+            ""bindingGroup"": ""PC"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -250,6 +280,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_movement = m_Player.FindAction("movement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
+        m_Player_ShowObjectInformation = m_Player.FindAction("ShowObjectInformation", throwIfNotFound: true);
         // TestKeys
         m_TestKeys = asset.FindActionMap("TestKeys", throwIfNotFound: true);
         m_TestKeys_DialogueTrigger = m_TestKeys.FindAction("DialogueTrigger", throwIfNotFound: true);
@@ -306,6 +337,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_movement;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_PickUp;
+    private readonly InputAction m_Player_ShowObjectInformation;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -314,6 +346,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @movement => m_Wrapper.m_Player_movement;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
+        public InputAction @ShowObjectInformation => m_Wrapper.m_Player_ShowObjectInformation;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -335,6 +368,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @PickUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUp;
                 @PickUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUp;
                 @PickUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUp;
+                @ShowObjectInformation.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowObjectInformation;
+                @ShowObjectInformation.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowObjectInformation;
+                @ShowObjectInformation.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowObjectInformation;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -351,6 +387,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @PickUp.started += instance.OnPickUp;
                 @PickUp.performed += instance.OnPickUp;
                 @PickUp.canceled += instance.OnPickUp;
+                @ShowObjectInformation.started += instance.OnShowObjectInformation;
+                @ShowObjectInformation.performed += instance.OnShowObjectInformation;
+                @ShowObjectInformation.canceled += instance.OnShowObjectInformation;
             }
         }
     }
@@ -388,13 +427,13 @@ public class @InputMaster : IInputActionCollection, IDisposable
         }
     }
     public TestKeysActions @TestKeys => new TestKeysActions(this);
-    private int m_KeyboardandMouseSchemeIndex = -1;
-    public InputControlScheme KeyboardandMouseScheme
+    private int m_PCSchemeIndex = -1;
+    public InputControlScheme PCScheme
     {
         get
         {
-            if (m_KeyboardandMouseSchemeIndex == -1) m_KeyboardandMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard and Mouse");
-            return asset.controlSchemes[m_KeyboardandMouseSchemeIndex];
+            if (m_PCSchemeIndex == -1) m_PCSchemeIndex = asset.FindControlSchemeIndex("PC");
+            return asset.controlSchemes[m_PCSchemeIndex];
         }
     }
     private int m_GamepadSchemeIndex = -1;
@@ -412,6 +451,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnPickUp(InputAction.CallbackContext context);
+        void OnShowObjectInformation(InputAction.CallbackContext context);
     }
     public interface ITestKeysActions
     {

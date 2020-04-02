@@ -59,7 +59,7 @@ public class PlayerLook : MonoBehaviour
 
         currentYaw += x;
         currentPitch += y;
-        currentPitch = Mathf.Clamp(currentPitch, -90f, 75f);
+        currentPitch = Mathf.Clamp(currentPitch, -85f, 75f);
     }
 
     private void FixedUpdate()//Applying Rotation maths to the camera and body of the plyer
