@@ -8,12 +8,15 @@ public class ObjectInformationToolTip : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI statsText;
 
+    public GameObject promptObject;
+
     private static ObjectInformationToolTip instance;
 
     private void Awake()
     {
         instance = this;
         HideTip();
+        HidePrompt();
     }
 
     private void ShowTooltip(string tooltipName, string tooltipStats)
@@ -26,10 +29,20 @@ public class ObjectInformationToolTip : MonoBehaviour
         
     }
 
+    private void ShowToolTipPrompt()
+    {
+        promptObject.SetActive(true);
+    }
+
     private void HideTooltip()
     {
         gameObject.SetActive(false);
 
+    }
+
+    private void HideToolTipPrompt()
+    {
+        promptObject.SetActive(false);
     }
 
     public static void ShowTip(string tooltipName, string tooltipStats)
@@ -37,8 +50,18 @@ public class ObjectInformationToolTip : MonoBehaviour
         instance.ShowTooltip(tooltipName, tooltipStats);
     }
 
+    public static void ShowPrompt()
+    {
+        instance.ShowToolTipPrompt();
+    }
+
     public static void HideTip()
     {
         instance.HideTooltip();
+    }
+
+    public static void HidePrompt()
+    {
+        instance.HideToolTipPrompt();
     }
 }

@@ -36,6 +36,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ShowObjectInformation",
+                    "type": "Button",
+                    "id": "125f65d3-56e5-4d4d-8b89-187c18a63d2e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -45,7 +53,7 @@
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard and Mouse",
+                    "groups": "PC",
                     "action": "Camera",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -78,7 +86,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard and Mouse",
+                    "groups": "PC",
                     "action": "movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -89,7 +97,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard and Mouse",
+                    "groups": "PC",
                     "action": "movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -100,7 +108,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard and Mouse",
+                    "groups": "PC",
                     "action": "movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -111,7 +119,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard and Mouse",
+                    "groups": "PC",
                     "action": "movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -144,7 +152,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard and Mouse",
+                    "groups": "PC",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -155,7 +163,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard and Mouse",
+                    "groups": "PC",
                     "action": "PickUp",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -168,6 +176,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "PickUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "54ec6200-d698-469d-a769-1b348c263ff9",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "ShowObjectInformation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fcd373bd-2977-445e-bf92-8a98bab5b804",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ShowObjectInformation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -193,7 +223,7 @@
                     "path": "<Keyboard>/p",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "Keyboard and Mouse",
+                    "groups": "PC",
                     "action": "DialogueTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -203,8 +233,8 @@
     ],
     "controlSchemes": [
         {
-            "name": "Keyboard and Mouse",
-            "bindingGroup": "Keyboard and Mouse",
+            "name": "PC",
+            "bindingGroup": "PC",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
