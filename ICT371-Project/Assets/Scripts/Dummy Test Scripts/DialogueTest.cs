@@ -10,7 +10,7 @@ public class DialogueTest : MonoBehaviour
 
     private void Awake()
     {
-        dialogueTrigger = this.gameObject.GetComponent<DialogueTrigger>();
+        dialogueTrigger = FindObjectOfType<DialogueTrigger>();
         controls = new InputMaster();//Creating a new inputMaster component
         controls.TestKeys.DialogueTrigger.performed += ctx => Trigger();// Assigning the trigger key to the trigger script
 
@@ -27,7 +27,7 @@ public class DialogueTest : MonoBehaviour
         controls.TestKeys.Disable();
     }
 
-    private void Trigger()
+    public void Trigger()
     {
         //Debug.Log("triggering dialogue...");
         dialogueTrigger.TriggerDialogue();

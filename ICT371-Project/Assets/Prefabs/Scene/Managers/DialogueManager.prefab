@@ -43,3 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddd7a92302c4407fb892abafacc84ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInputController: {fileID: 0}
+  dialogueName: {fileID: 0}
+  dialogueSentence: {fileID: 0}
+  dialogueBox: {fileID: 0}
