@@ -136,6 +136,21 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 125f65d3-56e5-4d4d-8b89-187c18a63d2e
     m_ActionName: Player/ShowObjectInformation[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnActionInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 936489cb-fcd3-4e1c-b048-68990ec7ad73
+    m_ActionName: Player/ActionButton[/Keyboard/t]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

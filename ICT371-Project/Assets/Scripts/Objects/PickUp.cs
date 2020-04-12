@@ -13,6 +13,8 @@ public class PickUp : MonoBehaviour
     private Collider col;
     private GameObject ground;
 
+
+
     private void Awake()
     {
         col = GetComponent<Collider>();
@@ -40,14 +42,14 @@ public class PickUp : MonoBehaviour
     {
         if(pickedUp)
         {
-            //constantly move towards a pickup point of the player
-            transform.position = holdPoint.transform.position;
-            rb.useGravity = false;
-            col.enabled = false;
-            //transform.parent = holdPoint.transform;
-            rb.freezeRotation = true;
+            
+                //constantly move towards a pickup point of the player
+                transform.position = holdPoint.transform.position;
+                rb.useGravity = false;
+                col.enabled = false;
+                //transform.parent = holdPoint.transform;
+                rb.freezeRotation = true;
 
-     
         }
         
     }

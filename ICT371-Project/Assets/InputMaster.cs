@@ -57,6 +57,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ActionButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""936489cb-fcd3-4e1c-b048-68990ec7ad73"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -213,6 +221,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""ShowObjectInformation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""efac111a-f4eb-43b7-ab15-cbd687d8613c"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""ActionButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa413296-1fef-4a32-b9f1-cfc117ec1d32"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ActionButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -281,6 +311,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
         m_Player_ShowObjectInformation = m_Player.FindAction("ShowObjectInformation", throwIfNotFound: true);
+        m_Player_ActionButton = m_Player.FindAction("ActionButton", throwIfNotFound: true);
         // TestKeys
         m_TestKeys = asset.FindActionMap("TestKeys", throwIfNotFound: true);
         m_TestKeys_DialogueTrigger = m_TestKeys.FindAction("DialogueTrigger", throwIfNotFound: true);
@@ -338,6 +369,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_PickUp;
     private readonly InputAction m_Player_ShowObjectInformation;
+    private readonly InputAction m_Player_ActionButton;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -347,6 +379,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
         public InputAction @ShowObjectInformation => m_Wrapper.m_Player_ShowObjectInformation;
+        public InputAction @ActionButton => m_Wrapper.m_Player_ActionButton;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -371,6 +404,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @ShowObjectInformation.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowObjectInformation;
                 @ShowObjectInformation.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowObjectInformation;
                 @ShowObjectInformation.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowObjectInformation;
+                @ActionButton.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnActionButton;
+                @ActionButton.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnActionButton;
+                @ActionButton.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnActionButton;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -390,6 +426,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @ShowObjectInformation.started += instance.OnShowObjectInformation;
                 @ShowObjectInformation.performed += instance.OnShowObjectInformation;
                 @ShowObjectInformation.canceled += instance.OnShowObjectInformation;
+                @ActionButton.started += instance.OnActionButton;
+                @ActionButton.performed += instance.OnActionButton;
+                @ActionButton.canceled += instance.OnActionButton;
             }
         }
     }
@@ -452,6 +491,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnPickUp(InputAction.CallbackContext context);
         void OnShowObjectInformation(InputAction.CallbackContext context);
+        void OnActionButton(InputAction.CallbackContext context);
     }
     public interface ITestKeysActions
     {

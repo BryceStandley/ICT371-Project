@@ -39,9 +39,13 @@ public class ObjectPickUp : MonoBehaviour
     {
         centerRay = cam.ScreenPointToRay(new Vector3(screenWidth / 2, screenHeight / 2, 0));
         RaycastHit hit;
-        if (Physics.Raycast(centerRay, out hit, pickupDistance))
-        { 
-            if(hit.transform.gameObject.CompareTag("PickUp"))
+        if (Physics.Raycast(centerRay, out hit, pickupDistance) || heldItem != null)
+        {
+            if (heldItem != null && holding)
+            {
+                pointer.sprite = handClosed;
+            }
+            else if(hit.transform.gameObject.CompareTag("PickUp"))
             {
                 canPickUp = true; //object can be picked up
                 lookedAtItem = hit.transform.gameObject;
@@ -60,6 +64,7 @@ public class ObjectPickUp : MonoBehaviour
                 ObjectInformationToolTip.HideTip();
                 detailsDisplaying = false;
             }
+            
             
         }
         else
@@ -121,7 +126,7 @@ public class ObjectPickUp : MonoBehaviour
         }
     }
 
-    private void PickUpItem(GameObject item)
+    public void PickUpItem(GameObject item)
     {
         if(heldItem != null)
         {
@@ -138,7 +143,7 @@ public class ObjectPickUp : MonoBehaviour
         }
     }
 
-    private void DropItem(GameObject item)
+    public void DropItem(GameObject item)
     {
         item.GetComponent<PickUp>().pickedUp = false;
         item.GetComponent<PickUp>().DropItem();
