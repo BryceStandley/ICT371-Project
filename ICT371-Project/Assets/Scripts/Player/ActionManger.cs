@@ -15,7 +15,7 @@ public class ActionManger : MonoBehaviour
     {
         if(context.performed)
         {
-            Debug.Log("action buton pressed");
+            Debug.Log("action button pressed");
             if (actionAvailable != "")
             {
                 Debug.Log("Action is availabe");
