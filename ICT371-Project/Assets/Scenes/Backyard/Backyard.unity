@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &15345035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4269653516032135052, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+    type: 3}
+  m_PrefabInstance: {fileID: 1990170625}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &552897073
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +791,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 75
       objectReference: {fileID: 0}
+    - target: {fileID: 861712401, guid: 3127f65b6c0d947a8a0d0225bf081c94, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1287740442, guid: 3127f65b6c0d947a8a0d0225bf081c94, type: 3}
       propertyPath: m_textInfo.characterCount
       value: 0
@@ -929,6 +939,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 347406495350179400, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 533213404502758202, guid: 3127f65b6c0d947a8a0d0225bf081c94,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -964,6 +979,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 589139558956044398, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8.9
+      objectReference: {fileID: 0}
     - target: {fileID: 1357365043284331442, guid: 3127f65b6c0d947a8a0d0225bf081c94,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -984,9 +1004,39 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1444648438923352506, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1444648438923352506, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1444648438923352506, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1444648438923352506, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1734021724923278273, guid: 3127f65b6c0d947a8a0d0225bf081c94,
         type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803588863183494232, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 2730446958843620701, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2837394807445635648, guid: 3127f65b6c0d947a8a0d0225bf081c94,
@@ -1029,6 +1079,26 @@ PrefabInstance:
       propertyPath: seed
       value: 
       objectReference: {fileID: 1767055860}
+    - target: {fileID: 3997903854141459647, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255924099874017098, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1100.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255924099874017098, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 278
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428578449638290724, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -264
+      objectReference: {fileID: 0}
     - target: {fileID: 5616609374754337109, guid: 3127f65b6c0d947a8a0d0225bf081c94,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1054,6 +1124,31 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6072230177770734398, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: graphicsDropdown
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072230177770734398, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: credits
+      value: 
+      objectReference: {fileID: 15345035}
+    - target: {fileID: 6907923859855388404, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358442976686892720, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7571968928343947486, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Controls
+      objectReference: {fileID: 0}
     - target: {fileID: 7740383053319814317, guid: 3127f65b6c0d947a8a0d0225bf081c94,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1073,6 +1168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126019234891839643, guid: 3127f65b6c0d947a8a0d0225bf081c94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8.6
       objectReference: {fileID: 0}
     - target: {fileID: 8135916886998940536, guid: 3127f65b6c0d947a8a0d0225bf081c94,
         type: 3}

@@ -12,7 +12,10 @@ public class PauseMenu : MonoBehaviour
     public GameObject optionButtons;
     public GameObject backButton;
     public GameObject slider;
+    public GameObject creditButton;
     public AudioMixer audioMixer;
+    public GameObject credits;
+    //public GameObject graphicsDropdown;
 
     public PlayerInputController playerInputController;
 
@@ -23,6 +26,8 @@ public class PauseMenu : MonoBehaviour
         optionButtons.SetActive(false);
         backButton.SetActive(false);
         slider.SetActive(false);
+        credits.SetActive(false);
+        //graphicsDropdown.SetActive(false);
 
     }
 
@@ -35,14 +40,14 @@ public class PauseMenu : MonoBehaviour
             {
                 Resume();
             }
-            else 
+            else
             {
                 Pause();
             }
         }
     }
 
-    public void Resume() 
+    public void Resume()
     {
         pauseMenuUI.SetActive(false);
         //Time.timeScale = 1.0f; // Disable,see Pause function
@@ -52,6 +57,9 @@ public class PauseMenu : MonoBehaviour
         optionButtons.SetActive(false);
         backButton.SetActive(false);
         slider.SetActive(false);
+        //graphicsDropdown.SetActive(false);
+        credits.SetActive(false);
+        creditButton.SetActive(false);
 
 
         //Added, see pause function
@@ -62,14 +70,14 @@ public class PauseMenu : MonoBehaviour
 
     }
 
-    void Pause() 
+    void Pause()
     {
         pauseMenuUI.SetActive(true);
         //Time.timeScale = 0f; //Disabled, this stops game loops and doesnt show the cursor
         isGamePaused = true;
         gameplayUI.SetActive(false);
         optionButtons.SetActive(false);
-
+        creditButton.SetActive(false);
         //Added to pause player input and show the cursor
 
         audioSource.Pause(); //Changed to have direct reference to audio source to stop delay
@@ -85,7 +93,7 @@ public class PauseMenu : MonoBehaviour
         optionButtons.SetActive(true);
     }
 
-    public void Audio() 
+    public void Audio()
     {
         optionButtons.SetActive(false);
         Debug.Log("Displaying Audio...");
@@ -95,6 +103,7 @@ public class PauseMenu : MonoBehaviour
     public void Display()
     {
         optionButtons.SetActive(false);
+        //graphicsDropdown.SetActive(true);
         Debug.Log("Displaying Display...");
     }
 
@@ -102,6 +111,9 @@ public class PauseMenu : MonoBehaviour
     {
         optionButtons.SetActive(false);
         Debug.Log("Displaying Credits...");
+        credits.SetActive(true);
+        creditButton.SetActive(true);
+        backButton.SetActive(true);
     }
 
     public void Controls()
@@ -110,7 +122,7 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Displaying Canvas...");
     }
 
-    public void Back() 
+    public void Back()
     {
         if (buttons.activeSelf == false && optionButtons.activeSelf == true)
         {
@@ -121,6 +133,8 @@ public class PauseMenu : MonoBehaviour
         else if (optionButtons.activeSelf == false && buttons.activeSelf == false)
         {
             slider.SetActive(false); //affirms that slider is hidden
+            //graphicsDropdown.SetActive(false);
+            credits.SetActive(false);
             backButton.SetActive(true);
             optionButtons.SetActive(true);
             buttons.SetActive(false);
@@ -128,20 +142,30 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public void SaveGame() 
+    public void SaveGame()
     {
         Debug.Log("Saving  Game...");
     }
 
-    public void QuitGame() 
+    public void QuitGame()
     {
         Debug.Log("Qutting Game...");
         Application.Quit();
     }
 
-    public void SetVolume(float volume) 
+    public void SetVolume(float volume)
     {
         audioMixer.SetFloat("volume", volume);
+    }
+
+    public void SetQuality(int quality) 
+    {
+        QualitySettings.SetQualityLevel(quality);
+    }
+
+    public void OpenMusicCredit() 
+    {
+        Application.OpenURL("https://pinevoc.bandcamp.com/album/green-ideas"); //credits the user of the in game music
     }
 }
 

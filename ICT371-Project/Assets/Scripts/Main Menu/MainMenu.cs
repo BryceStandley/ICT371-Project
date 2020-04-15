@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    
     public void NewGame()
     {
         Debug.Log("Loading New Game...");
@@ -14,11 +15,6 @@ public class MainMenu : MonoBehaviour
     public void LoadGame()
     {
         Debug.Log("Loading Saved Game...");
-    }
-
-    public void GameInfo()
-    {
-        Debug.Log("Loading Game Information...");
     }
 
     public void Options()
