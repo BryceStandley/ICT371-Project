@@ -35,28 +35,28 @@ public class ObjectPickUp : MonoBehaviour
         cam = Camera.main;  
     }
 
-    private void LateUpdate()
+    private void LateUpdate()// Called after the update method
     {
         centerRay = cam.ScreenPointToRay(new Vector3(screenWidth / 2, screenHeight / 2, 0));
         RaycastHit hit;
-        if (Physics.Raycast(centerRay, out hit, pickupDistance) || heldItem != null)
+        if (Physics.Raycast(centerRay, out hit, pickupDistance) || heldItem != null)//Casting ray from center of screen and checking if the player is holding a object
         {
-            if (heldItem != null && holding)
+            if (heldItem != null && holding)//Check the players holding a item and the bool is set to be true 
             {
-                pointer.sprite = handClosed;
+                pointer.sprite = handClosed;//Showing the closed hand pointer
             }
-            else if(hit.transform.gameObject.CompareTag("PickUp"))
+            else if(hit.transform.gameObject.CompareTag("PickUp"))//Checking if the player looked at a item that can be picked up
             {
                 canPickUp = true; //object can be picked up
-                lookedAtItem = hit.transform.gameObject;
+                lookedAtItem = hit.transform.gameObject;// tracking the game object the player is looking at
 
-                if (!holding && !detailsDisplaying)
+                if (!holding && !detailsDisplaying)//Check if the player isn'y holding a object and the details aren't showing
                 {
                     pointer.sprite = handOpen;
                     ObjectInformationToolTip.ShowPrompt();
                 }
             }
-            else
+            else// All checks failed, item the ray is hitting can't be picked up
             {
                 canPickUp = false;
                 pointer.sprite = defaultPointer;
@@ -67,7 +67,7 @@ public class ObjectPickUp : MonoBehaviour
             
             
         }
-        else
+        else// Ray wasn't cast and player isn't holding item, setting pointer to default and hiding all prompts from the player
         {
             pointer.sprite = defaultPointer;
             ObjectInformationToolTip.HidePrompt();
@@ -76,9 +76,9 @@ public class ObjectPickUp : MonoBehaviour
         }
     }
 
-    public void OnObjectDetailsDisplayed(InputAction.CallbackContext context)
+    public void OnObjectDetailsDisplayed(InputAction.CallbackContext context)// Triggered when player presses details input
     {
-        if(context.performed && !detailsDisplaying && !holding)
+        if(context.performed && !detailsDisplaying && !holding)// Check if button is pressed, details currently isn't displaying and the player isnt holding a object.
         {
 
             detailsDisplaying = true;
@@ -94,14 +94,13 @@ public class ObjectPickUp : MonoBehaviour
         }
     }
 
-    public void OnObjectPickUp(InputAction.CallbackContext context)
+    public void OnObjectPickUp(InputAction.CallbackContext context)// Triggered when player presses the pick up input
     {
-        if (!disabledInput && context.performed)
+        if (!disabledInput && context.performed)// Making sure input is allowed and button press has been performed
         {
             if (canPickUp && !holding)
             {
                 //can pick the item up and were not holding a item already
-                //pick up the item
                 pointer.sprite = handClosed;
                 holding = true;
                 PickUpItem(lookedAtItem);
@@ -112,7 +111,6 @@ public class ObjectPickUp : MonoBehaviour
             else if (canPickUp && holding)
             {
                 //can pick up the item and currently holding a item
-                //drop the item
                 pointer.sprite = defaultPointer;
                 holding = false;
                 DropItem(heldItem);
@@ -126,15 +124,16 @@ public class ObjectPickUp : MonoBehaviour
         }
     }
 
-    public void PickUpItem(GameObject item)
+    public void PickUpItem(GameObject item)// Used to pick up a object
     {
-        if(heldItem != null)
+        if(heldItem != null) // Make sure player isn't already holding an object
         {
             Debug.Log("Player cant pick up more that one item at a time...");
         }
-        else
+        else// Updates the pick up script to move to the follow point and forces ToolTip to hide
         {
             item.GetComponent<PickUp>().pickedUp = true;
+            item.GetComponent<PickUp>().pickupCounter++;
             item.GetComponent<PickUp>().SetHoldPoint(holdPoint);
             heldItem = item;
             ObjectInformationToolTip.HidePrompt();
@@ -143,7 +142,7 @@ public class ObjectPickUp : MonoBehaviour
         }
     }
 
-    public void DropItem(GameObject item)
+    public void DropItem(GameObject item)// Used to drop a item from the hold point
     {
         item.GetComponent<PickUp>().pickedUp = false;
         item.GetComponent<PickUp>().DropItem();

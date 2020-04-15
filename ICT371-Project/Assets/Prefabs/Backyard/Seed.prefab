@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7089517614415839095}
   m_Layer: 0
   m_Name: Seed
-  m_TagString: Untagged
+  m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,3 +139,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickedUp: 0
+  pickupCounter: 0

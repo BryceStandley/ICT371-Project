@@ -7,6 +7,7 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     public bool pickedUp = false;
+    public int pickupCounter = 0;
 
     private GameObject holdPoint;
     private Rigidbody rb;
@@ -36,6 +37,14 @@ public class PickUp : MonoBehaviour
         col.enabled = true;
         //transform.parent = null;
         rb.useGravity = true;
+        Invoke("StopMovement", 5f);
+        
+    }
+
+    private void StopMovement()
+    {
+        rb.velocity = new Vector3(0, -9.5f * 0.7f, 0); 
+        rb.angularVelocity = Vector3.zero;
     }
 
     private void LateUpdate()
