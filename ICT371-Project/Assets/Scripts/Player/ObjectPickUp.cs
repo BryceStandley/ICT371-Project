@@ -81,9 +81,23 @@ public class ObjectPickUp : MonoBehaviour
         if(context.performed && !detailsDisplaying && !holding)// Check if button is pressed, details currently isn't displaying and the player isnt holding a object.
         {
 
-            detailsDisplaying = true;
-            ObjectInformationToolTip.ShowTip(lookedAtItem.GetComponent<ObjectInformation>().itemName, lookedAtItem.GetComponent<ObjectInformation>().itemStats);
-            ObjectInformationToolTip.HidePrompt();
+            if(lookedAtItem != null)//Check to see if the player has looked at a item or not and if details should be displayed.
+            {
+                detailsDisplaying = true;
+                if (lookedAtItem.GetComponent<ObjectInformation>() != null)
+                {
+                    ObjectInformationToolTip.ShowTip(lookedAtItem.GetComponent<ObjectInformation>().itemName, lookedAtItem.GetComponent<ObjectInformation>().itemStats);
+                }
+                else
+                {
+                    Debug.LogError("ObjectPickUp::Error at Line 89:: Could not find component 'ObjectInformation'");
+                }
+                ObjectInformationToolTip.HidePrompt();
+            }
+            else
+            {
+                //Debug.LogError("ObjectPickUp::Error with action:: lookedAtItem is null");
+            }
 
         }
         else if (context.performed && detailsDisplaying && !holding)
