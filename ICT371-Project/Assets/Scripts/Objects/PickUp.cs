@@ -31,10 +31,11 @@ public class PickUp : MonoBehaviour
 
     public void DropItem()//setting fixed values to the rigidbody to stop it from gaining unwanted velocity, only do this once
     {
+        col.enabled = true;
         rb.velocity = new Vector3(0, -9.5f * 0.7f, 0);
         rb.angularVelocity = Vector3.zero;
         rb.freezeRotation = false;
-        col.enabled = true;
+        
         //transform.parent = null;
         rb.useGravity = true;
         Invoke("StopMovement", 5f);

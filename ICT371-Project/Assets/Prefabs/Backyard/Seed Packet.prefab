@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickedUp: 0
-  seedPrefab: {fileID: 0}
+  pickupCounter: 0
 --- !u!114 &6247541584446311366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,4 +153,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd0b74e2ffacb246810ba63981714b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionManger: {fileID: 0}
   prompt: {fileID: 0}
