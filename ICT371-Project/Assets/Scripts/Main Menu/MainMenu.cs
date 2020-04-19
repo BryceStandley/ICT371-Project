@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MainMenu : MonoBehaviour
     public GameObject slider;
     public GameObject credits;
     public GameObject creditButton;
+    public GameObject displayOptions;
     public GameObject graphicsDropdown;
     public GameObject fullScreenToggle;
 
@@ -32,15 +34,23 @@ public class MainMenu : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKey(KeyCode.Escape)) //if escape is pressed while in menu it will return to the home menu
+
+    }
+
+    public void OnPausePress(InputAction.CallbackContext callback)
+    {
+        if(callback.performed)//if pause button is pressed while in menu it will return to the home menu
         {
             mainButtons.SetActive(true);
             optionButtons.SetActive(false);
             backButton.SetActive(false);
             slider.SetActive(false);
             credits.SetActive(false);
+            displayOptions.SetActive(false);
         }
     }
+
+
 
 
     public void NewGame() //starts a new game by loading in the game scene
@@ -73,6 +83,7 @@ public class MainMenu : MonoBehaviour
     public void Display() //displays display menu
     {
         optionButtons.SetActive(false);
+        displayOptions.SetActive(true);
         graphicsDropdown.SetActive(true);
         resolutionDropDown.gameObject.SetActive(true);
         fullScreenToggle.SetActive(true);

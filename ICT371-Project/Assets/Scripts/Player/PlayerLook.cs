@@ -6,9 +6,10 @@ using UnityEngine.InputSystem;
 public class PlayerLook : MonoBehaviour
 {
     public InputMaster controls;
+    public InputAction inputAction;
 
-    private float x = 0f;
-    private float y = 0f;
+    private Vector2 input;
+    private bool onInput = false;
 
     private Quaternion headOriginOrientation, bodyOriginOrientation;// References to the original Rotation Origins
     private float currentYaw = 0f, currentPitch = 0f; //Base X and Y values
@@ -26,39 +27,44 @@ public class PlayerLook : MonoBehaviour
 
         headOriginOrientation = transform.localRotation;
         bodyOriginOrientation = playerBody.localRotation;
+
+
+        inputAction = controls.Player.Camera;
     }
 
     private void OnEnable()//Enables camera controls if camera is enabled
     {
-        controls.Player.Camera.performed += Look;// Assigning the camera action to the Look function
         controls.Player.Enable();
         
     }
 
     private void OnDisable()//Disables camera controls if camera is disabled
     {
-        controls.Player.Camera.performed -= Look;// Assigning the camera action to the Look function
         controls.Player.Disable();
         
     }
 
-    void Look(InputAction.CallbackContext context)// Maps the delta of the mouse between -1 to 1 for both mouse X and Y
-    {
-
-        var delta = context.ReadValue<Vector2>();
-
-
-        x = delta.x;
-        y = delta.y;
-    }
-
     private void Update() // Generating rotation values based on input
     {
-        x *= Time.deltaTime * sensitivity;
-        y *= Time.deltaTime * sensitivity;
+        //This input alows for smoth movement with mouse and controller
+        //A mouse is always updating its valuse but a controller doesnt so we need to make sure we keep reading the value
+        //of the input when its triggered.
+        if(inputAction.triggered || onInput)//Checking if the input action was triggered this frame or were still poling the input
+        {
+            onInput = true;
+            //Debug.Log("Action Triggered");
+            input = inputAction.ReadValue<Vector2>();
+        }
+        else
+        {
+            onInput = false;
+        }
 
-        currentYaw += x;
-        currentPitch += y;
+        input.x *= Time.deltaTime * sensitivity;
+        input.y *= Time.deltaTime * sensitivity;
+
+        currentYaw += input.x;
+        currentPitch += input.y;
         currentPitch = Mathf.Clamp(currentPitch, -85f, 75f);
     }
 

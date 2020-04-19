@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -8,14 +9,33 @@ public class PlayerInputController : MonoBehaviour
     public PlayerLook playerLook;
     public ObjectPickUp objPickUp;
 
+    private bool gamepad = false;
+
+
+    public void OnInputChange(PlayerInput input)
+    {
+        if(input.currentControlScheme == "Gamepad")
+        {
+            gamepad = true;
+        }
+        else
+        {
+            gamepad = false;
+        }
+    }
+
     public void DisablePlayerControls()//Disables player input to look and move, also shows the cursor
     {
+
         playerController.enabled = false;
         playerLook.enabled = false;
         objPickUp.disabledInput = true;
         objPickUp.enabled = false; 
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        if(!gamepad)
+        {
+            Cursor.visible = true;
+        }
     }
 
     public void EnablePlayerControls()//Inverts Disable controls method

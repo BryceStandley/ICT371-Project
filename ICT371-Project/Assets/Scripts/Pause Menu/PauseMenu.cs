@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -40,13 +41,18 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+
+    }
+
+    public void OnPausePressed(InputAction.CallbackContext callback)
+    {
+        if(callback.performed)
         {
-            if (isGamePaused) //if game isn't paused
+            if(isGamePaused)//if game is paused
             {
                 Resume();
             }
-            else //if game is paused
+            else//if game isn't paused
             {
                 Pause();
             }
@@ -178,6 +184,8 @@ public class PauseMenu : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        ObjectPickUp opu = FindObjectOfType<ObjectPickUp>();//Finds object pickup script and updates the screen height and width
+        opu.UpdateScreenSize();
     }
 
     public void OpenMusicCredit() //credits the user of the in game music   

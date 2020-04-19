@@ -10,7 +10,7 @@ public class PromptChanger : MonoBehaviour
     public Image promptImage;
     public UIManager uiManager;
     private GameActions m_action;
-    private void Awake()
+    private void Start()
     {
         
         for(int i = 0; i < uiManager.actions.Length; i++)
@@ -21,7 +21,10 @@ public class PromptChanger : MonoBehaviour
             {
                 m_action = uiManager.actions[i];
             }
+            //Debug.Log(uiManager.actions[i].ActionName);
         }
+        uiMaster.AddToPromptList(this);
+        //ObjectInformationToolTip.HidePrompt();
     }
 
     //0 = PC
@@ -29,10 +32,12 @@ public class PromptChanger : MonoBehaviour
     //2 = PS
     public void UpdateUI()
     {
+        //Debug.Log("Update ui triggered");
         if(uiMaster.gamepad)
         {
             if(uiMaster.xbox)
             {
+                //Debug.Log(m_action.controlSprite[1]);
                 promptImage.sprite = m_action.controlSprite[1];
             }
             else if(uiMaster.ps)
@@ -46,6 +51,7 @@ public class PromptChanger : MonoBehaviour
         }
         else
         {
+            //Debug.Log(m_action.controlSprite[0]);
             promptImage.sprite = m_action.controlSprite[0];
         }
     }

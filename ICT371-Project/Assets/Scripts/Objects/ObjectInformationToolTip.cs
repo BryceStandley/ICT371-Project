@@ -16,7 +16,6 @@ public class ObjectInformationToolTip : MonoBehaviour
     {
         instance = this;
         HideTip();
-        HidePrompt();
     }
 
     private void ShowTooltip(string tooltipName, string tooltipStats)

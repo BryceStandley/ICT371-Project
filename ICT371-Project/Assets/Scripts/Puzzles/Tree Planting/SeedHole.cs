@@ -27,8 +27,13 @@ public class SeedHole : MonoBehaviour
             Debug.Log("Seed was dropped into the hole!");
             MoveSeed(col.gameObject);
             PlantSapling();
+            Invoke("StartGrowth", 5f);
             this.gameObject.SetActive(false);
         }
+    }
+    private void StartGrowth()
+    {
+        parent.GetComponent<GrowTree>().enabled = true;
     }
 
     private void MoveSeed(GameObject seed)

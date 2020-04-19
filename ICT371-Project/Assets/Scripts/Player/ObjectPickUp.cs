@@ -35,6 +35,12 @@ public class ObjectPickUp : MonoBehaviour
         cam = Camera.main;  
     }
 
+    public void UpdateScreenSize()
+    {
+        screenWidth = Screen.width;
+        screenHeight = Screen.height;
+    }
+
     private void LateUpdate()// Called after the update method
     {
         centerRay = cam.ScreenPointToRay(new Vector3(screenWidth / 2, screenHeight / 2, 0));

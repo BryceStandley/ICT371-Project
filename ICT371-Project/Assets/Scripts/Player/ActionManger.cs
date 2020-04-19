@@ -27,13 +27,14 @@ public class ActionManger : MonoBehaviour
     {
         if(context.performed)// checking if the button press was performed
         {
-            Debug.Log("action button pressed");
+            //Debug.Log("action button pressed");
             if (!actionAvailable.Equals(""))//check if there is a action available, could change this to a list or queue over a string check
             {
-                Debug.Log("Action is availabe");
+                //Debug.Log("Action is availabe");
                 if (actionAvailable.ToLower().Equals(actions[0].ToLower()))//convert strings to lower and check if they match a given action
                 {
                     TakeSeed();
+                    ClearCurrentAction();
                 }
             }
         }
