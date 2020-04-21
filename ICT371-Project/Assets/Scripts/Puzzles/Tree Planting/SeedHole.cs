@@ -9,8 +9,12 @@ public class SeedHole : MonoBehaviour
     private MeshCollider meshCollider;
     private GameObject parent;
 
-    public Mesh saplingMesh;
-    public Material saplingMaterial;
+    public Mesh[] treeMeshes;
+    public Material[] treeMaterails;
+
+
+    private Mesh saplingMesh;
+    private Material saplingMaterial;
 
     private void Awake()
     {
@@ -46,8 +50,16 @@ public class SeedHole : MonoBehaviour
 
     }
 
+    private void PickTree()
+    {
+        int index = Random.Range(0, treeMeshes.Length - 1);
+        saplingMesh = treeMeshes[index];
+        saplingMaterial = treeMaterails[0];
+    }
+
     private void PlantSapling()// changing the mesh and materials of the hole object to the sapling object
     {
+        PickTree();
         filter.sharedMesh = saplingMesh;
         meshRenderer.sharedMaterial = saplingMaterial;
         float scale = Random.Range(0.3f, 0.8f);

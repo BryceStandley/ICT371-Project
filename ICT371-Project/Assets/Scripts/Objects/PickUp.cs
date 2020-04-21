@@ -44,7 +44,7 @@ public class PickUp : MonoBehaviour
 
     private void StopMovement()
     {
-        rb.velocity = new Vector3(0, -9.5f * 0.7f, 0); 
+        rb.velocity = new Vector3(0, 0, 0); 
         rb.angularVelocity = Vector3.zero;
     }
 
