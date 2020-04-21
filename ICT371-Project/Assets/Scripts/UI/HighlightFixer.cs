@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+//This code serves to make sure that when buttons are highlighted by mouse and a keyboard is then used that the mouse is disabled
 
 [RequireComponent(typeof(Selectable))]
 public class HighlightFixer : MonoBehaviour, IPointerEnterHandler, IDeselectHandler

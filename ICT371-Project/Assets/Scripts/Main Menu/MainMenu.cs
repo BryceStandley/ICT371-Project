@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
     public GameObject displayOptions;
     public GameObject graphicsDropdown;
     public GameObject fullScreenToggle;
+    public GameObject controlsPage;
 
     public AudioMixer audioMixer;
 
@@ -47,16 +48,14 @@ public class MainMenu : MonoBehaviour
             slider.SetActive(false);
             credits.SetActive(false);
             displayOptions.SetActive(false);
+            controlsPage.SetActive(false);
         }
     }
-
-
-
 
     public void NewGame() //starts a new game by loading in the game scene
     {
         Debug.Log("Loading New Game...");
-        SceneManager.LoadScene("Backyard");
+        SceneManager.LoadScene("MenuToGame");
     }
 
     public void LoadGame() //loads in a game save
@@ -101,6 +100,8 @@ public class MainMenu : MonoBehaviour
     public void Controls() //displays controls menu
     {
         optionButtons.SetActive(false);
+        controlsPage.SetActive(true);
+        backButton.SetActive(true);
         //content on controls page will be present in final game
     }
 
@@ -115,6 +116,7 @@ public class MainMenu : MonoBehaviour
         }
         else if (optionButtons.activeSelf == false && mainButtons.activeSelf == false)
         {
+            optionButtons.SetActive(true);
             //everything below is hidden
             slider.SetActive(false); 
             graphicsDropdown.SetActive(false);
@@ -122,19 +124,14 @@ public class MainMenu : MonoBehaviour
             fullScreenToggle.SetActive(false);
             credits.SetActive(false);
             backButton.SetActive(true);
-            optionButtons.SetActive(true);
             mainButtons.SetActive(false);
+            controlsPage.SetActive(false);
         }
     }
 
     public void QuitGame() //Quits Game
     {
         Application.Quit();
-    }
-
-    public void LoadTestLevel() // Needs to be removed for submission
-    {
-        SceneManager.LoadScene("TestScene");
     }
 
     public void SetVolume(float volume) //Sets the volume of the in-game audio
@@ -197,5 +194,6 @@ public class MainMenu : MonoBehaviour
         resolutionDropDown.gameObject.SetActive(false);
         fullScreenToggle.SetActive(false);
         slider.SetActive(false);
+        controlsPage.SetActive(false);
     }
 }

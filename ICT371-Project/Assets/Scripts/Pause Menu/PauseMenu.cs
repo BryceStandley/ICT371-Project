@@ -20,6 +20,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject creditButton;
     public GameObject graphicsDropdown;
     public GameObject fullScreenToggle;
+    public GameObject controlsPage;
 
     public AudioMixer audioMixer;
     
@@ -76,6 +77,7 @@ public class PauseMenu : MonoBehaviour
         fullScreenToggle.SetActive(false);
         credits.SetActive(false);
         creditButton.SetActive(false);
+        controlsPage.SetActive(false);
 
         audioSource.Play(); //Changed to have direct reference to audio source to stop delay
 
@@ -128,6 +130,8 @@ public class PauseMenu : MonoBehaviour
     public void Controls() //displays controls menu
     {
         optionButtons.SetActive(false);
+        controlsPage.SetActive(true);
+        backButton.SetActive(true);
         //content on controls page will be present in final game
     }
 
@@ -142,6 +146,7 @@ public class PauseMenu : MonoBehaviour
         }
         else if (optionButtons.activeSelf == false && buttons.activeSelf == false) //deals with transition from submenus of option menu back to the option menu
         {
+            optionButtons.SetActive(true);
             //everything below is hidden
             slider.SetActive(false);
             graphicsDropdown.SetActive(false);
@@ -149,8 +154,8 @@ public class PauseMenu : MonoBehaviour
             fullScreenToggle.SetActive(false);
             credits.SetActive(false);
             backButton.SetActive(true);
-            optionButtons.SetActive(true);
             buttons.SetActive(false);
+            controlsPage.SetActive(false);
         }
     }
 
@@ -227,6 +232,7 @@ public class PauseMenu : MonoBehaviour
         resolutionDropDown.gameObject.SetActive(false);
         fullScreenToggle.SetActive(false);
         slider.SetActive(false);
+        controlsPage.SetActive(false);
     }
 }
 
