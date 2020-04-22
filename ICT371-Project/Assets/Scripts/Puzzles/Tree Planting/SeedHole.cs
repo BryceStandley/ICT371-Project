@@ -11,31 +11,35 @@ public class SeedHole : MonoBehaviour
 
     public Mesh[] treeMeshes;
     public Material[] treeMaterails;
+    public bool hasBeenPlanted = false;
 
 
     private Mesh saplingMesh;
     private Material saplingMaterial;
 
-    private void Awake()
+    private void Awake()//Script setup and references
     {
         parent = transform.parent.gameObject;
         filter = parent.GetComponent<MeshFilter>();
         meshRenderer = parent.GetComponent<MeshRenderer>();
         meshCollider = parent.GetComponent<MeshCollider>();
+        PuzzleManager.instance.AddHole(this.gameObject);
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnCollisionEnter(Collision col)//Triggered when the seed is dropped into the hole
     {
         if (col.gameObject.name == "Seed")
         {
-            Debug.Log("Seed was dropped into the hole!");
+            //Debug.Log("Seed was dropped into the hole!");
+            hasBeenPlanted = true;
+            PuzzleManager.instance.CheckTreePuzzleComplete();
             MoveSeed(col.gameObject);
             PlantSapling();
-            Invoke("StartGrowth", 5f);
+            Invoke("StartGrowth", 5f);//Starting tree growth after 5 seconds
             this.gameObject.SetActive(false);
         }
     }
-    private void StartGrowth()
+    private void StartGrowth()//Turning on the grow tree script to start the growth stage
     {
         parent.GetComponent<GrowTree>().enabled = true;
     }
@@ -50,7 +54,7 @@ public class SeedHole : MonoBehaviour
 
     }
 
-    private void PickTree()
+    private void PickTree()//Picking a random tree out of a array
     {
         int index = Random.Range(0, treeMeshes.Length - 1);
         saplingMesh = treeMeshes[index];

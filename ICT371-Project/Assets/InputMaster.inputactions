@@ -60,6 +60,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "TEST_DialougeTrigger",
+                    "type": "Button",
+                    "id": "65ee5e8a-d55a-42bb-885d-61283d61b665",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -260,31 +268,26 @@
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "TestKeys",
-            "id": "9afc5e94-f880-4a83-9578-c94b9d3c7aa2",
-            "actions": [
-                {
-                    "name": "DialogueTrigger",
-                    "type": "Button",
-                    "id": "dafa99db-dcdf-4363-a729-6d5ff89db533",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "a890d7d1-3454-4ff1-8400-5305fe09c5eb",
+                    "id": "0cd0fa39-3f41-4c36-be15-3f1b8e637e27",
                     "path": "<Keyboard>/p",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "PC",
-                    "action": "DialogueTrigger",
+                    "action": "TEST_DialougeTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8eb8d9bc-6795-4c25-9028-35663181a11f",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "TEST_DialougeTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

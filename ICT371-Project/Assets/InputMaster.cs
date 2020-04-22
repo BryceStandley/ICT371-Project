@@ -73,6 +73,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""TEST_DialougeTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""65ee5e8a-d55a-42bb-885d-61283d61b665"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -273,31 +281,26 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""TestKeys"",
-            ""id"": ""9afc5e94-f880-4a83-9578-c94b9d3c7aa2"",
-            ""actions"": [
-                {
-                    ""name"": ""DialogueTrigger"",
-                    ""type"": ""Button"",
-                    ""id"": ""dafa99db-dcdf-4363-a729-6d5ff89db533"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
+                },
                 {
                     ""name"": """",
-                    ""id"": ""a890d7d1-3454-4ff1-8400-5305fe09c5eb"",
+                    ""id"": ""0cd0fa39-3f41-4c36-be15-3f1b8e637e27"",
                     ""path"": ""<Keyboard>/p"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PC"",
-                    ""action"": ""DialogueTrigger"",
+                    ""action"": ""TEST_DialougeTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8eb8d9bc-6795-4c25-9028-35663181a11f"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""TEST_DialougeTrigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -343,9 +346,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_ShowObjectInformation = m_Player.FindAction("ShowObjectInformation", throwIfNotFound: true);
         m_Player_ActionButton = m_Player.FindAction("ActionButton", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
-        // TestKeys
-        m_TestKeys = asset.FindActionMap("TestKeys", throwIfNotFound: true);
-        m_TestKeys_DialogueTrigger = m_TestKeys.FindAction("DialogueTrigger", throwIfNotFound: true);
+        m_Player_TEST_DialougeTrigger = m_Player.FindAction("TEST_DialougeTrigger", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -402,6 +403,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_ShowObjectInformation;
     private readonly InputAction m_Player_ActionButton;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_TEST_DialougeTrigger;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -413,6 +415,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @ShowObjectInformation => m_Wrapper.m_Player_ShowObjectInformation;
         public InputAction @ActionButton => m_Wrapper.m_Player_ActionButton;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @TEST_DialougeTrigger => m_Wrapper.m_Player_TEST_DialougeTrigger;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -443,6 +446,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @TEST_DialougeTrigger.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTEST_DialougeTrigger;
+                @TEST_DialougeTrigger.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTEST_DialougeTrigger;
+                @TEST_DialougeTrigger.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTEST_DialougeTrigger;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -468,43 +474,13 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @TEST_DialougeTrigger.started += instance.OnTEST_DialougeTrigger;
+                @TEST_DialougeTrigger.performed += instance.OnTEST_DialougeTrigger;
+                @TEST_DialougeTrigger.canceled += instance.OnTEST_DialougeTrigger;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-
-    // TestKeys
-    private readonly InputActionMap m_TestKeys;
-    private ITestKeysActions m_TestKeysActionsCallbackInterface;
-    private readonly InputAction m_TestKeys_DialogueTrigger;
-    public struct TestKeysActions
-    {
-        private @InputMaster m_Wrapper;
-        public TestKeysActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @DialogueTrigger => m_Wrapper.m_TestKeys_DialogueTrigger;
-        public InputActionMap Get() { return m_Wrapper.m_TestKeys; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(TestKeysActions set) { return set.Get(); }
-        public void SetCallbacks(ITestKeysActions instance)
-        {
-            if (m_Wrapper.m_TestKeysActionsCallbackInterface != null)
-            {
-                @DialogueTrigger.started -= m_Wrapper.m_TestKeysActionsCallbackInterface.OnDialogueTrigger;
-                @DialogueTrigger.performed -= m_Wrapper.m_TestKeysActionsCallbackInterface.OnDialogueTrigger;
-                @DialogueTrigger.canceled -= m_Wrapper.m_TestKeysActionsCallbackInterface.OnDialogueTrigger;
-            }
-            m_Wrapper.m_TestKeysActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @DialogueTrigger.started += instance.OnDialogueTrigger;
-                @DialogueTrigger.performed += instance.OnDialogueTrigger;
-                @DialogueTrigger.canceled += instance.OnDialogueTrigger;
-            }
-        }
-    }
-    public TestKeysActions @TestKeys => new TestKeysActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -532,9 +508,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnShowObjectInformation(InputAction.CallbackContext context);
         void OnActionButton(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-    }
-    public interface ITestKeysActions
-    {
-        void OnDialogueTrigger(InputAction.CallbackContext context);
+        void OnTEST_DialougeTrigger(InputAction.CallbackContext context);
     }
 }

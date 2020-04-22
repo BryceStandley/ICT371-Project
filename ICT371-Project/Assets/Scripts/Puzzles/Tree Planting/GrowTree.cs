@@ -4,12 +4,25 @@ using UnityEngine;
 
 public class GrowTree : MonoBehaviour
 {
-    public float growRate = 1.001f;
-    private void Update()
-    { 
+    public int growTime = 30;
+
+    private float treeScale = 0.3f;
+
+    private void Start()
+    {
+        treeScale = transform.localScale.x;
+    }
+
+    private float t = 0;
+    private void Update()//Using the time between frames to calculate how much to grow the tree over time
+    {
+        t += Time.deltaTime / growTime;
+        float i = Mathf.Lerp(treeScale, 1.5f, t);
+        //Debug.Log(t + " :: " + i);
+
         if(transform.localScale.x < 1.5f)
         {
-            transform.localScale *= growRate;
+            transform.localScale = new Vector3(i, i, i);
         }
         else
         {

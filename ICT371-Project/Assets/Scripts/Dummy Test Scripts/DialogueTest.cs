@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DialogueTest : MonoBehaviour
 {
@@ -11,25 +12,13 @@ public class DialogueTest : MonoBehaviour
     private void Awake()
     {
         dialogueTrigger = FindObjectOfType<DialogueTrigger>();
-        controls = new InputMaster();//Creating a new inputMaster component
-        controls.TestKeys.DialogueTrigger.performed += ctx => Trigger();// Assigning the trigger key to the trigger script
-
-
     }
 
-    private void OnEnable()
+    public void Trigger(InputAction.CallbackContext context)
     {
-        controls.TestKeys.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.TestKeys.Disable();
-    }
-
-    public void Trigger()
-    {
-        //Debug.Log("triggering dialogue...");
-        dialogueTrigger.TriggerDialogue();
+        if(context.performed)
+        {
+            dialogueTrigger.TriggerDialogue();
+        }
     }
 }
