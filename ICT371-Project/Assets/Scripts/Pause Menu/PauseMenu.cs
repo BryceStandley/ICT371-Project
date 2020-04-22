@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -32,11 +33,17 @@ public class PauseMenu : MonoBehaviour
 
     Resolution[] resolutions;
 
+    private EventSystem es;
+    private GameObject origSelectedItem;
+
     private void Start()
     {
         GetResolutions(); //gets all the resolutions available to the player based on their display
         SetFullScreen(true); //starts the game off in fullscreen
         InitialiseMenu(); //sets up the menu for use
+        es = FindObjectOfType<EventSystem>();
+        origSelectedItem = es.currentSelectedGameObject;
+
     }
 
     // Update is called once per frame
@@ -96,6 +103,8 @@ public class PauseMenu : MonoBehaviour
         audioSource.Pause(); //Changed to have direct reference to audio source to stop delay
 
         playerInputController.DisablePlayerControls(); //ceases player ability to move around in-game
+
+        es.SetSelectedGameObject(buttons.transform.GetChild(0).gameObject);
     }
 
     public void Options() //displays option menu
@@ -103,12 +112,14 @@ public class PauseMenu : MonoBehaviour
         buttons.SetActive(false);
         backButton.SetActive(true);
         optionButtons.SetActive(true);
+        es.SetSelectedGameObject(optionButtons.transform.GetChild(0).gameObject);
     }
 
     public void Audio() //displays audio menu
     {
         optionButtons.SetActive(false);
         slider.SetActive(true);
+        es.SetSelectedGameObject(backButton);
     }
 
     public void Display() //displays display menu
@@ -117,6 +128,7 @@ public class PauseMenu : MonoBehaviour
         graphicsDropdown.SetActive(true);
         resolutionDropDown.gameObject.SetActive(true);
         fullScreenToggle.SetActive(true);
+        es.SetSelectedGameObject(backButton);
     }
 
     public void Credits() //displays credit menu
@@ -125,6 +137,7 @@ public class PauseMenu : MonoBehaviour
         credits.SetActive(true);
         creditButton.SetActive(true);
         backButton.SetActive(true);
+        es.SetSelectedGameObject(backButton);
     }
 
     public void Controls() //displays controls menu
@@ -132,6 +145,7 @@ public class PauseMenu : MonoBehaviour
         optionButtons.SetActive(false);
         controlsPage.SetActive(true);
         backButton.SetActive(true);
+        es.SetSelectedGameObject(backButton);
         //content on controls page will be present in final game
     }
 
@@ -143,10 +157,12 @@ public class PauseMenu : MonoBehaviour
             backButton.SetActive(false);
             optionButtons.SetActive(false);
             buttons.SetActive(true);
+            es.SetSelectedGameObject(buttons.transform.GetChild(0).gameObject);
         }
         else if (optionButtons.activeSelf == false && buttons.activeSelf == false) //deals with transition from submenus of option menu back to the option menu
         {
             optionButtons.SetActive(true);
+            es.SetSelectedGameObject(optionButtons.transform.GetChild(0).gameObject);
             //everything below is hidden
             slider.SetActive(false);
             graphicsDropdown.SetActive(false);
@@ -167,7 +183,14 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame() //Quits Game
     {
-        Application.Quit();
+        if(Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            Application.OpenURL("about:blank");
+        }
+        else
+        {
+            Application.Quit();
+        }
     }
 
     public void SetVolume(float volume) //Sets the volume of the in-game audio

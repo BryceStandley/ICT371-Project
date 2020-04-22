@@ -22,6 +22,8 @@ public class PlayerInputController : MonoBehaviour
         {
             gamepad = false;
         }
+        FindObjectOfType<InputUISwitcher>().OnInputChange(input);
+        //Debug.LogError("Test for controller change");
     }
 
     public void DisablePlayerControls()//Disables player input to look and move, also shows the cursor

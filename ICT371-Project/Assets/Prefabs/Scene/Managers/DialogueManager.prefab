@@ -46,4 +46,5 @@ MonoBehaviour:
   playerInputController: {fileID: 0}
   dialogueName: {fileID: 0}
   dialogueSentence: {fileID: 0}
+  continueButton: {fileID: 0}
   dialogueBox: {fileID: 0}

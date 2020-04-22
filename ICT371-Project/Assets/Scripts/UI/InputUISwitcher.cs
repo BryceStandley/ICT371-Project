@@ -14,14 +14,18 @@ public class InputUISwitcher : MonoBehaviour
     public bool gamepad = false;
     public bool pc = true;
 
+    //public PlayerInput input;
+
     private List<PromptChanger> prompts;
 
     private void Awake()
     {
         prompts = new List<PromptChanger>();
+        //input.onControlsChanged += Input_onControlsChanged;
 
         //prompts = FindObjectsOfType<PromptChanger>(); // Finds all prompts in the level and adds them to a array
     }
+
 
     public void AddToPromptList(PromptChanger prompt)
     {
@@ -33,7 +37,7 @@ public class InputUISwitcher : MonoBehaviour
         if(input.currentControlScheme == "Gamepad")
         {
             //Set all ui elements to gamepad
-            //Debug.Log("Gamepad in use...");
+            Debug.Log("Gamepad in use...");
             foreach(InputDevice dev in input.devices)
             {
                 string des = dev.name.ToString();

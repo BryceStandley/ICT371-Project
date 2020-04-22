@@ -2807,7 +2807,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -3583,7 +3583,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -5284,8 +5284,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
+    m_PressedColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -11138,6 +11138,11 @@ PrefabInstance:
       objectReference: {fileID: 2381808128843183137}
     - target: {fileID: 3655417228322081230, guid: 6268002b86eab4f80827e8e3665498c5,
         type: 3}
+      propertyPath: continueButton
+      value: 
+      objectReference: {fileID: 4912930054297699839}
+    - target: {fileID: 3655417228322081230, guid: 6268002b86eab4f80827e8e3665498c5,
+        type: 3}
       propertyPath: dialogueBox
       value: 
       objectReference: {fileID: 3997903854141459647}
@@ -11230,11 +11235,6 @@ PrefabInstance:
       objectReference: {fileID: 8245284813656028948}
     - target: {fileID: 3189739360182491853, guid: 1da5bc526625f44688a2248a3055cb9b,
         type: 3}
-      propertyPath: m_ControlsChangedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1920054744566935173}
-    - target: {fileID: 3189739360182491853, guid: 1da5bc526625f44688a2248a3055cb9b,
-        type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8135916886998940537}
@@ -11268,6 +11268,12 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6551580802579722310}
+    - target: {fileID: 3189739360182491853, guid: 1da5bc526625f44688a2248a3055cb9b,
+        type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 7d50a20075c0d4f97badedbcf9a7bc59,
+        type: 3}
     - target: {fileID: 3189739360182491854, guid: 1da5bc526625f44688a2248a3055cb9b,
         type: 3}
       propertyPath: m_Name

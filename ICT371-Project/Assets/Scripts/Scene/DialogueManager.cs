@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -12,15 +13,20 @@ public class DialogueManager : MonoBehaviour
 
     public TextMeshProUGUI dialogueName;
     public TextMeshProUGUI dialogueSentence;
+    public GameObject continueButton;
+
 
     public RectTransform dialogueBox;
 
+    private GameObject originalSelectedObject;
     private Queue<string> sentences;
+    private EventSystem es;
 
     void Start()
     {
         sentences = new Queue<string>();
         playerInputController = FindObjectOfType<PlayerInputController>();
+        es = FindObjectOfType<EventSystem>();
     }
 
     public void StartDialogue(Dialogue dialogue)//Method triggered when a dialogue is triggered
@@ -37,6 +43,7 @@ public class DialogueManager : MonoBehaviour
             sentences.Enqueue(sentence);
         }
         dialogueBox.DOAnchorPos(new Vector2(0, 125), 0.5f);//Animates dialogue box into the cameras view
+        ChangeSelectedItem();//Sets Selected Item to the continue button
         DisplayNextSentence();//Triggeres display method
 	}
 
@@ -56,7 +63,15 @@ public class DialogueManager : MonoBehaviour
     {
         //Debug.Log("Dialogue Ended...");
         dialogueBox.DOAnchorPos(new Vector2(0, -125), 0.5f);//Animates dialogue box out of cameras view
+        es.SetSelectedGameObject(originalSelectedObject);
         playerInputController.EnablePlayerControls();
         
+        
+    }
+
+    private void ChangeSelectedItem()
+    { 
+        originalSelectedObject = es.currentSelectedGameObject;
+        es.SetSelectedGameObject(continueButton);
     }
 }

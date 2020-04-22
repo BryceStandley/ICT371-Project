@@ -23,6 +23,11 @@ public class SeedHole : MonoBehaviour
         filter = parent.GetComponent<MeshFilter>();
         meshRenderer = parent.GetComponent<MeshRenderer>();
         meshCollider = parent.GetComponent<MeshCollider>();
+        
+    }
+
+    private void Start()
+    {
         PuzzleManager.instance.AddHole(this.gameObject);
     }
 
