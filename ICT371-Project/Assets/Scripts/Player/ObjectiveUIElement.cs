@@ -1,0 +1,35 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
+public class ObjectiveUIElement : MonoBehaviour
+{
+    public Image hasCompletedTick;
+    public Sprite tickSprite;
+    public TextMeshProUGUI objectiveText;
+
+
+
+    public void UpdateObjective(string obj)
+    {
+        objectiveText.text = obj;
+        hasCompletedTick.color = Color.clear;
+    }
+
+    public bool UpdateObjective(bool complete)
+    {
+        if(complete)
+        {
+            hasCompletedTick.sprite = tickSprite;
+            hasCompletedTick.color = Color.white;
+            objectiveText.fontStyle = FontStyles.Strikethrough;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
