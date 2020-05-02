@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0e0327a29786245b7ca9f0083c1a21, type: 3}
+  m_Name: Gaia Maintenance Profile
+  m_EditorClassIdentifier: 
+  m_deletionTasks:
+  - m_pathContains: Ocean Water\Resources\Material
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 0
+    m_Name: Large
+    m_fileExtension: mat
+  - m_pathContains: Ocean Water\Resources\Material
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 0
+    m_Name: Medium
+    m_fileExtension: mat
+  - m_pathContains: Ocean Water\Resources\Material
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 0
+    m_Name: Tiny
+    m_fileExtension: mat
+  - m_pathContains: Procedural Worlds\PW Shader Library
+    m_taskType: 1
+    m_includeSubDirectories: 1
+    m_checkType: 0
+    m_Name: 7.1.2
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Color Mask v1.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Cover Map v1.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Crossfade
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Distance
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Enum Switch
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Enum Switch v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Lighting Reduce at Horizon v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF NdotL v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF PerturbNormalHQ
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF PreparePerturbNormalHQ
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Remap To 0-1
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Smoothness Geometric Specular v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Square Mask
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Subsurface Scattering
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Surface Map v1.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Custom Grab Pass v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Custom Lighting v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Fake Shadows v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Foam Beach v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Foam Ocean v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Gerstner Waves SP v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Gerstner Waves v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Normal Map Swirling SP v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Normal Map Swirling v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Water Refracted Depth v3.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library\PWS Functions
+    m_taskType: 0
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWSF Wind v1.0
+    m_fileExtension: 
+  - m_pathContains: Procedural Worlds\PW Shader Library
+    m_taskType: 1
+    m_includeSubDirectories: 1
+    m_checkType: 1
+    m_Name: PWS Procedural
+    m_fileExtension: 
+  meshColliderPrefabPaths:
+  - /Asset Samples
+  - /Gaia Pro/Assets/Prefabs
