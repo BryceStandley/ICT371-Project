@@ -69,6 +69,11 @@ public class SeedHole : MonoBehaviour
     private void PlantSapling()// changing the mesh and materials of the hole object to the sapling object
     {
         PickTree();
+        int k = parent.transform.childCount;
+        for(int i = 1; i < k; i++)
+        {
+            Destroy(parent.transform.GetChild(i).gameObject);
+        }
         filter.sharedMesh = saplingMesh;
         meshRenderer.sharedMaterial = saplingMaterial;
         float scale = Random.Range(0.3f, 0.8f);

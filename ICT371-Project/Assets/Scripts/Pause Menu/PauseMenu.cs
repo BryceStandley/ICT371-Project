@@ -36,12 +36,16 @@ public class PauseMenu : MonoBehaviour
     private EventSystem es;
     private GameObject origSelectedItem;
 
+    void Awake()
+    {
+        es = FindObjectOfType<EventSystem>();
+    }
+
     private void Start()
     {
         GetResolutions(); //gets all the resolutions available to the player based on their display
         SetFullScreen(true); //starts the game off in fullscreen
         InitialiseMenu(); //sets up the menu for use
-        es = FindObjectOfType<EventSystem>();
         origSelectedItem = es.currentSelectedGameObject;
 
     }
