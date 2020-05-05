@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 7445553030588739565}
   - component: {fileID: 7445553030588739570}
   - component: {fileID: 7445553030588739569}
-  - component: {fileID: 7445553030588739571}
   - component: {fileID: 7445553030588739568}
   - component: {fileID: 7445553030588739574}
   - component: {fileID: 6247541584446311366}
+  - component: {fileID: 8486774798912010268}
   m_Layer: 0
   m_Name: Seed Packet
   m_TagString: PickUp
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 7445553030588739575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.37, z: 5.19}
-  m_LocalScale: {x: 1, y: 0.1, z: 0.5}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7445553030588739575}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 1006752078925838128, guid: cd58caa0132f642cb9f84a0e769f9402, type: 3}
 --- !u!23 &7445553030588739570
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c0f540491842c48fa895325719854e3b, type: 2}
+  - {fileID: 2100000, guid: 6314399f6ed01475a89aa59c8b9f5774, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,19 +100,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!65 &7445553030588739571
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7445553030588739575}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7445553030588739568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,3 +142,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionManger: {fileID: 0}
   prompt: {fileID: 0}
+--- !u!65 &8486774798912010268
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7445553030588739575}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15235876, y: 0.44698852, z: 0.35235423}
+  m_Center: {x: -0.006293379, y: 0.023494266, z: 0.0039799362}
