@@ -5,12 +5,38 @@ using UnityEngine;
 public class PuzzleManager : MonoBehaviour
 {
     public static PuzzleManager instance;
+    public ObjectiveManager.ObjectiveListType currentObjectiveListType = ObjectiveManager.ObjectiveListType.Tutorial;
+
 
     private void Awake()
     {
         instance = this;
         holesInWorld = new List<GameObject>();
+        laundryItems = new List<GameObject>();
+
     }
+
+    private void UpdateObjectiveListType()
+    {
+        currentObjectiveListType = ObjectiveManager.instance.objectiveListType;
+    }
+
+    //Laundry Puzzle
+    //Using ObjectID of 1
+    private List<GameObject> laundryItems;
+
+    public void AddLaundryItem(GameObject item)
+    {
+        laundryItems.Add(item);
+    }
+
+    public void CheckLaundryPuzzleComplete()
+    {
+
+    }
+
+
+
 
     //Tree Puzzle
     //Using Objective ID of 99 as the tree puzzle Objective ID
@@ -36,16 +62,38 @@ public class PuzzleManager : MonoBehaviour
         if(count == holesInWorld.Count)
         {
             //get objective manager and update ui
-            foreach(Objective obj in ObjectiveManager.instance.objectives)
+            if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Tutorial)
             {
-                if(obj.objectiveID == 99)
+                foreach (Objective obj in ObjectiveManager.instance.TutorialObjectives)
                 {
-                    if(obj.objective.ToLower().Contains("tree"))//Extra check to enure we dont have duplicate ID's
+                    if (obj.objectiveID == 99)
                     {
-                        obj.hasComplete = true;
-                        if(obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+                        if (obj.objective.ToLower().Contains("tree"))//Extra check to enure we dont have duplicate ID's
                         {
-                            Debug.Log("Objective Updated Correctly");
+                            obj.hasComplete = true;
+                            if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+                            {
+                                Debug.Log("Objective Updated Correctly");
+                                ObjectiveManager.instance.CheckCompletedList();
+                            }
+                        }
+                    }
+                }
+            }
+            else if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
+            {
+                foreach (Objective obj in ObjectiveManager.instance.MainObjectives)
+                {
+                    if (obj.objectiveID == 99)
+                    {
+                        if (obj.objective.ToLower().Contains("tree"))//Extra check to enure we dont have duplicate ID's
+                        {
+                            obj.hasComplete = true;
+                            if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+                            {
+                                Debug.Log("Objective Updated Correctly");
+                                ObjectiveManager.instance.CheckCompletedList();
+                            }
                         }
                     }
                 }
