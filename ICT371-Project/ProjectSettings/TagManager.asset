@@ -7,6 +7,10 @@ TagManager:
   - PickUp
   - Ground
   - Hole
+  - Synty Small Farm
+  - Synty Tree
+  - Synty Medium Farm
+  - Information
   layers:
   - Default
   - TransparentFX

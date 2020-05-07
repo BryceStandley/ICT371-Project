@@ -27,7 +27,6 @@ public class ObjectInformationToolTip : MonoBehaviour
 
         
     }
-
     private void ShowToolTipPrompt()
     {
         promptObject.SetActive(true);
@@ -62,5 +61,10 @@ public class ObjectInformationToolTip : MonoBehaviour
     public static void HidePrompt()
     {
         instance.HideToolTipPrompt();
+    }
+    
+    public GameObject GetPromptObject()
+    {
+        return promptObject;
     }
 }

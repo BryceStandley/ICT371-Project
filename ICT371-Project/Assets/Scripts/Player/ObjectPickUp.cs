@@ -62,6 +62,18 @@ public class ObjectPickUp : MonoBehaviour
                     ObjectInformationToolTip.ShowPrompt();
                 }
             }
+            else if(hit.transform.gameObject.CompareTag("Information"))//Checking if the player looked at a item that can be picked up
+            {
+                canPickUp = false; //object can NOT be picked up
+                lookedAtItem = hit.transform.gameObject;// tracking the game object the player is looking at
+
+                if (!holding && !detailsDisplaying)//Check if the player isn'y holding a object and the details aren't showing
+                {
+                    //pointer.sprite = handOpen; //We dont need to show a different cursor because you cant pick up this item
+                    //ObjectInformationToolTip.instance.Get
+                    ObjectInformationToolTip.ShowPrompt();
+                }
+            }
             else// All checks failed, item the ray is hitting can't be picked up
             {
                 canPickUp = false;
