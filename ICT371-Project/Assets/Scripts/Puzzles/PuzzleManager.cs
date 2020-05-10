@@ -30,9 +30,24 @@ public class PuzzleManager : MonoBehaviour
         laundryItems.Add(item);
     }
 
-    public void CheckLaundryPuzzleComplete()
+    public void SetLaundryCollectionComplete()
     {
-
+        foreach (Objective obj in ObjectiveManager.instance.TutorialObjectives)
+                {
+                    if (obj.objectiveID == 98)
+                    {
+                        if (obj.objective.ToLower().Contains("laundry"))//Extra check to enure we dont have duplicate ID's
+                        {
+                            obj.hasComplete = true;
+                            ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                            if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+                            {
+                                //Debug.Log("Objective Updated Correctly");
+                                ObjectiveManager.instance.CheckCompletedList();
+                            }
+                        }
+                    }
+                }
     }
 
 
@@ -62,25 +77,7 @@ public class PuzzleManager : MonoBehaviour
         if(count == holesInWorld.Count)
         {
             //get objective manager and update ui
-            if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Tutorial)
-            {
-                foreach (Objective obj in ObjectiveManager.instance.TutorialObjectives)
-                {
-                    if (obj.objectiveID == 99)
-                    {
-                        if (obj.objective.ToLower().Contains("tree"))//Extra check to enure we dont have duplicate ID's
-                        {
-                            obj.hasComplete = true;
-                            if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
-                            {
-                                Debug.Log("Objective Updated Correctly");
-                                ObjectiveManager.instance.CheckCompletedList();
-                            }
-                        }
-                    }
-                }
-            }
-            else if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
+            if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
             {
                 foreach (Objective obj in ObjectiveManager.instance.MainObjectives)
                 {
@@ -89,9 +86,10 @@ public class PuzzleManager : MonoBehaviour
                         if (obj.objective.ToLower().Contains("tree"))//Extra check to enure we dont have duplicate ID's
                         {
                             obj.hasComplete = true;
+                            ObjectiveManager.instance.PlayCompleteObjectiveSound();
                             if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                             {
-                                Debug.Log("Objective Updated Correctly");
+                                //Debug.Log("Objective Updated Correctly");
                                 ObjectiveManager.instance.CheckCompletedList();
                             }
                         }

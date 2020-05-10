@@ -13,6 +13,7 @@ public class ObjectiveManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public GameObject objectiveUIElement;
@@ -26,6 +27,9 @@ public class ObjectiveManager : MonoBehaviour
     public List<Objective> EndObjectives;
 
     public List<GameObject> objectiveUI;
+
+    public AudioClip taskCompleteAudio;
+    public AudioSource audioSource;
     
 
     private void Start()
@@ -33,9 +37,10 @@ public class ObjectiveManager : MonoBehaviour
         SetObjectiveList(TutorialObjectives);
     }
 
+    private int check = 0;
     public void CheckCompletedList()
     {
-        int check = 0;
+        check = 0;
         if(objectiveListType == ObjectiveListType.Tutorial)
         {
             foreach(Objective obj in TutorialObjectives)
@@ -51,6 +56,7 @@ public class ObjectiveManager : MonoBehaviour
                 ClearUI();
                 SetObjectiveList(MainObjectives);
                 objectiveListType = ObjectiveListType.Main;
+                PuzzleManager.instance.currentObjectiveListType = ObjectiveListType.Main; 
             }
         }
         else if (objectiveListType == ObjectiveListType.Main)
@@ -62,12 +68,13 @@ public class ObjectiveManager : MonoBehaviour
                     check++;
                 }
             }
-            if (check == TutorialObjectives.Count)
+            if (check == MainObjectives.Count)
             {
                 //Mains complete, change list
                 ClearUI();
                 SetObjectiveList(EndObjectives);
                 objectiveListType = ObjectiveListType.End;
+                PuzzleManager.instance.currentObjectiveListType = ObjectiveListType.End;
             }
         }
         else if (objectiveListType == ObjectiveListType.End)
@@ -79,7 +86,7 @@ public class ObjectiveManager : MonoBehaviour
                     check++;
                 }
             }
-            if (check == TutorialObjectives.Count)
+            if (check == EndObjectives.Count)
             {
                 //End complete, end game
                 ClearUI();
@@ -107,6 +114,12 @@ public class ObjectiveManager : MonoBehaviour
             Destroy(ui.gameObject);
         }
         objectiveUI.Clear();
+    }
+
+    public void PlayCompleteObjectiveSound()
+    {
+        audioSource.clip = taskCompleteAudio;
+        audioSource.Play();
     }
 
 
