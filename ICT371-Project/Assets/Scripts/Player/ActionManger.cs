@@ -10,6 +10,7 @@ public class ActionManger : MonoBehaviour
     // Doing this allows us to check if the given action is the same as a action we have in our array of actions
     // this is a check to ensure that puzzle only actions can be triggered when needed.
 
+    public static ActionManger instance;
     private string actionAvailable;
 
     private string[] actions = { "TakeSeed" };
@@ -18,6 +19,7 @@ public class ActionManger : MonoBehaviour
 
     private void Awake()//using clear function to set up empty string
     {
+        instance = this;
         ClearCurrentAction();
     }
 
@@ -53,7 +55,10 @@ public class ActionManger : MonoBehaviour
     private void TakeSeed()
     {
         ObjectPickUp objectPickUp = FindObjectOfType<ObjectPickUp>();
-        objectPickUp.DropItem(objectPickUp.heldItem);
+        if(objectPickUp.heldItem != null)
+        {
+            objectPickUp.DropItem(objectPickUp.heldItem);
+        }
         seed.GetComponent<Rigidbody>().useGravity = true;
         objectPickUp.PickUpItem(seed);
     }

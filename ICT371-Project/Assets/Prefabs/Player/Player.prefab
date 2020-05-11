@@ -2002,7 +2002,7 @@ GameObject:
   - component: {fileID: 7374197766418078560}
   - component: {fileID: 2515967800556346485}
   m_Layer: 0
-  m_Name: DetailsAndPickUpPrompt
+  m_Name: MainDetailsPrompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2164,8 +2164,11 @@ MonoBehaviour:
   uiManager: {fileID: 1468782892917627666}
   dualPurpPrompt: 1
   secondPromptType: PickUp
+  thirdPurpPrompt: 0
+  thirdPromptType: 
   hasCustomName: 0
   customName: 
+  customNameAction: 0
 --- !u!1 &347406495350179400
 GameObject:
   m_ObjectHideFlags: 0
@@ -4178,8 +4181,11 @@ MonoBehaviour:
   uiManager: {fileID: 1468782892917627666}
   dualPurpPrompt: 0
   secondPromptType: 
+  thirdPurpPrompt: 0
+  thirdPromptType: 
   hasCustomName: 1
   customName: Take Seed
+  customNameAction: 0
 --- !u!1 &3071566549368071340
 GameObject:
   m_ObjectHideFlags: 0
@@ -9528,6 +9534,7 @@ MonoBehaviour:
   disabledInput: 0
   pickupDistance: 5
   holdDistance: 5
+  lookedAtItem: {fileID: 0}
   heldItem: {fileID: 0}
   holdPoint: {fileID: 7362001413161734501}
 --- !u!1 &8135916888335338909

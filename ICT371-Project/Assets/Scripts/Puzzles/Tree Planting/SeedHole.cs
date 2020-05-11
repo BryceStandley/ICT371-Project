@@ -63,7 +63,8 @@ public class SeedHole : MonoBehaviour
     {
         int index = Random.Range(0, treeMeshes.Length - 1);
         saplingMesh = treeMeshes[index];
-        saplingMaterial = treeMaterails[0];
+        int matIndex = Random.Range(0, treeMaterails.Length - 1);
+        saplingMaterial = treeMaterails[matIndex];
     }
 
     private void PlantSapling()// changing the mesh and materials of the hole object to the sapling object
