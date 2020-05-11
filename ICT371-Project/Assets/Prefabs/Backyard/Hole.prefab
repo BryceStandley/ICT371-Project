@@ -226,15 +226,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treeMeshes:
-  - {fileID: 4300000, guid: 3204d05d29ededa45ae16c376a4fc49e, type: 3}
-  - {fileID: 4300000, guid: c9a74cb8f111e174996f1416d416ed18, type: 3}
-  - {fileID: 4300000, guid: 77c20d5a99ff56b4a8be8c211b0752ab, type: 3}
-  - {fileID: 4300000, guid: 325a1662b3e39744689262b3d21a98d1, type: 3}
-  - {fileID: 4300000, guid: c7cb323f0b581ea479888d19bd122082, type: 3}
-  - {fileID: 4300000, guid: 2120dbc49faac5242b4c359b2bc1cf2c, type: 3}
-  - {fileID: 4300000, guid: 1faaa9c2e81f7dd4db3c07ea955fc8a2, type: 3}
+  - {fileID: 4300000, guid: fff67120f6ab6d54ea298190b3542ccc, type: 3}
+  - {fileID: 4300000, guid: fff67120f6ab6d54ea298190b3542ccc, type: 3}
+  - {fileID: 4300000, guid: a5be0d1c8e89d6345bb1321ca2680dab, type: 3}
+  - {fileID: 4300000, guid: a5be0d1c8e89d6345bb1321ca2680dab, type: 3}
+  - {fileID: 4300000, guid: a5be0d1c8e89d6345bb1321ca2680dab, type: 3}
   treeMaterails:
-  - {fileID: 2100000, guid: 35c4bacfbc0048a44a996277d0b4136f, type: 2}
+  - {fileID: 2100000, guid: cb27386391d2990428565e2f105a87ee, type: 2}
+  - {fileID: 2100000, guid: cb27386391d2990428565e2f105a87ee, type: 2}
+  - {fileID: 2100000, guid: 0203bda33688ef54785990bac28ff3f4, type: 2}
+  - {fileID: 2100000, guid: 0203bda33688ef54785990bac28ff3f4, type: 2}
+  - {fileID: 2100000, guid: 0203bda33688ef54785990bac28ff3f4, type: 2}
   hasBeenPlanted: 0
 --- !u!1001 &808478704987332858
 PrefabInstance:

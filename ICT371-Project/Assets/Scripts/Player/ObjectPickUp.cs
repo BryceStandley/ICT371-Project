@@ -18,7 +18,7 @@ public class ObjectPickUp : MonoBehaviour
     private bool holding = false;
     private bool canPickUp = false;
 
-    private GameObject lookedAtItem;
+    public GameObject lookedAtItem;
     public GameObject heldItem;
 
     private float screenWidth, screenHeight;
@@ -47,51 +47,70 @@ public class ObjectPickUp : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(centerRay, out hit, pickupDistance) || heldItem != null)//Casting ray from center of screen and checking if the player is holding a object
         {
-            if (heldItem != null && holding)//Check the players holding a item and the bool is set to be true 
+            if(hit.transform != null)
             {
-                pointer.sprite = handClosed;//Showing the closed hand pointer
-            }
-            else if(hit.transform.gameObject.CompareTag("PickUp"))//Checking if the player looked at a item that can be picked up
-            {
-                canPickUp = true; //object can be picked up
-                lookedAtItem = hit.transform.gameObject;// tracking the game object the player is looking at
 
-                if (!holding && !detailsDisplaying)//Check if the player isn'y holding a object and the details aren't showing
+                if (heldItem != null && holding)//Check the players holding a item and the bool is set to be true 
                 {
-                    pointer.sprite = handOpen;
-                    ObjectInformationToolTip.ShowPrompt();
+                    pointer.sprite = handClosed;//Showing the closed hand pointer
                 }
-            }
-            else if(hit.transform.gameObject.CompareTag("Information"))//Checking if the player looked at a item that can be picked up
-            {
-                canPickUp = false; //object can NOT be picked up
-                lookedAtItem = hit.transform.gameObject;// tracking the game object the player is looking at
+                else if(hit.transform.gameObject.CompareTag("PickUp"))//Checking if the player looked at a item that can be picked up
+                {
+                    
+                    canPickUp = true; //object can be picked up
+                    lookedAtItem = hit.transform.gameObject;// tracking the game object the player is looking at
 
-                if (!holding && !detailsDisplaying)//Check if the player isn'y holding a object and the details aren't showing
-                {
-                    //pointer.sprite = handOpen; //We dont need to show a different cursor because you cant pick up this item
-                    //ObjectInformationToolTip.instance.Get
-                    ObjectInformationToolTip.ShowPrompt();
+                    if (!holding && !detailsDisplaying)//Check if the player isn'y holding a object and the details aren't showing
+                    {
+                        pointer.sprite = handOpen;
+                        ObjectInformationToolTip.GetPromptObject().GetComponent<PromptChanger>().dualPurpPrompt = true;
+                        ObjectInformationToolTip.GetPromptObject().GetComponent<PromptChanger>().UpdateUI();
+                        ObjectInformationToolTip.ShowPrompt();
+                    }
                 }
+                else if(hit.transform.gameObject.CompareTag("Information"))//Checking if the player looked at a item that can be picked up
+                {
+                    canPickUp = false; //object can NOT be picked up
+                    lookedAtItem = hit.transform.gameObject;// tracking the game object the player is looking at
+
+                    if (!holding && !detailsDisplaying)//Check if the player isn'y holding a object and the details aren't showing
+                    {
+                        //pointer.sprite = handOpen; //We dont need to show a different cursor because you cant pick up this item
+                        //ObjectInformationToolTip.instance.Get
+                        ObjectInformationToolTip.GetPromptObject().GetComponent<PromptChanger>().dualPurpPrompt = false;
+                        ObjectInformationToolTip.GetPromptObject().GetComponent<PromptChanger>().UpdateUI();
+                        ObjectInformationToolTip.ShowPrompt();
+                    }
+                }
+                else// All checks failed, item the ray is hitting can't be picked up
+                {
+                    canPickUp = false;
+                    pointer.sprite = defaultPointer;
+                    ObjectInformationToolTip.HidePrompt();
+                    ObjectInformationToolTip.HideTip();
+                    detailsDisplaying = false;
+                    lookedAtItem = null;
+                }
+                
+                
             }
-            else// All checks failed, item the ray is hitting can't be picked up
+            else// Ray wasn't cast and player isn't holding item, setting pointer to default and hiding all prompts from the player
             {
-                canPickUp = false;
                 pointer.sprite = defaultPointer;
                 ObjectInformationToolTip.HidePrompt();
                 ObjectInformationToolTip.HideTip();
                 detailsDisplaying = false;
             }
             
-            
         }
         else// Ray wasn't cast and player isn't holding item, setting pointer to default and hiding all prompts from the player
-        {
-            pointer.sprite = defaultPointer;
-            ObjectInformationToolTip.HidePrompt();
-            ObjectInformationToolTip.HideTip();
-            detailsDisplaying = false;
-        }
+            {
+                pointer.sprite = defaultPointer;
+                ObjectInformationToolTip.HidePrompt();
+                ObjectInformationToolTip.HideTip();
+                detailsDisplaying = false;
+            }
+
     }
 
     public void OnObjectDetailsDisplayed(InputAction.CallbackContext context)// Triggered when player presses details input
@@ -168,6 +187,7 @@ public class ObjectPickUp : MonoBehaviour
             item.GetComponent<PickUp>().pickupCounter++;
             item.GetComponent<PickUp>().SetHoldPoint(holdPoint);
             heldItem = item;
+            holding = true;
             ObjectInformationToolTip.HidePrompt();
             ObjectInformationToolTip.HideTip();
             detailsDisplaying = false;
@@ -180,6 +200,7 @@ public class ObjectPickUp : MonoBehaviour
         item.GetComponent<PickUp>().DropItem();
         heldItem = null;
         ObjectInformationToolTip.HideTip();
+        lookedAtItem = null;
     }
     
 
