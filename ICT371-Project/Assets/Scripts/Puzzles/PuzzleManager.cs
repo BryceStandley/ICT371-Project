@@ -13,6 +13,8 @@ public class PuzzleManager : MonoBehaviour
         instance = this;
         holesInWorld = new List<GameObject>();
         laundryItems = new List<GameObject>();
+        garbageItems = new List<GameObject>();
+        garbageBins = new List<GarbageBin>();
 
     }
 
@@ -22,7 +24,7 @@ public class PuzzleManager : MonoBehaviour
     }
 
     //Laundry Puzzle
-    //Using ObjectID of 1
+    //Using ObjectID of 98
     private List<GameObject> laundryItems;
 
     public void AddLaundryItem(GameObject item)
@@ -51,7 +53,55 @@ public class PuzzleManager : MonoBehaviour
     }
 
 
+    //Garbage Collection Puzzle
+    //Usign Objective ID of 96
+    private List<GameObject> garbageItems;
+    private List<GarbageBin> garbageBins;
 
+    public void AddGarbageItem(GameObject item)
+    {
+        garbageItems.Add(item);
+    }
+
+    public void AddGarbageBin(GarbageBin bin)
+    {
+        garbageBins.Add(bin);
+    }
+    public List<GameObject> GetGarbageList()
+    {
+        return garbageItems;
+    }
+
+    public void CheckGarbageCollectionComplete()
+    {
+        int i = 0;
+        foreach(GarbageBin bin in garbageBins)
+        {
+            if(bin.isFull)
+            {
+                i++;
+            }
+        }
+
+        if(i == garbageBins.Count)
+        {
+            if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
+            {
+                foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+                {
+                    if(obj.objectiveID == 96)
+                    {
+                        obj.hasComplete = true;
+                        ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                        if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+                        {
+                            ObjectiveManager.instance.CheckCompletedList();
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     //Tree Puzzle
     //Using Objective ID of 99 as the tree puzzle Objective ID
