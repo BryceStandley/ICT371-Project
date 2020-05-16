@@ -15,4 +15,9 @@ MonoBehaviour:
   dialogueTriggerName: All Trees Planted
   npcName: GOV Bot
   sentences:
-  - All trees have been planted.
+  - "\u201CTrees absorb and store carbon dioxide, making them a cheap yet highly
+    effective way to reduce the impact of carbon emissions on the climate.\u201D\r\n\n"
+  - "\u201CReforestation is touted as one of the greatest ways to fight climate change,
+    and even though planting a few trees in your backyard may not seem like it would
+    make a huge difference, if everyone were to follow in your footsteps, it would
+    definitely make an impact.\u201D\r\n"

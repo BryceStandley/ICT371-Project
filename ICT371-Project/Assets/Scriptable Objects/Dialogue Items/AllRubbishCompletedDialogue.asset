@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d244c50509640e396ba129591d356b, type: 3}
+  m_Name: AllRubbishCompletedDialogue
+  m_EditorClassIdentifier: 
+  dialogueTriggerName: All Rubbish Completed
+  npcName: GOV Bot
+  sentences:
+  - "\u201CExcellent job TMC! You have successfully binned all the rubbish in the
+    house. Placing items in the correct bin ensures that all rubbish is dealt with
+    efficiently. Organic materials can be used to make gardening and farming products,
+    recycling can be recycled and reused, and general waste can go to landfill.\u201D"
+  - "Accidentally placing an item in the wrong bin can lead to that bin being compromised,
+    leading to potentially compostable or recyclable materials ending up in landfill.\r\nLosing
+    those otherwise recyclable material leads to more needing to be made, which in
+    turn uses energy that leads to more carbon emissions. \r"
+  - "\u201CA simple error can have a huge impact.\u201D\r\n\u201CYou placed x/x pieces
+    of rubbish in the correct bins.\u201D\r"

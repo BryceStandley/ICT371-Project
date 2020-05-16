@@ -30,6 +30,7 @@ public class GarbageBin : MonoBehaviour
         {
             maxItems++;
         }
+        Debug.Log(maxItems);
     }
     private void OnCollisionEnter(Collision other)
     {

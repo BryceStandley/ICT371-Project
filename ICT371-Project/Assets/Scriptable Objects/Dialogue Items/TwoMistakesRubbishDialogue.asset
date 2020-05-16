@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d244c50509640e396ba129591d356b, type: 3}
+  m_Name: TwoMistakesRubbishDialogue
+  m_EditorClassIdentifier: 
+  dialogueTriggerName: Two Mistakes Rubbish
+  npcName: GOV Bot
+  sentences:
+  - "\u201CHey TMC, you appear to have placed two items in the incorrect bin. Think
+    carefully about what sort of waste should go in each bin\u201D \r\n\n\u201CIf
+    you need some help, I suggest you check the fridge magnet for a guide on what
+    products should go in each bin\u201D\r"

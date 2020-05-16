@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d244c50509640e396ba129591d356b, type: 3}
+  m_Name: LeaveOnBikeDialogue
+  m_EditorClassIdentifier: 
+  dialogueTriggerName: Leave On Bike
+  npcName: GOV Bot
+  sentences:
+  - "\u201CYou didn\u2019t think I was going to have one more hidden test did you!\u201D\r\n\n\u201CYou
+    did make the right choice in picking the bike however, with cycling a great way
+    to reduce the carbon emissions you\u2019d be using by driving a car. On top of
+    that, it\u2019s also a great way to get in some exercise!\u201D\n\r\n\u201CAccording
+    to a 2015 study from the Institute of Transportation and Development Policy,
+    a 20% increase in cycling over driving worldwide would see carbon dioxide emissions
+    from urban passenger transport drop by roughly 11% in 2050.\u201D \r\n"

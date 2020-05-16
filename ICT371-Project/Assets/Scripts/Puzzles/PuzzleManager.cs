@@ -11,6 +11,7 @@ public class PuzzleManager : MonoBehaviour
     #region Dialogue Variables
     public Dialogue oneTreePlantedDialogue;
     public Dialogue allTreesPlantedDialogue;
+    public Dialogue allRubbishCompletedDialogue;
     #endregion
     private void Awake()
     {
@@ -97,6 +98,7 @@ public class PuzzleManager : MonoBehaviour
                     if(obj.objectiveID == 96)
                     {
                         obj.hasComplete = true;
+                        DialogueManager.instance.StartDialogue(allRubbishCompletedDialogue);
                         TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                         ObjectiveManager.instance.PlayCompleteObjectiveSound();
                         if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))

@@ -15,4 +15,4 @@ MonoBehaviour:
   dialogueTriggerName: One Tree Planted
   npcName: GOV Bot
   sentences:
-  - You planted one tree good job!
+  - "\u201CGreat stuff TMC, keep planting!\u201D"
