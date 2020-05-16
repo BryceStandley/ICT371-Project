@@ -7,7 +7,9 @@ using DG.Tweening;
 using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
-{
+{   
+    public static DialogueManager instance;
+
     //Reference to allow player input to be turned on and off
     public PlayerInputController playerInputController;
 
@@ -22,6 +24,10 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> sentences;
     private EventSystem es;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         sentences = new Queue<string>();
@@ -32,7 +38,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)//Method triggered when a dialogue is triggered
 	{
         
-        dialogueName.text = dialogue.name;
+        dialogueName.text = dialogue.npcName;
 
         playerInputController.DisablePlayerControls();//Stopping the player from being able to look and move
 
