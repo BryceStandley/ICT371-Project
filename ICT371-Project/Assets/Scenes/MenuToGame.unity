@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1177,15 +1177,17 @@ MonoBehaviour:
     to reduce the carbon emissions of everyday households. \r\n\r\nAs you may have
     heard, if we don\u2019t act fast in reducing our carbon footprint, our beautiful
     planet will face irreparable damage. This is where you come in... \r\n\r\nAs
-    The Model Citizen, you are tasked with showing the people of society what can
-    be done at home to reduce their carbon emissions.  \r\r\nThe decisions you make
-    are important; if you fail to address certain climate reducing tips, we could
-    see the Earth react its tipping point. \r\n\r\nTo start, why not plant some trees?
-    From then on you can familiarise yourself with the home and decide what it is
-    you want to tackle next.  \r\n\r\nThe planet is counting on you. \r\n\r\nNo pressure...
-    \r\n\r\nThank you for your time. \r\n\r\nMr Green \r\n\r\nHead of the Climate
-    Correction Scheme \r\n\r\nP.S. We have sent a GovBot to assist you if you run
-    into any issues, they should be at your premises shortly. "
+    The Model Citizen (TMC for short), you are tasked with showing the people of
+    society what can be done at home to reduce their carbon emissions.  \r\r\n\nThe
+    decisions you make are important; if you fail to address certain climate reducing
+    tips, we could see the Earth react its tipping point. \r\n\r\nWe have sent a
+    GovBot to your location, an eco-friendly robot who will outline some tasks for
+    you, while also overseeing your performance. \n\nHe's not going to tell you everything
+    that can be done however. As the TMC we expect you to put your own knowledge
+    of carbon reduction to the test, exploring the home for further ways to reduce
+    your carbon footprint. \n\r\nThe planet is counting on you. \r\n\r\nThank you
+    for your time. \r\n\r\nMr Green \r\n\r\nHead of the Climate Correction Scheme
+    \r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1254,10 +1256,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -239.02136, w: 0}
   m_textInfo:
     textComponent: {fileID: 2099230974}
-    characterCount: 1038
+    characterCount: 1140
     spriteCount: 0
-    spaceCount: 200
-    wordCount: 178
+    spaceCount: 213
+    wordCount: 192
     linkCount: 0
     lineCount: 27
     pageCount: 1
