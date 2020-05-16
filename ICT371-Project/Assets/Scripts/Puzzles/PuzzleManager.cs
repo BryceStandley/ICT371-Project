@@ -8,6 +8,10 @@ public class PuzzleManager : MonoBehaviour
     public ObjectiveManager.ObjectiveListType currentObjectiveListType = ObjectiveManager.ObjectiveListType.Tutorial;
 
 
+    #region Dialogue Variables
+    public Dialogue oneTreePlantedDialogue;
+    public Dialogue allTreesPlantedDialogue;
+    #endregion
     private void Awake()
     {
         instance = this;
@@ -126,6 +130,10 @@ public class PuzzleManager : MonoBehaviour
             }
 
         }
+        if(count == 1)
+        {
+            DialogueManager.instance.StartDialogue(oneTreePlantedDialogue);
+        }
         if(count == holesInWorld.Count)
         {
             //get objective manager and update ui
@@ -138,6 +146,7 @@ public class PuzzleManager : MonoBehaviour
                         if (obj.objective.ToLower().Contains("tree"))//Extra check to enure we dont have duplicate ID's
                         {
                             obj.hasComplete = true;
+                            DialogueManager.instance.StartDialogue(allTreesPlantedDialogue);
                             TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                             ObjectiveManager.instance.PlayCompleteObjectiveSound();
                             if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
