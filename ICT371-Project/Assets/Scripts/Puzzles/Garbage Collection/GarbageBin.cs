@@ -8,7 +8,7 @@ public class GarbageBin : MonoBehaviour
     public GarbageType garbageType;
     public int numberOfCorrectItemsInBin = 0;
     public int numberOfIncorrectItemsInBin = 0;
-    public int numberOfIndisposableItemsInBit = 0;
+    public int numberOfIndisposableItemsInBin = 0;
 
     public Transform respawnLocation;
 
@@ -28,10 +28,7 @@ public class GarbageBin : MonoBehaviour
     {
         foreach(GameObject go in PuzzleManager.instance.GetGarbageList())
         {
-            if(go.GetComponent<GarbageItem>().garbageType == garbageType)
-            {
-                maxItems++;
-            }
+            maxItems++;
         }
     }
     private void OnCollisionEnter(Collision other)
@@ -53,15 +50,19 @@ public class GarbageBin : MonoBehaviour
                 {
                     numberOfIncorrectItemsInBin++;
                     Debug.Log("Player placed a item that shouldn't be in this bin, moving to respaw location");
-                    ResetLocation(other.transform.gameObject);
+                    Destroy(other.transform.gameObject);
+                    currentItems++;
+                    numberOfIncorrectItemsInBin++;
+                    TrackingController.instance.totalMistakes++;
                     collectionSounds.SetAudioClipAndPlay(false, false);
                 }
             }
             else
             {
-                numberOfIndisposableItemsInBit++;
+                numberOfIndisposableItemsInBin++;
                 Debug.Log("Player placed a item that shouldn't be disposed into the bin, moving to respawn location");
                 ResetLocation(other.transform.gameObject);
+                TrackingController.instance.totalMistakes++;
                 collectionSounds.SetAudioClipAndPlay(false, true);
             }
         }

@@ -35,6 +35,7 @@ public class ObjectiveManager : MonoBehaviour
     private void Start()
     {
         SetObjectiveList(TutorialObjectives);
+        TrackingController.instance.totalObjectives = TutorialObjectives.Count + MainObjectives.Count + EndObjectives.Count;
     }
 
     private int check = 0;

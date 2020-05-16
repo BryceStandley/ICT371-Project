@@ -23,6 +23,6 @@ public class MenuToGame : MonoBehaviour
 
     public void startGame() //starts the game from the story menu
     {
-        SceneManager.LoadScene("Backyard");
+        SceneManager.LoadScene("MainGame");
     }
 }

@@ -41,6 +41,7 @@ public class PuzzleManager : MonoBehaviour
                         if (obj.objective.ToLower().Contains("laundry"))//Extra check to enure we dont have duplicate ID's
                         {
                             obj.hasComplete = true;
+                            TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                             ObjectiveManager.instance.PlayCompleteObjectiveSound();
                             if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                             {
@@ -92,6 +93,7 @@ public class PuzzleManager : MonoBehaviour
                     if(obj.objectiveID == 96)
                     {
                         obj.hasComplete = true;
+                        TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                         ObjectiveManager.instance.PlayCompleteObjectiveSound();
                         if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                         {
@@ -136,6 +138,7 @@ public class PuzzleManager : MonoBehaviour
                         if (obj.objective.ToLower().Contains("tree"))//Extra check to enure we dont have duplicate ID's
                         {
                             obj.hasComplete = true;
+                            TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                             ObjectiveManager.instance.PlayCompleteObjectiveSound();
                             if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                             {
