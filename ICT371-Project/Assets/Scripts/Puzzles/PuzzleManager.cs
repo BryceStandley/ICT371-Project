@@ -98,7 +98,10 @@ public class PuzzleManager : MonoBehaviour
             DialogueManager.instance.StartDialogue(twoMistakesRubbishDialogue);
         }
 
-        if(total == garbageItems.Count)
+        Debug.Log(total);
+        Debug.Log(garbageItems.Count);
+
+        if (total == garbageItems.Count)
         {
             if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
             {
