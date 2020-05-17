@@ -13,25 +13,14 @@ public class GarbageBin : MonoBehaviour
     public Transform respawnLocation;
 
     public bool isFull = false;
-    private int maxItems = 0;
-    private int currentItems = 0;
 
     public CollectionSounds collectionSounds;
 
     private void Start() 
     {
         PuzzleManager.instance.AddGarbageBin(this);
-        Invoke("FindGarbageItems", 1f);
     }
 
-    private void FindGarbageItems()
-    {
-        foreach(GameObject go in PuzzleManager.instance.GetGarbageList())
-        {
-            maxItems++;
-        }
-        Debug.Log(maxItems);
-    }
     private void OnCollisionEnter(Collision other)
     {
         if(!isFull)
@@ -43,36 +32,33 @@ public class GarbageBin : MonoBehaviour
                 if(gi.garbageType == garbageType)
                 {
                     Destroy(other.transform.gameObject);
+                    //Debug.Log("Player placed Correct item in the bin");
                     numberOfCorrectItemsInBin++;
-                    currentItems++;
                     collectionSounds.SetAudioClipAndPlay(true, false);
+                    PuzzleManager.instance.CheckGarbageCollectionComplete();
                 }
                 else
                 {
                     numberOfIncorrectItemsInBin++;
-                    Debug.Log("Player placed a item that shouldn't be in this bin, moving to respaw location");
+                    //Debug.Log("Player placed Incorrect item in the bin");
                     Destroy(other.transform.gameObject);
-                    currentItems++;
                     numberOfIncorrectItemsInBin++;
                     TrackingController.instance.totalMistakes++;
                     collectionSounds.SetAudioClipAndPlay(false, false);
+                    PuzzleManager.instance.CheckGarbageCollectionComplete();
                 }
             }
             else
             {
                 numberOfIndisposableItemsInBin++;
-                Debug.Log("Player placed a item that shouldn't be disposed into the bin, moving to respawn location");
+                //Debug.Log("Player placed a puzzle item in the bin");
                 ResetLocation(other.transform.gameObject);
                 TrackingController.instance.totalMistakes++;
                 collectionSounds.SetAudioClipAndPlay(false, true);
+                PuzzleManager.instance.CheckGarbageCollectionComplete();
             }
         }
 
-        if(currentItems == maxItems)//Checking to see if the current amount of items in the bin is the max, if so bins full
-        {
-            isFull = true;
-            PuzzleManager.instance.CheckGarbageCollectionComplete();
-        }
     }
 
     private void ResetLocation(GameObject item)//Used to reset a indisposible item to a rejected spawn point

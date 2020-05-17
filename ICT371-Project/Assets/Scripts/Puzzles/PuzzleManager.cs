@@ -12,6 +12,7 @@ public class PuzzleManager : MonoBehaviour
     public Dialogue oneTreePlantedDialogue;
     public Dialogue allTreesPlantedDialogue;
     public Dialogue allRubbishCompletedDialogue;
+    public Dialogue twoMistakesRubbishDialogue;
     #endregion
     private void Awake()
     {
@@ -80,16 +81,24 @@ public class PuzzleManager : MonoBehaviour
 
     public void CheckGarbageCollectionComplete()
     {
-        int i = 0;
+        int total = 0;
+        int mistake = 0;
         foreach(GarbageBin bin in garbageBins)
         {
-            if(bin.isFull)
+            total += bin.numberOfCorrectItemsInBin + bin.numberOfIncorrectItemsInBin;
+            mistake += bin.numberOfIncorrectItemsInBin;
+            if(bin.numberOfIncorrectItemsInBin > 0)
             {
-                i++;
+                TrackingController.instance.totalMistakes++;
             }
         }
 
-        if(i == garbageBins.Count)
+        if(mistake == 2)
+        {
+            DialogueManager.instance.StartDialogue(twoMistakesRubbishDialogue);
+        }
+
+        if(total == garbageItems.Count)
         {
             if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
             {

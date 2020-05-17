@@ -143,6 +143,9 @@ public class Objective
     public ObjectiveType objectiveType;
     public enum ObjectiveType {Tutorial, Main, End};
 
+    public ObjectiveRequirement objectiveRequirement;
+    public enum ObjectiveRequirement {Required, Optional};
+
     public Objective()
     {
         objective = "Not Defined";
@@ -150,5 +153,6 @@ public class Objective
         objectiveID = 0;
         uiElement = null;
         objectiveType = ObjectiveType.Tutorial;
+        objectiveRequirement = ObjectiveRequirement.Optional;
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class ObjectPickUp : MonoBehaviour
 {
+    public static ObjectPickUp instance;
     public Image pointer;
     public Sprite handClosed, handOpen, defaultPointer;
     public bool disabledInput = false;
@@ -15,7 +16,7 @@ public class ObjectPickUp : MonoBehaviour
 
     private Ray centerRay;
     private Camera cam;
-    private bool holding = false;
+    public bool holding = false;
     private bool canPickUp = false;
 
     public GameObject lookedAtItem;
@@ -27,6 +28,10 @@ public class ObjectPickUp : MonoBehaviour
 
     private bool detailsDisplaying = false;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         screenWidth = Screen.width;
@@ -199,6 +204,7 @@ public class ObjectPickUp : MonoBehaviour
         item.GetComponent<PickUp>().pickedUp = false;
         item.GetComponent<PickUp>().DropItem();
         heldItem = null;
+        holding = false;
         ObjectInformationToolTip.HideTip();
         lookedAtItem = null;
     }

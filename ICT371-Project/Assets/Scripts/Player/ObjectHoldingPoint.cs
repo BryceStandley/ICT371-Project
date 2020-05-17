@@ -5,12 +5,8 @@ using UnityEngine;
 public class ObjectHoldingPoint : MonoBehaviour
 {
     public float distance = 5f;
-
-    private ObjectPickUp objPickUp;
-
     private void Start()
     {
-        objPickUp = FindObjectOfType<ObjectPickUp>();
         transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
     }
 
@@ -24,11 +20,21 @@ public class ObjectHoldingPoint : MonoBehaviour
     private void CheckGround()
     {
         RaycastHit hit = new RaycastHit();
-        Debug.DrawLine(Camera.main.transform.position, transform.position, Color.red, 5f);
+        //Debug.DrawLine(Camera.main.transform.position, transform.position, Color.red, 5f);
         if(Physics.Linecast(Camera.main.transform.position, transform.position, out hit))
         {
             Vector3 moveTo = new Vector3(hit.point.x + hit.normal.x * 0.5f, hit.point.y + hit.normal.y * 0.5f, hit.point.z + hit.normal.z * 0.5f);
             transform.position = moveTo;
+            if(hit.transform.gameObject.GetComponent<LightHousing>())
+            {
+                if(ObjectPickUp.instance.heldItem != null && ObjectPickUp.instance.heldItem.GetComponent<Lightbulb>())
+                {
+                    if(ObjectPickUp.instance.heldItem.GetComponent<Lightbulb>().lightbulbType == Lightbulb.LightbulbType.EnergySaver)
+                    {
+                        hit.transform.gameObject.GetComponent<LightHousing>().AcceptBulb(ObjectPickUp.instance.heldItem);
+                    }
+                }
+            }
         }
     }
 }
