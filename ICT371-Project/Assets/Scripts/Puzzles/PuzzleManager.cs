@@ -21,6 +21,7 @@ public class PuzzleManager : MonoBehaviour
         laundryItems = new List<GameObject>();
         garbageItems = new List<GameObject>();
         garbageBins = new List<GarbageBin>();
+        lightHousings = new List<GameObject>();
 
     }
 
@@ -29,9 +30,51 @@ public class PuzzleManager : MonoBehaviour
         currentObjectiveListType = ObjectiveManager.instance.objectiveListType;
     }
 
+    //Light changing puzzle
+    //using ObjectiveID of 95
+
+    private List<GameObject> lightHousings;
+
+
     //Laundry Puzzle
     //Using ObjectID of 98
     private List<GameObject> laundryItems;
+
+    public void AddLighHousing(GameObject item)
+    {
+        lightHousings.Add(item);
+    }
+
+    public void CheckAllLightsChanged()
+    {
+        int changed = 0;
+        foreach(GameObject lh in lightHousings)
+        {
+            if(lh.GetComponent<LightHousing>().changedBulb)
+            {
+                changed++;
+            }
+        }
+        if(changed == lightHousings.Count)
+        {
+            foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+            {
+                if(obj.objectiveID == 95)
+                {
+                    if(obj.objective.ToLower().Contains("light"))
+                    {
+                        obj.hasComplete = true;
+                        TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+                        ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                        if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+                        {
+                            ObjectiveManager.instance.CheckCompletedList();
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public void AddLaundryItem(GameObject item)
     {
@@ -85,7 +128,7 @@ public class PuzzleManager : MonoBehaviour
         int mistake = 0;
         foreach(GarbageBin bin in garbageBins)
         {
-            total += bin.numberOfCorrectItemsInBin + bin.numberOfIncorrectItemsInBin;
+            total += bin.binTotal;
             mistake += bin.numberOfIncorrectItemsInBin;
             if(bin.numberOfIncorrectItemsInBin > 0)
             {
@@ -97,9 +140,6 @@ public class PuzzleManager : MonoBehaviour
         {
             DialogueManager.instance.StartDialogue(twoMistakesRubbishDialogue);
         }
-
-        Debug.Log(total);
-        Debug.Log(garbageItems.Count);
 
         if (total == garbageItems.Count)
         {

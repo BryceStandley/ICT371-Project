@@ -10,6 +10,8 @@ public class GarbageBin : MonoBehaviour
     public int numberOfIncorrectItemsInBin = 0;
     public int numberOfIndisposableItemsInBin = 0;
 
+    public int binTotal = 0;
+
     public Transform respawnLocation;
 
     public bool isFull = false;
@@ -34,18 +36,20 @@ public class GarbageBin : MonoBehaviour
                     Destroy(other.transform.gameObject);
                     //Debug.Log("Player placed Correct item in the bin");
                     numberOfCorrectItemsInBin++;
+                    binTotal++;
                     collectionSounds.SetAudioClipAndPlay(true, false);
                     PuzzleManager.instance.CheckGarbageCollectionComplete();
+
                 }
                 else
                 {
-                    numberOfIncorrectItemsInBin++;
-                    //Debug.Log("Player placed Incorrect item in the bin");
                     Destroy(other.transform.gameObject);
                     numberOfIncorrectItemsInBin++;
+                    binTotal++;
                     TrackingController.instance.totalMistakes++;
                     collectionSounds.SetAudioClipAndPlay(false, false);
                     PuzzleManager.instance.CheckGarbageCollectionComplete();
+
                 }
             }
             else
