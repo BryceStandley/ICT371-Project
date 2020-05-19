@@ -81,6 +81,7 @@ public class SeedHole : MonoBehaviour
         parent.transform.localScale = new Vector3(scale, scale, scale);
         parent.transform.Rotate(new Vector3(0, Random.Range(0, 360), 0));
         meshCollider.sharedMesh = saplingMesh;
+        meshCollider.enabled = true;
 
     }
 }

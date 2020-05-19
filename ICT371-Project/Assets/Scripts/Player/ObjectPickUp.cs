@@ -109,12 +109,20 @@ public class ObjectPickUp : MonoBehaviour
             
         }
         else// Ray wasn't cast and player isn't holding item, setting pointer to default and hiding all prompts from the player
-            {
-                pointer.sprite = defaultPointer;
-                ObjectInformationToolTip.HidePrompt();
-                ObjectInformationToolTip.HideTip();
-                detailsDisplaying = false;
-            }
+        {
+            pointer.sprite = defaultPointer;
+            ObjectInformationToolTip.HidePrompt();
+            ObjectInformationToolTip.HideTip();
+            detailsDisplaying = false;
+            lookedAtItem = null;
+            canPickUp = false;
+            holding = false;
+        }
+
+        if(holding && heldItem != null)
+        {
+            pointer.sprite = handClosed;
+        }
 
     }
 

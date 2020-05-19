@@ -35,11 +35,6 @@ public class PuzzleManager : MonoBehaviour
 
     private List<GameObject> lightHousings;
 
-
-    //Laundry Puzzle
-    //Using ObjectID of 98
-    private List<GameObject> laundryItems;
-
     public void AddLighHousing(GameObject item)
     {
         lightHousings.Add(item);
@@ -76,6 +71,9 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
+    //Laundry Puzzle
+    //Using ObjectID of 98
+    private List<GameObject> laundryItems;
     public void AddLaundryItem(GameObject item)
     {
         laundryItems.Add(item);
@@ -84,22 +82,76 @@ public class PuzzleManager : MonoBehaviour
     public void SetLaundryCollectionComplete()
     {
         foreach (Objective obj in ObjectiveManager.instance.TutorialObjectives)
+        {
+            if (obj.objectiveID == 98)
+            {
+                if (obj.objective.ToLower().Contains("laundry"))//Extra check to enure we dont have duplicate ID's
                 {
-                    if (obj.objectiveID == 98)
+                    obj.hasComplete = true;
+                    TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+                    ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                    if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                     {
-                        if (obj.objective.ToLower().Contains("laundry"))//Extra check to enure we dont have duplicate ID's
-                        {
-                            obj.hasComplete = true;
-                            TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                            ObjectiveManager.instance.PlayCompleteObjectiveSound();
-                            if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
-                            {
-                                //Debug.Log("Objective Updated Correctly");
-                                ObjectiveManager.instance.CheckCompletedList();
-                            }
-                        }
+                        //Debug.Log("Objective Updated Correctly");
+                        ObjectiveManager.instance.CheckCompletedList();
                     }
                 }
+            }
+        }
+    }
+
+    //Washing Clothes Puzzle
+    //using Objective ID of 97
+
+    public void SetWashingClothesObjectiveComplete()
+    {
+        foreach (Objective obj in ObjectiveManager.instance.MainObjectives)
+        {
+            if (obj.objectiveID == 97)
+            {
+                if (obj.objective.ToLower().Contains("wash"))//Extra check to enure we dont have duplicate ID's
+                {
+                    obj.hasComplete = true;
+                    TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+                    ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                    if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+                    {
+                        ObjectiveManager.instance.CheckCompletedList();
+                        AddDryObjective();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void AddDryObjective()
+    {
+        ObjectiveManager.instance.AddNewMainObjective("Dry your clothes.", 94, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional);
+
+    }
+
+    //Dry Clothes Puzzle
+    //using objective ID of 94
+    public void SetDryClothesObjectiveComplete()
+    {
+        foreach (Objective obj in ObjectiveManager.instance.MainObjectives)
+        {
+            if (obj.objectiveID == 94)
+            {
+                if (obj.objective.ToLower().Contains("dry"))//Extra check to enure we dont have duplicate ID's
+                {
+                    obj.hasComplete = true;
+                    TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+                    ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                    if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+                    {
+                        //Debug.Log("Objective Updated Correctly");
+                        ObjectiveManager.instance.CheckCompletedList();
+                    }
+                }
+            }
+        }
     }
 
 
@@ -107,6 +159,7 @@ public class PuzzleManager : MonoBehaviour
     //Usign Objective ID of 96
     private List<GameObject> garbageItems;
     private List<GarbageBin> garbageBins;
+    private bool hasSeenMistakeMessage = false;
 
     public void AddGarbageItem(GameObject item)
     {
@@ -136,9 +189,10 @@ public class PuzzleManager : MonoBehaviour
             }
         }
 
-        if(mistake == 2)
+        if(mistake == 2 && !hasSeenMistakeMessage)
         {
             DialogueManager.instance.StartDialogue(twoMistakesRubbishDialogue);
+            hasSeenMistakeMessage = true;
         }
 
         if (total == garbageItems.Count)

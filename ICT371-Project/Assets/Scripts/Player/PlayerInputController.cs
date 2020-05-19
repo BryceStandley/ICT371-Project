@@ -5,12 +5,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputController : MonoBehaviour
 {
+    public static PlayerInputController instance;
     public PlayerController playerController;
     public PlayerLook playerLook;
     public ObjectPickUp objPickUp;
 
     private bool gamepad = false;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void OnInputChange(PlayerInput input)
     {

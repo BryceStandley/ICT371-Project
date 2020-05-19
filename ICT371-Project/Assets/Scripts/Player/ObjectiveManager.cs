@@ -95,6 +95,17 @@ public class ObjectiveManager : MonoBehaviour
         }
     }
 
+    public void AddNewMainObjective(string objective, int objID, Objective.ObjectiveType objType, Objective.ObjectiveRequirement objRequirement)
+    {
+        if(objectiveListType == ObjectiveListType.Main)
+        {   
+            GameObject uiElement = CreateNewObjectiveUIElement();
+            Objective obj = new Objective(objective, objID, uiElement, objType, objRequirement);
+            uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.objective);
+            MainObjectives.Add(obj);
+        }
+    }
+
     public void SetObjectiveList(List<Objective> objList)
     {
         foreach (Objective obj in objList)
@@ -106,6 +117,14 @@ public class ObjectiveManager : MonoBehaviour
             objective.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.objective);
             objectiveUI.Add(objective);
         }
+    }
+    public GameObject CreateNewObjectiveUIElement()
+    {
+        GameObject uiElement = Object.Instantiate(objectiveUIElement as GameObject);
+        uiElement.transform.SetParent(objectiveList.transform);
+        uiElement.transform.localScale = Vector3.one;
+        objectiveUI.Add(uiElement);
+        return uiElement;
     }
 
     private void ClearUI()
@@ -154,5 +173,14 @@ public class Objective
         uiElement = null;
         objectiveType = ObjectiveType.Tutorial;
         objectiveRequirement = ObjectiveRequirement.Optional;
+    }
+        public Objective(string obj, int id, GameObject element, ObjectiveType type, ObjectiveRequirement requirement)
+    {
+        objective = obj;
+        hasComplete = false;
+        objectiveID = id;
+        uiElement = element;
+        objectiveType = type;
+        objectiveRequirement = requirement;
     }
 }

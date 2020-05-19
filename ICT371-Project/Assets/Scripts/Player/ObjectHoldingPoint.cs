@@ -35,6 +35,27 @@ public class ObjectHoldingPoint : MonoBehaviour
                     }
                 }
             }
+            else if(hit.transform.gameObject.GetComponent<WashingMachine>())
+            {
+                if(ObjectPickUp.instance.heldItem != null && ObjectPickUp.instance.heldItem.GetComponent<LaundryBasket>())
+                {
+                    if(ObjectPickUp.instance.heldItem.GetComponent<LaundryBasket>().isFull)
+                    {
+                        hit.transform.gameObject.GetComponent<WashingMachine>().AcceptLaundryBasket(ObjectPickUp.instance.heldItem);
+                    }
+                }
+            }
+            else if(hit.transform.gameObject.GetComponent<Dryer>())
+            {
+                if(ObjectPickUp.instance.heldItem != null && ObjectPickUp.instance.heldItem.GetComponent<WashedBasket>())
+                {
+                    if(ObjectPickUp.instance.heldItem.GetComponent<WashedBasket>().hasClothes)
+                    {
+                        hit.transform.gameObject.GetComponent<Dryer>().AcceptWashedBasket(ObjectPickUp.instance.heldItem);
+                    }
+                }
+            }
+        
         }
     }
 }

@@ -10,6 +10,8 @@ public class LaundryBasket : MonoBehaviour
     private Rigidbody rb;
     private int percentageFull = 0;
 
+    public bool isFull = false;
+
     private void Awake()
     {
         meshFilter = GetComponent<MeshFilter>();
@@ -62,5 +64,6 @@ public class LaundryBasket : MonoBehaviour
     {
         //Debug.Log("All the laundry has been collected");
         PuzzleManager.instance.SetLaundryCollectionComplete();
+        isFull = true;
     }
 }
