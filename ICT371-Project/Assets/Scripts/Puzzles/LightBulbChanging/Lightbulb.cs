@@ -20,9 +20,12 @@ public class Lightbulb : MonoBehaviour
                 }
                 if(GetComponent<GarbageItem>())
                 {
-                    GetComponent<GarbageItem>().garbageType = GarbageBin.GarbageType.General;
-                    PuzzleManager.instance.AddGarbageItem(this.gameObject);
+                    GarbageItem gi = GetComponent<GarbageItem>();
+                    gi.garbageType = GarbageBin.GarbageType.General;
+                    gi.itemType = GarbageItem.ItemType.Bulb;
                     lightHousing.currentBulb = null;
+                    transform.localScale = new Vector3(0.4f, 0.4f ,0.4f); //resetting scale of the bulb
+                    
                 }
             }
         }

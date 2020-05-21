@@ -9,6 +9,7 @@ public class GarbageBin : MonoBehaviour
     public int numberOfCorrectItemsInBin = 0;
     public int numberOfIncorrectItemsInBin = 0;
     public int numberOfIndisposableItemsInBin = 0;
+    public int numberOfBulbsInBin = 0;
 
     public int binTotal = 0;
 
@@ -21,6 +22,10 @@ public class GarbageBin : MonoBehaviour
     private void Start() 
     {
         PuzzleManager.instance.AddGarbageBin(this);
+        if(garbageType == GarbageType.General)
+        {
+            PuzzleManager.instance.AddGeneralWasteBin(this);
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -29,27 +34,50 @@ public class GarbageBin : MonoBehaviour
         {
             if(other.transform.gameObject.GetComponent<GarbageItem>())
             {
-                //Item is a garbage item
                 GarbageItem gi = other.transform.gameObject.GetComponent<GarbageItem>();
-                if(gi.garbageType == garbageType)
-                {
-                    Destroy(other.transform.gameObject);
-                    //Debug.Log("Player placed Correct item in the bin");
-                    numberOfCorrectItemsInBin++;
-                    binTotal++;
-                    collectionSounds.SetAudioClipAndPlay(true, false);
-                    PuzzleManager.instance.CheckGarbageCollectionComplete();
+                if(gi.itemType == GarbageItem.ItemType.Normal)
+                { 
+                    //Item is a garbage item
+                    if(gi.garbageType == garbageType)
+                    {
+                        Destroy(other.transform.gameObject);
+                        //Debug.Log("Player placed Correct item in the bin");
+                        numberOfCorrectItemsInBin++;
+                        binTotal++;
+                        collectionSounds.SetAudioClipAndPlay(true, false);
+                        PuzzleManager.instance.CheckGarbageCollectionComplete();
 
+                    }
+                    else
+                    {
+                        Destroy(other.transform.gameObject);
+                        numberOfIncorrectItemsInBin++;
+                        binTotal++;
+                        TrackingController.instance.totalMistakes++;
+                        collectionSounds.SetAudioClipAndPlay(false, false);
+                        PuzzleManager.instance.CheckGarbageCollectionComplete();
+
+                    }
                 }
                 else
                 {
-                    Destroy(other.transform.gameObject);
-                    numberOfIncorrectItemsInBin++;
-                    binTotal++;
-                    TrackingController.instance.totalMistakes++;
-                    collectionSounds.SetAudioClipAndPlay(false, false);
-                    PuzzleManager.instance.CheckGarbageCollectionComplete();
+                    //Item isnt a notmal garbage item so must be a bulb
+                    if(gi.garbageType == garbageType)
+                    {
+                        Destroy(gi.gameObject);
+                        numberOfBulbsInBin++;
+                        collectionSounds.SetAudioClipAndPlay(true, false);
+                        PuzzleManager.instance.CheckBulbCollectionComplete();
+                    }
+                    else
+                    {
+                        Destroy(gi.gameObject);
+                        numberOfIncorrectItemsInBin++;
+                        TrackingController.instance.totalMistakes++;
+                        collectionSounds.SetAudioClipAndPlay(false, false);
+                        PuzzleManager.instance.CheckBulbCollectionComplete();
 
+                    }
                 }
             }
             else

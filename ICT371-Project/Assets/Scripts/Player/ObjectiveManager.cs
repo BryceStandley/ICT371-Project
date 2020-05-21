@@ -23,6 +23,7 @@ public class ObjectiveManager : MonoBehaviour
     public enum ObjectiveListType {Tutorial, Main, End};
 
     public List<Objective> TutorialObjectives;
+    public Animation[] doors;
     public List<Objective> MainObjectives;
     public List<Objective> EndObjectives;
 
@@ -58,6 +59,12 @@ public class ObjectiveManager : MonoBehaviour
                 SetObjectiveList(MainObjectives);
                 objectiveListType = ObjectiveListType.Main;
                 PuzzleManager.instance.currentObjectiveListType = ObjectiveListType.Main; 
+                //player has completed tutorial, open doors
+                foreach(Animation anim in doors)
+                {
+                    anim.Play("door");
+                }
+
             }
         }
         else if (objectiveListType == ObjectiveListType.Main)
@@ -95,12 +102,12 @@ public class ObjectiveManager : MonoBehaviour
         }
     }
 
-    public void AddNewMainObjective(string objective, int objID, Objective.ObjectiveType objType, Objective.ObjectiveRequirement objRequirement)
+    public void AddNewMainObjective(string objective, int objID, Objective.ObjectiveType objType, Objective.ObjectiveRequirement objRequirement, int percentage, int weight)
     {
         if(objectiveListType == ObjectiveListType.Main)
         {   
             GameObject uiElement = CreateNewObjectiveUIElement();
-            Objective obj = new Objective(objective, objID, uiElement, objType, objRequirement);
+            Objective obj = new Objective(objective, objID, uiElement, objType, objRequirement, percentage, weight);
             uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.objective);
             MainObjectives.Add(obj);
         }
@@ -121,8 +128,10 @@ public class ObjectiveManager : MonoBehaviour
     public GameObject CreateNewObjectiveUIElement()
     {
         GameObject uiElement = Object.Instantiate(objectiveUIElement as GameObject);
-        uiElement.transform.SetParent(objectiveList.transform);
         uiElement.transform.localScale = Vector3.one;
+        uiElement.transform.position = Vector3.zero;
+        uiElement.transform.localRotation = new Quaternion(0,0,0,0); //resetiing rotation of object incase it didnt spawn with the correct values
+        uiElement.transform.SetParent(objectiveList.transform);
         objectiveUI.Add(uiElement);
         return uiElement;
     }
@@ -164,6 +173,10 @@ public class Objective
 
     public ObjectiveRequirement objectiveRequirement;
     public enum ObjectiveRequirement {Required, Optional};
+    [Range(0, 100)]
+    public int puzzleCompletionPercentage = 0;
+    [Range(0,100)]
+    public int objectiveWeight = 0; //how mush this objective counts towards the final score
 
     public Objective()
     {
@@ -173,8 +186,10 @@ public class Objective
         uiElement = null;
         objectiveType = ObjectiveType.Tutorial;
         objectiveRequirement = ObjectiveRequirement.Optional;
+        puzzleCompletionPercentage = 0;
+        objectiveWeight = 0;
     }
-        public Objective(string obj, int id, GameObject element, ObjectiveType type, ObjectiveRequirement requirement)
+        public Objective(string obj, int id, GameObject element, ObjectiveType type, ObjectiveRequirement requirement, int percentage, int weight)
     {
         objective = obj;
         hasComplete = false;
@@ -182,5 +197,7 @@ public class Objective
         uiElement = element;
         objectiveType = type;
         objectiveRequirement = requirement;
+        puzzleCompletionPercentage = percentage;
+        objectiveWeight = weight;
     }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
 {
+    #region Variables
     public static PuzzleManager instance;
     public ObjectiveManager.ObjectiveListType currentObjectiveListType = ObjectiveManager.ObjectiveListType.Tutorial;
-
+    #endregion
 
     #region Dialogue Variables
     public Dialogue oneTreePlantedDialogue;
@@ -14,6 +15,8 @@ public class PuzzleManager : MonoBehaviour
     public Dialogue allRubbishCompletedDialogue;
     public Dialogue twoMistakesRubbishDialogue;
     #endregion
+
+    #region Awake Function and Setup
     private void Awake()
     {
         instance = this;
@@ -29,7 +32,9 @@ public class PuzzleManager : MonoBehaviour
     {
         currentObjectiveListType = ObjectiveManager.instance.objectiveListType;
     }
+    #endregion
 
+    #region Light Changing Puzzle
     //Light changing puzzle
     //using ObjectiveID of 95
 
@@ -43,34 +48,126 @@ public class PuzzleManager : MonoBehaviour
     public void CheckAllLightsChanged()
     {
         int changed = 0;
+        int percentage = 0;
+        Objective ob = new Objective();
+
+        foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+        {
+            if(obj.objectiveID == 95)
+            {
+                if(obj.objective.ToLower().Contains("light"))
+                {
+                    ob = obj;
+                    break;
+                }
+            }
+        }
+
         foreach(GameObject lh in lightHousings)
         {
             if(lh.GetComponent<LightHousing>().changedBulb)
             {
                 changed++;
+                percentage += 100 / lightHousings.Count;
             }
+        }
+        if(percentage > 95)
+        {
+            percentage = 100;
+        }
+        if(ob != null)
+        {
+            ob.puzzleCompletionPercentage = percentage;
         }
         if(changed == lightHousings.Count)
         {
-            foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+
+            if(ob != null)
             {
-                if(obj.objectiveID == 95)
+                ob.hasComplete = true;
+                TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+                ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
                 {
-                    if(obj.objective.ToLower().Contains("light"))
-                    {
-                        obj.hasComplete = true;
-                        TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                        ObjectiveManager.instance.PlayCompleteObjectiveSound();
-                        if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
-                        {
-                            ObjectiveManager.instance.CheckCompletedList();
-                        }
-                    }
+                    ObjectiveManager.instance.CheckCompletedList();
+                    AddLightTrashObjective();
+                    return; //breaking the loop as we have found the objective in the list
                 }
             }
         }
     }
 
+    private void AddLightTrashObjective()
+    {
+        ObjectiveManager.instance.AddNewMainObjective("Throw away the bulbs.", 93, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 10);
+
+    }
+    #endregion
+
+    #region Light Garbage Collection Puzzle
+    //Light buld Trash Puzzle
+    //Using objective id of 94
+    public List<GarbageBin> generalWasteBins = new List<GarbageBin>();
+
+    public void AddGeneralWasteBin(GarbageBin go)
+    {
+        generalWasteBins.Add(go);
+    }
+
+    public void CheckBulbCollectionComplete()
+    {
+        int count = 0;
+        int percentage = 0;
+        Objective ob = new Objective();
+
+        foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+        {
+            if(obj.objectiveID == 94)
+            {
+                if(obj.objective.ToLower().Contains("bulb"))
+                {
+                    ob = obj;
+                }
+            }
+        }
+
+        foreach(GarbageBin go in generalWasteBins)
+        {
+
+            count += go.numberOfBulbsInBin;
+            percentage += (100 / lightHousings.Count) * go.numberOfBulbsInBin;
+            
+        }
+        
+        if(percentage > 95)
+        {
+            percentage = 100;
+        }
+        if(ob != null)
+        {
+            ob.puzzleCompletionPercentage = percentage;
+        }
+        if(count == lightHousings.Count)
+        {
+            if(ob != null)
+            {
+                ob.hasComplete = true;
+                TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+                ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
+                {
+                    ObjectiveManager.instance.CheckCompletedList();
+                    AddLightTrashObjective();
+                    return; //breaking the loop as we have found the objective in the list
+                }
+            }
+            
+        }
+
+    }
+    #endregion
+
+    #region Laundry Collection Puzzle
     //Laundry Puzzle
     //Using ObjectID of 98
     private List<GameObject> laundryItems;
@@ -100,6 +197,9 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
+    #endregion
+    
+    #region Washing Clothes Puzzle
     //Washing Clothes Puzzle
     //using Objective ID of 97
 
@@ -127,10 +227,13 @@ public class PuzzleManager : MonoBehaviour
 
     private void AddDryObjective()
     {
-        ObjectiveManager.instance.AddNewMainObjective("Dry your clothes.", 94, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional);
+        ObjectiveManager.instance.AddNewMainObjective("Dry your clothes.", 94, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 20);
 
     }
 
+    #endregion
+   
+    #region Drying Clothes Puzzle
     //Dry Clothes Puzzle
     //using objective ID of 94
     public void SetDryClothesObjectiveComplete()
@@ -153,8 +256,9 @@ public class PuzzleManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
-
+    #region Garbage Collection Puzzle
     //Garbage Collection Puzzle
     //Usign Objective ID of 96
     private List<GameObject> garbageItems;
@@ -183,10 +287,7 @@ public class PuzzleManager : MonoBehaviour
         {
             total += bin.binTotal;
             mistake += bin.numberOfIncorrectItemsInBin;
-            if(bin.numberOfIncorrectItemsInBin > 0)
-            {
-                TrackingController.instance.totalMistakes++;
-            }
+            //removed mistake counter as mistakes are added to the tracker in the bin script
         }
 
         if(mistake == 2 && !hasSeenMistakeMessage)
@@ -216,7 +317,9 @@ public class PuzzleManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Tree Planting Puzzle
     //Tree Puzzle
     //Using Objective ID of 99 as the tree puzzle Objective ID
     private List<GameObject> holesInWorld;
@@ -229,12 +332,31 @@ public class PuzzleManager : MonoBehaviour
     public void CheckTreePuzzleComplete()//This is a temp method to track the tree puzzle, a more dynamic method will be used later
     {
         int count = 0;
+        int percentage = 0;
+        Objective ob = new Objective();
+
+        if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
+        {
+            foreach (Objective obj in ObjectiveManager.instance.MainObjectives)
+            {
+                if (obj.objectiveID == 99)
+                {
+                    if (obj.objective.ToLower().Contains("tree"))//Extra check to enure we dont have duplicate ID's
+                    {
+                        ob = obj;
+                        break;
+                    }
+                }
+            }
+        }
+
         foreach(GameObject hole in holesInWorld)
         {
             SeedHole h = hole.GetComponent<SeedHole>();
             if(h.hasBeenPlanted)
             {
                 count++;
+                percentage += 100/3;
             }
 
         }
@@ -242,30 +364,27 @@ public class PuzzleManager : MonoBehaviour
         {
             DialogueManager.instance.StartDialogue(oneTreePlantedDialogue);
         }
+        if(percentage > 90)
+        {
+            percentage = 100;
+        }
         if(count == holesInWorld.Count)
         {
             //get objective manager and update ui
-            if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
+            ob.hasComplete = true;
+            ob.puzzleCompletionPercentage = percentage;
+            DialogueManager.instance.StartDialogue(allTreesPlantedDialogue);
+            TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+            ObjectiveManager.instance.PlayCompleteObjectiveSound();
+            if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
             {
-                foreach (Objective obj in ObjectiveManager.instance.MainObjectives)
-                {
-                    if (obj.objectiveID == 99)
-                    {
-                        if (obj.objective.ToLower().Contains("tree"))//Extra check to enure we dont have duplicate ID's
-                        {
-                            obj.hasComplete = true;
-                            DialogueManager.instance.StartDialogue(allTreesPlantedDialogue);
-                            TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                            ObjectiveManager.instance.PlayCompleteObjectiveSound();
-                            if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
-                            {
-                                //Debug.Log("Objective Updated Correctly");
-                                ObjectiveManager.instance.CheckCompletedList();
-                            }
-                        }
-                    }
-                }
+                //Debug.Log("Objective Updated Correctly");
+                ObjectiveManager.instance.CheckCompletedList();
+                return;
             }
+            
         }
     }
+    #endregion
+
 }

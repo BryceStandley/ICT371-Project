@@ -2591,7 +2591,7 @@ RectTransform:
   m_Children:
   - {fileID: 3997903854141459647}
   m_Father: {fileID: 1734021724923278273}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3462,6 +3462,7 @@ MonoBehaviour:
   isWashingMachine: 0
   washingMachine: {fileID: 0}
   dryer: {fileID: 0}
+  machineTimersInSeconds: 60
 --- !u!1 &1985006909312586557
 GameObject:
   m_ObjectHideFlags: 0
@@ -3651,7 +3652,7 @@ RectTransform:
   - {fileID: 8306069574735843301}
   - {fileID: 5769370642622194016}
   m_Father: {fileID: 1734021724923278273}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3965,7 +3966,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -125}
+  m_AnchoredPosition: {x: 0, y: -124.99988}
   m_SizeDelta: {x: 990, y: 246}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5329075058572986965
@@ -5374,12 +5375,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTimeInSeconds: 0
-  avgDailyPowerGeneratedInKw: 0
-  avgDailyPowerConsumedInKw: 0
-  avgDailyPowerUsageInKw: 0
+  avgDailyPowerGeneratedInKwh: 0
+  avgDailyPowerConsumedInKwh: 0
+  avgDailyPowerUsageInKwh: 0
   avgDailyWaterConsumedInL: 0
   avgDailyNaturalGasConsumedInUnits: 0
-  avgDailyCarbonFootprintInGHG: 0
+  avgDailyCarbonFootprintInKg: 0
 --- !u!1 &3783835372015815926
 GameObject:
   m_ObjectHideFlags: 0
@@ -6067,6 +6068,7 @@ MonoBehaviour:
     type: 2}
   twoMistakesRubbishDialogue: {fileID: 11400000, guid: 42e7dbd36446ade459b5be0afb85ef5d,
     type: 2}
+  generalWasteBins: []
 --- !u!1 &4661375244225665166
 GameObject:
   m_ObjectHideFlags: 0
@@ -7173,6 +7175,8 @@ MonoBehaviour:
     uiElement: {fileID: 0}
     objectiveType: 0
     objectiveRequirement: 1
+    puzzleCompletionPercentage: 0
+    objectiveWeight: 0
   MainObjectives:
   - objective: Plant Some Trees!
     objectiveID: 99
@@ -7180,30 +7184,40 @@ MonoBehaviour:
     uiElement: {fileID: 0}
     objectiveType: 1
     objectiveRequirement: 1
+    puzzleCompletionPercentage: 0
+    objectiveWeight: 0
   - objective: Wash your dirty laundry
     objectiveID: 97
     hasComplete: 0
     uiElement: {fileID: 0}
     objectiveType: 1
     objectiveRequirement: 1
+    puzzleCompletionPercentage: 0
+    objectiveWeight: 0
   - objective: Collect the trash
     objectiveID: 96
     hasComplete: 0
     uiElement: {fileID: 0}
     objectiveType: 1
     objectiveRequirement: 1
+    puzzleCompletionPercentage: 0
+    objectiveWeight: 0
   - objective: Change the lights
     objectiveID: 95
     hasComplete: 0
     uiElement: {fileID: 0}
     objectiveType: 1
     objectiveRequirement: 1
+    puzzleCompletionPercentage: 0
+    objectiveWeight: 0
   - objective: 
     objectiveID: 0
     hasComplete: 0
     uiElement: {fileID: 0}
     objectiveType: 0
     objectiveRequirement: 1
+    puzzleCompletionPercentage: 0
+    objectiveWeight: 0
   EndObjectives:
   - objective: Go to work
     objectiveID: 1
@@ -7211,6 +7225,8 @@ MonoBehaviour:
     uiElement: {fileID: 0}
     objectiveType: 2
     objectiveRequirement: 1
+    puzzleCompletionPercentage: 0
+    objectiveWeight: 0
   objectiveUI: []
   taskCompleteAudio: {fileID: 8300000, guid: 72b57691467af4cfea48b54a5b8e2b2c, type: 3}
   audioSource: {fileID: 0}
@@ -9062,6 +9078,113 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 3
+--- !u!1 &7456193771882030538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4787460940079592790}
+  - component: {fileID: 2885369936820256044}
+  - component: {fileID: 6600386446981079054}
+  - component: {fileID: 5696975468111448718}
+  - component: {fileID: 6992269506814354052}
+  m_Layer: 0
+  m_Name: BlackFade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4787460940079592790
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456193771882030538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1734021724923278273}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2885369936820256044
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456193771882030538}
+  m_CullTransparentMesh: 0
+--- !u!114 &6600386446981079054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456193771882030538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!111 &5696975468111448718
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456193771882030538}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 6c3affab0f8023744abf8e8f080744a5, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &6992269506814354052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456193771882030538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6a52ea3c9edcfe4690b73c939ed2c4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackFadeAnimation: {fileID: 5696975468111448718}
+  blackFadeImage: {fileID: 6600386446981079054}
+  openingGameDialogue: {fileID: 11400000, guid: cdfd96c140c52a641aed4bf9959e9e3d,
+    type: 2}
 --- !u!1 &7505735890167536573
 GameObject:
   m_ObjectHideFlags: 0
@@ -11542,8 +11665,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 218492791594372750}
-  - {fileID: 692432318618081554}
   - {fileID: 3075665656771034944}
+  - {fileID: 4787460940079592790}
+  - {fileID: 692432318618081554}
   m_Father: {fileID: 8135916888646205452}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12468,6 +12592,12 @@ PrefabInstance:
       objectReference: {fileID: 3997903854141459647}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6268002b86eab4f80827e8e3665498c5, type: 3}
+--- !u!4 &6258174356907627260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1640775770853126635, guid: 6268002b86eab4f80827e8e3665498c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4619766008535884567}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8261310561070852825 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3655417228322081230, guid: 6268002b86eab4f80827e8e3665498c5,
@@ -12480,12 +12610,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddd7a92302c4407fb892abafacc84ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6258174356907627260 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1640775770853126635, guid: 6268002b86eab4f80827e8e3665498c5,
-    type: 3}
-  m_PrefabInstance: {fileID: 4619766008535884567}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5508351132769825939
 PrefabInstance:
   m_ObjectHideFlags: 0

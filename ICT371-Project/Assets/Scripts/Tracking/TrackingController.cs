@@ -19,11 +19,11 @@ public class TrackingController : MonoBehaviour
     public int totalMistakes {get; set;} //How many times the player could of chosen a better option
 
     //POWER VARIABLES
-    public static readonly float s_benchmarkPowerGeneratedInKW = 0f;//Base power generated
-    public float avgDailyPowerGeneratedInKw = 0f; //Average power generated daily by solar
-    public static readonly float s_benchmarkPowerConsumedInKw = 0f;// Base power consumed
-    public float avgDailyPowerConsumedInKw = 0f; //Average power consumed  daily by the player
-    public float avgDailyPowerUsageInKw = 0f;// Average power usage based on power consumed and generated
+    public static readonly float s_benchmarkPowerGeneratedInKwh = 0f;//Base power generated
+    public float avgDailyPowerGeneratedInKwh = 0f; //Average power generated daily by solar
+    public static readonly float s_benchmarkPowerConsumedInKwh = 0f;// Base power consumed
+    public float avgDailyPowerConsumedInKwh = 0f; //Average power consumed  daily by the player
+    public float avgDailyPowerUsageInKwh = 0f;// Average power usage based on power consumed and generated
 
     //WATER VARIABLES
     public static readonly float s_benchmarkWaterConsumedInL = 0f;//Base water usage
@@ -34,8 +34,8 @@ public class TrackingController : MonoBehaviour
     public float avgDailyNaturalGasConsumedInUnits = 0f; //Average Daily natural gas usage
     
     //EMMISIONS VARIABLES
-    public static readonly float s_benchmarkCarbonFootprintInGHG = 0f;//Base carbon footprint in Greenhouse Gas
-    public float avgDailyCarbonFootprintInGHG  = 0f;
+    public static readonly float s_benchmarkCarbonFootprintInKg = 0f;//Base carbon footprint in Greenhouse Gas
+    public float avgDailyCarbonFootprintInKg  = 0f;
 
     //PUZZLE VARIABLES
 
@@ -58,23 +58,23 @@ public class TrackingController : MonoBehaviour
         #region PowerGenerated
         public void IncreasePowerGenerated(float amount)
         {
-            avgDailyPowerGeneratedInKw += amount;
+            avgDailyPowerGeneratedInKwh += amount;
         }
 
         public void DecreasePowerGenerated(float amount)
         {
-            avgDailyPowerGeneratedInKw -= amount;
+            avgDailyPowerGeneratedInKwh -= amount;
         }
         #endregion
 
         #region PowerConsumed
         public void IncreasePowerConsumed(float amount)
         {
-            avgDailyPowerConsumedInKw += amount;
+            avgDailyPowerConsumedInKwh += amount;
         }
             public void DecreasePowerConsumed(float amount)
         {
-            avgDailyPowerConsumedInKw -= amount;
+            avgDailyPowerConsumedInKwh -= amount;
         }
         #endregion
 
@@ -104,11 +104,11 @@ public class TrackingController : MonoBehaviour
         #region Global Emmisions
         public void IncreaseCarbonFootprint(float amount)
         {
-            avgDailyCarbonFootprintInGHG += amount;
+            avgDailyCarbonFootprintInKg += amount;
         }
         public void DecreaseCarbonFootprint(float amount)
         {
-            avgDailyCarbonFootprintInGHG -= amount;
+            avgDailyCarbonFootprintInKg -= amount;
         }
         #endregion
     #endregion

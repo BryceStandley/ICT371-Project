@@ -48,6 +48,7 @@ public class TemperatureController : MonoBehaviour
             dry.tempDryedAt = tempWashedAt;
             dry.dryingComplete = true;
             dry.ResetBasket();
+            //Add change of percentage based on how the clothes were dried
             PuzzleManager.instance.SetDryClothesObjectiveComplete();
         }
     }

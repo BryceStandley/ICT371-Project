@@ -17,7 +17,9 @@ MonoBehaviour:
   sentences:
   - "\u201CHey TMC, GovBot here. I was sent by the CCS to monitor your performance
     today. Sorry for waking you up through telepathy, but we have got to get a move
-    on!\u201D\r\n\u201CBefore I can let you leave your bedroom, I need you to pick
-    up all your dirty clothes and put them in the laundry basket. Doing so will prove
-    to me that you can listen to instructions.\u201D\n\r\n\u201COnce you\u2019ve
-    filled your laundry basket, come meet me in the living room.\u201D\r"
+    on!\u201D\r"
+  - "\u201CBefore I can let you leave your bedroom, I need you to pick up all your
+    dirty clothes and put them in the laundry basket. Doing so will prove to me that
+    you can listen to instructions.\u201D"
+  - "\u201COnce you\u2019ve filled your laundry basket, come meet me in the living
+    room.\u201D\r"
