@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class GameStart : MonoBehaviour
 {
     public Animation blackFadeAnimation;
-    public Image blackFadeImage;
+    public GameObject blackFadeImage;
     public Dialogue openingGameDialogue;
 
     private void Start()
     {
-        blackFadeImage.color = new Color(0,0,0,255);
+        blackFadeImage.GetComponent<Image>().color = new Color(0,0,0,255);
         blackFadeAnimation.Play("blackFadeOut");
         Invoke("TriggerDialogue", 1.3f);
     }
@@ -19,5 +19,7 @@ public class GameStart : MonoBehaviour
     private void TriggerDialogue()
     {
         DialogueManager.instance.StartDialogue(openingGameDialogue);
+        blackFadeImage.SetActive(false);
+
     }
 }

@@ -11,6 +11,7 @@ using UnityEngine.EventSystems;
 public class PauseMenu : MonoBehaviour
 {
     public static bool isGamePaused = false;
+    public bool inDialogue = true;
     public GameObject pauseMenuUI;
     public GameObject gameplayUI;
     public GameObject buttons;
@@ -60,11 +61,11 @@ public class PauseMenu : MonoBehaviour
     {
         if(callback.performed)
         {
-            if(isGamePaused)//if game is paused
+            if(isGamePaused && !inDialogue)//if game is paused
             {
                 Resume();
             }
-            else//if game isn't paused
+            else if(!isGamePaused && !inDialogue)//if game isn't paused
             {
                 Pause();
             }

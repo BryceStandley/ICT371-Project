@@ -10,7 +10,9 @@ public class TemperatureController : MonoBehaviour
     public bool isWashingMachine = false;
     public GameObject washingMachine;
     public GameObject dryer;
-    public float machineTimersInSeconds = 60f;
+    public float machineTimersInSeconds = 60;
+    public TimerUI washingMachineTimerUI;
+    public TimerUI dryerTimerUI;
     public void MakeWashingMachine()
     {
         machineName.text = "Washing Machine";
@@ -28,7 +30,37 @@ public class TemperatureController : MonoBehaviour
         tempWashedAt = temp;
         temperatureUI.SetActive(false);
         PlayerInputController.instance.EnablePlayerControls();
-        Invoke("EndTimer", machineTimersInSeconds);//Starting a timer that waits 60 seconds before machine is finished;
+        if(isWashingMachine)
+        {
+            washingMachineTimerUI.gameObject.SetActive(true);
+            StartCoroutine("UpdateWasherTimer");
+        }
+        else
+        {
+            dryerTimerUI.gameObject.SetActive(true);
+            StartCoroutine("UpdateDryerTimer");
+        }
+        Invoke("EndTimer", machineTimersInSeconds);//Starting a timer that waits x seconds before machine is finished;
+    }
+
+    float timer = 0;
+    IEnumerator UpdateWasherTimer()
+    {
+        for(int i = 0; i < machineTimersInSeconds; i++)
+        {
+            timer += 100 / machineTimersInSeconds;
+            washingMachineTimerUI.UpdateSliderVal(timer);
+            yield return new WaitForSeconds(1);
+        }
+    }
+    IEnumerator UpdateDryerTimer()
+    {
+        for(int i = 0; i < machineTimersInSeconds; i++)
+        {
+            timer += 100 / machineTimersInSeconds;
+            dryerTimerUI.UpdateSliderVal(timer);
+            yield return new WaitForSeconds(1);
+        }
     }
 
     private void EndTimer()

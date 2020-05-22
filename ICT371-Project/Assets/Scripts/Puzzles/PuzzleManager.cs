@@ -14,6 +14,8 @@ public class PuzzleManager : MonoBehaviour
     public Dialogue allTreesPlantedDialogue;
     public Dialogue allRubbishCompletedDialogue;
     public Dialogue twoMistakesRubbishDialogue;
+    public Dialogue unpluggingFirstBulbDialogue;
+
     #endregion
 
     #region Awake Function and Setup
@@ -90,28 +92,34 @@ public class PuzzleManager : MonoBehaviour
                 if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
                 {
                     ObjectiveManager.instance.CheckCompletedList();
-                    AddLightTrashObjective();
                     return; //breaking the loop as we have found the objective in the list
                 }
             }
         }
     }
 
-    private void AddLightTrashObjective()
-    {
-        ObjectiveManager.instance.AddNewMainObjective("Throw away the bulbs.", 93, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 10);
-
-    }
     #endregion
 
     #region Light Garbage Collection Puzzle
     //Light buld Trash Puzzle
     //Using objective id of 94
     public List<GarbageBin> generalWasteBins = new List<GarbageBin>();
+    private bool lightBulbGarbageObjectiveCreated = false;
+    
 
     public void AddGeneralWasteBin(GarbageBin go)
     {
         generalWasteBins.Add(go);
+    }
+
+    public void CreateLightBulbGarbageObjective()
+    {
+        if(!lightBulbGarbageObjectiveCreated)
+        {
+            ObjectiveManager.instance.AddNewMainObjective("Throw away the bulbs.", 94, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 10);
+            lightBulbGarbageObjectiveCreated = true;
+            DialogueManager.instance.StartDialogue(unpluggingFirstBulbDialogue);
+        }
     }
 
     public void CheckBulbCollectionComplete()
@@ -127,6 +135,7 @@ public class PuzzleManager : MonoBehaviour
                 if(obj.objective.ToLower().Contains("bulb"))
                 {
                     ob = obj;
+                    break; //breaking the loop, found the objective
                 }
             }
         }
@@ -154,14 +163,11 @@ public class PuzzleManager : MonoBehaviour
                 ob.hasComplete = true;
                 TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                 ObjectiveManager.instance.PlayCompleteObjectiveSound();
-                if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
+                if(ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
                 {
                     ObjectiveManager.instance.CheckCompletedList();
-                    AddLightTrashObjective();
-                    return; //breaking the loop as we have found the objective in the list
                 }
             }
-            
         }
 
     }

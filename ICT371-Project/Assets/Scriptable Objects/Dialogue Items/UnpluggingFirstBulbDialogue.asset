@@ -17,6 +17,6 @@ MonoBehaviour:
   sentences:
   - "\u201CSmart thinking TMC. These incandescent light bulbs can indeed be replaced
     by energy efficient bulbs. I have left some new bulbs somewhere in the house
-    for you to replace the incandescent bulbs with.\u201D\r\n\n\u201CFeel free to
-    change over all the lights once you find them, and do make sure to place the
-    old bulbs in the appropriate rubbish bin.\""
+    for you to replace the incandescent bulbs with.\u201D\r"
+  - "\u201CFeel free to change over all the lights once you find them, and do make
+    sure to place the old bulbs in the appropriate rubbish bin.\""

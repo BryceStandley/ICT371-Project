@@ -17,10 +17,13 @@ MonoBehaviour:
   sentences:
   - "\u201CGood idea TMC! Replacing incandescent bulbs with energy efficient bulbs
     like compact fluorescent bulbs (CFL) or LED bulbs can reduce your carbon footprint
-    and your electricity expenditure.\u201D\r\n\n\u201CEnergy efficient bulbs can
-    last up to six times longer than incandescent bulbs, meaning if you were to have
-    20 energy efficient bulbs in your home at any one time, by the time you throw
-    the 20 away, you would have used 120 incandescent bulbs.\"\n \r\n\"Energy efficient
-    bulbs save energy themselves, but they also save carbon emissions that would
-    be required to transport, manufacture and dispose of the energy hungry incandescent
-    bulbs.\"\r\n"
+    and your electricity expenditure.\u201D\r"
+  - "\u201CEnergy efficient bulbs can last up to six times longer than incandescent
+    bulbs, meaning if you were to have 20 energy efficient bulbs in your home at
+    any one time, by the time you throw the 20 away, you would have used 120 incandescent
+    bulbs.\""
+  - '"Energy efficient bulbs save energy themselves, but they also save carbon emissions
+    that would be required to transport, manufacture and dispose of the energy hungry
+    incandescent bulbs."
+
+'

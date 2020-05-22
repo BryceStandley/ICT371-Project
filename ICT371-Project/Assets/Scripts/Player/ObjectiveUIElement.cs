@@ -12,7 +12,7 @@ public class ObjectiveUIElement : MonoBehaviour
 
 
 
-    public void UpdateObjective(string obj)
+    public void UpdateObjective(string obj)//Overload so we can use the same function name ot update the text and if the objective is complete
     {
         objectiveText.text = obj;
         hasCompletedTick.color = Color.clear;

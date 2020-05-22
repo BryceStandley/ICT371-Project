@@ -7,23 +7,19 @@ using DG.Tweening;
 using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
-{   
+{
+    #region  Variables   
     public static DialogueManager instance;
-
-    //Reference to allow player input to be turned on and off
-    public PlayerInputController playerInputController;
-
+    public GameObject dialogueUIElement;
     public TextMeshProUGUI dialogueName;
     public TextMeshProUGUI dialogueSentence;
     public GameObject continueButton;
-
-
     public RectTransform dialogueBox;
-
     private GameObject originalSelectedObject;
     private Queue<string> sentences;
     private EventSystem es;
-
+    public PauseMenu pauseMenu;
+    #endregion
     private void Awake()
     {
         instance = this;
@@ -31,16 +27,18 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
-        playerInputController = FindObjectOfType<PlayerInputController>();
         es = FindObjectOfType<EventSystem>();
+        dialogueUIElement.SetActive(false);
+
     }
 
     public void StartDialogue(Dialogue dialogue)//Method triggered when a dialogue is triggered
 	{
-        
+        pauseMenu.inDialogue = true;
+        dialogueUIElement.SetActive(true);
         dialogueName.text = dialogue.npcName;
 
-        playerInputController.DisablePlayerControls();//Stopping the player from being able to look and move
+        PlayerInputController.instance.DisablePlayerControls();//Stopping the player from being able to look and move
 
         sentences.Clear();//Clearing the sentence queue of any old sentences
 
@@ -70,9 +68,17 @@ public class DialogueManager : MonoBehaviour
         //Debug.Log("Dialogue Ended...");
         dialogueBox.DOAnchorPos(new Vector2(0, -125), 0.5f);//Animates dialogue box out of cameras view
         es.SetSelectedGameObject(originalSelectedObject);
-        playerInputController.EnablePlayerControls();
+        PlayerInputController.instance.EnablePlayerControls();
+        Invoke("DisableDialogue",0.6f);
         
         
+        
+    }
+
+    private void DisableDialogue()
+    {
+        dialogueUIElement.SetActive(false);
+        pauseMenu.inDialogue = false;
     }
 
     private void ChangeSelectedItem()
