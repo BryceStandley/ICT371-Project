@@ -44,6 +44,13 @@ public class ObjectHoldingPoint : MonoBehaviour
                         hit.transform.gameObject.GetComponent<WashingMachine>().AcceptLaundryBasket(ObjectPickUp.instance.heldItem);
                     }
                 }
+                else if(ObjectPickUp.instance.heldItem != null && ObjectPickUp.instance.heldItem.GetComponent<WashedBasket>())
+                {
+                    if(!ObjectPickUp.instance.heldItem.GetComponent<WashedBasket>().hasClothes)
+                    {
+                        hit.transform.gameObject.GetComponent<WashingMachine>().TakeWashing(ObjectPickUp.instance.heldItem);
+                    }
+                }
             }
             else if(hit.transform.gameObject.GetComponent<Dryer>())
             {
@@ -52,6 +59,16 @@ public class ObjectHoldingPoint : MonoBehaviour
                     if(ObjectPickUp.instance.heldItem.GetComponent<WashedBasket>().hasClothes)
                     {
                         hit.transform.gameObject.GetComponent<Dryer>().AcceptWashedBasket(ObjectPickUp.instance.heldItem);
+                    }
+                }
+            }
+            else if(hit.transform.gameObject.GetComponent<Clothesline>())
+            {
+                if(ObjectPickUp.instance.heldItem != null && ObjectPickUp.instance.heldItem.GetComponent<WashedBasket>())
+                {
+                    if(ObjectPickUp.instance.heldItem.GetComponent<WashedBasket>().hasClothes)
+                    {
+                        hit.transform.gameObject.GetComponent<Clothesline>().AcceptBasket(ObjectPickUp.instance.heldItem);
                     }
                 }
             }

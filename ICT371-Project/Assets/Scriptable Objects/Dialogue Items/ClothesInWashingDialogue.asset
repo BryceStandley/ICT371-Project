@@ -16,8 +16,9 @@ MonoBehaviour:
   npcName: GOV Bot
   sentences:
   - "\u201CThe colder water is when you wash your clothes, the less carbon emissions
-    are created.\u201D\r\n\n\u201CWashing your clothes with a washing machine is
-    always going to emit some carbon dioxide, however washing colder can reduce the
-    amount significantly.\u201D\n\r\n\u201C75% of energy required to do a load of
-    washing is used to heat the water, so washing cold doesn\u2019t just significantly
-    drive down your power bill, but also your carbon footprint.\u201D\r\n"
+    are created.\u201D\r\n"
+  - "\u201CWashing your clothes with a washing machine is always going to emit some
+    carbon dioxide, however washing colder can reduce the amount significantly.\u201D\n"
+  - "\u201C75% of energy required to do a load of washing is used to heat the water,
+    so washing cold doesn\u2019t just significantly drive down your power bill, but
+    also your carbon footprint.\u201D\r\n"

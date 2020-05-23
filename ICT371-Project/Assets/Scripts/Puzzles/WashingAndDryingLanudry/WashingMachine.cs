@@ -11,7 +11,7 @@ public class WashingMachine : MonoBehaviour
     public int tempWashedAt = 0;
     public bool washComplete = false;
 
-    private void OnCollisionEnter(Collision other)
+    public void TakeWashing(GameObject other)
     {
         if(other.gameObject.GetComponent<WashedBasket>() && washComplete)
         {

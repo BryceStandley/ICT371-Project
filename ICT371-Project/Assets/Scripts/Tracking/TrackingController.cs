@@ -11,6 +11,7 @@ public class TrackingController : MonoBehaviour
         instance = this;
     }
     #endregion
+
     #region Variables
     //BASE GAME VARIABLES
     public float gameTimeInSeconds = 0f; //Game time in seconds
@@ -38,6 +39,12 @@ public class TrackingController : MonoBehaviour
     public float avgDailyCarbonFootprintInKg  = 0f;
 
     //PUZZLE VARIABLES
+
+    #region Washing And Drying Clothes
+    public int tempClothesWashedAt {get; set;}
+    public int tempClothesDriedAt {get; set;}
+    public bool driedWithDryer = false;
+    #endregion
 
 
     #endregion
@@ -114,6 +121,12 @@ public class TrackingController : MonoBehaviour
     #endregion
 
     #region Puzzle Functions
+
+        #region Washing and Drying Clothes Functions
+        
+        #endregion
+
+
 
     #endregion
 

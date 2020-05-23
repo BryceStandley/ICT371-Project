@@ -13,6 +13,9 @@ public class TemperatureController : MonoBehaviour
     public float machineTimersInSeconds = 60;
     public TimerUI washingMachineTimerUI;
     public TimerUI dryerTimerUI;
+
+    public Dialogue clothesInWashingMachineDialogue;
+    public Dialogue clothesInDryerDialogue;
     public void MakeWashingMachine()
     {
         machineName.text = "Washing Machine";
@@ -34,11 +37,13 @@ public class TemperatureController : MonoBehaviour
         {
             washingMachineTimerUI.gameObject.SetActive(true);
             StartCoroutine("UpdateWasherTimer");
+            DialogueManager.instance.StartDialogue(clothesInWashingMachineDialogue);
         }
         else
         {
             dryerTimerUI.gameObject.SetActive(true);
             StartCoroutine("UpdateDryerTimer");
+            DialogueManager.instance.StartDialogue(clothesInDryerDialogue);
         }
         Invoke("EndTimer", machineTimersInSeconds);//Starting a timer that waits x seconds before machine is finished;
     }
@@ -70,6 +75,7 @@ public class TemperatureController : MonoBehaviour
             WashingMachine washer = washingMachine.GetComponent<WashingMachine>();
             washer.washComplete = true;
             washer.tempWashedAt = tempWashedAt;
+            TrackingController.instance.tempClothesWashedAt = tempWashedAt;
             washer.ResetBasket();
             PuzzleManager.instance.SetWashingClothesObjectiveComplete();
         }
@@ -78,6 +84,8 @@ public class TemperatureController : MonoBehaviour
             // do stuff from the dryer
             Dryer dry = dryer.GetComponent<Dryer>();
             dry.tempDryedAt = tempWashedAt;
+            TrackingController.instance.tempClothesDriedAt = tempWashedAt;
+            TrackingController.instance.driedWithDryer = true;
             dry.dryingComplete = true;
             dry.ResetBasket();
             //Add change of percentage based on how the clothes were dried

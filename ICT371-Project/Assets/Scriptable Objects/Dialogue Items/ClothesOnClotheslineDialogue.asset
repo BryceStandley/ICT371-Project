@@ -16,9 +16,9 @@ MonoBehaviour:
   npcName: GOV Bot
   sentences:
   - "\u201CClothes dryers are one of highest power drawing appliances in the home,
-    meaning they are also responsible for a heavy output of carbon emissions.\u201D\r\n\n\u201COpting
-    to line-dry your clothing as opposed to machine drying them can save roughly
-    1090kg of carbon emissions a year per household.\u201D\r\n\n\u201COn top of that,
-    you save some money on your power bill, while also having your clothes last longer
-    than they would be machined dried.\u201D\r\n\n\u201CMaybe opt for a clothesline
-    over a dryer in the future.\u201D\r"
+    meaning they are also responsible for a heavy output of carbon emissions.\u201D\r"
+  - "\u201COpting to line-dry your clothing as opposed to machine drying them can
+    save roughly 1090kg of carbon emissions a year per household.\u201D\r"
+  - "\u201COn top of that, you save some money on your power bill, while also having
+    your clothes last longer than they would be machined dried.\u201D\r"
+  - "\u201CMaybe opt for a clothesline over a dryer in the future.\u201D\r"
