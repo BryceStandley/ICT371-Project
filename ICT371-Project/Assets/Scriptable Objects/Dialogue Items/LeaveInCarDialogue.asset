@@ -17,9 +17,9 @@ MonoBehaviour:
   sentences:
   - "\u201CYou didn\u2019t think I was going to have one more hidden test did you!\u201D\r\n\n\u201CAlthough
     a car can get you to a location quicker and easier than a bike, for trips that
-    are within a cyclable distance, you should be opting for a bicycle\".\n\r\n\u201CAccording
-    to a 2015 study from the Institute of Transportation and Development Policy,
-    a 20% increase in cycling over driving worldwide would see carbon dioxide emissions
-    from urban passenger transport drop by roughly 11% in 2050\u201D.\n \r\n\u201CIf
-    everyone was to turn their small trips in the car into bike rides, we would not
-    just be improving the health of the climate, but also our own health!\u201D\r"
+    are within a cyclable distance, you should be opting for a bicycle\"."
+  - "\u201CAccording to a 2015 study from the Institute of Transportation and Development
+    Policy, a 20% increase in cycling over driving worldwide would see carbon dioxide
+    emissions from urban passenger transport drop by roughly 11% in 2050\u201D."
+  - "\u201CIf everyone was to turn their small trips in the car into bike rides,
+    we would not just be improving the health of the climate, but also our own health!\u201D\r"
