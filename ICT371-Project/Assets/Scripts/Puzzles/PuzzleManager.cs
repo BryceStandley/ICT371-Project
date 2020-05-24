@@ -233,7 +233,7 @@ public class PuzzleManager : MonoBehaviour
 
     private void AddDryObjective()
     {
-        ObjectiveManager.instance.AddNewMainObjective("Dry your clothes.", 94, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 20);
+        ObjectiveManager.instance.AddNewMainObjective("Dry your clothes.", 93, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 20);
 
     }
 
@@ -241,12 +241,12 @@ public class PuzzleManager : MonoBehaviour
    
     #region Drying Clothes Puzzle
     //Dry Clothes Puzzle
-    //using objective ID of 94
+    //using objective ID of 93
     public void SetDryClothesObjectiveComplete()
     {
         foreach (Objective obj in ObjectiveManager.instance.MainObjectives)
         {
-            if (obj.objectiveID == 94)
+            if (obj.objectiveID == 93)
             {
                 if (obj.objective.ToLower().Contains("dry"))//Extra check to enure we dont have duplicate ID's
                 {

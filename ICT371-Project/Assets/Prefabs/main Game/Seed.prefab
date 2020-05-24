@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3116439002026094983}
   - component: {fileID: 2154301963193248086}
   - component: {fileID: 7089517614415839095}
-  - component: {fileID: 3847169900670145771}
+  - component: {fileID: 656686513137495806}
   m_Layer: 0
   m_Name: Seed
   m_TagString: PickUp
@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9092876326582104702}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.87, z: 2.749}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -127,8 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickedUp: 0
   pickupCounter: 0
---- !u!64 &3847169900670145771
-MeshCollider:
+--- !u!136 &656686513137495806
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -137,7 +137,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7650123257291483136, guid: ec530492fdf324af5a3288791c4edb35, type: 3}
+  m_Radius: 0.6988075
+  m_Height: 3.4818509
+  m_Direction: 1
+  m_Center: {x: 0.0073356926, y: -0.0000001490116, z: -0.007336139}

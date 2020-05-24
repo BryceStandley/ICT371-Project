@@ -10,53 +10,33 @@ using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu instance;
     public static bool isGamePaused = false;
     public bool inDialogue = true;
-    public GameObject pauseMenuUI;
-    public GameObject gameplayUI;
-    public GameObject buttons;
-    public GameObject backButton;
-    public GameObject optionButtons;
-    public GameObject slider;
-    public GameObject credits;
-    public GameObject creditButton;
-    public GameObject graphicsDropdown;
-    public GameObject fullScreenToggle;
-    public GameObject controlsPage;
-
+    public GameObject pauseMenu,mainPauseMenuUI, gameplayUI;
+    public GameObject[] subMenus;
     public AudioMixer audioMixer;
-    
     public TMP_Dropdown resolutionDropDown;
-    
-    public PlayerInputController playerInputController;
-
+    public Toggle fullScreenToggle;
     public AudioSource audioSource;
-
-    Resolution[] resolutions;
-
+    private Resolution[] resolutions;
     private EventSystem es;
     private GameObject origSelectedItem;
 
     void Awake()
     {
+        instance = this;
         es = FindObjectOfType<EventSystem>();
+
     }
 
     private void Start()
     {
         GetResolutions(); //gets all the resolutions available to the player based on their display
-        SetFullScreen(true); //starts the game off in fullscreen
-        InitialiseMenu(); //sets up the menu for use
+        ToggleFullscreen(); //starts the game off in fullscreen
         origSelectedItem = es.currentSelectedGameObject;
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void OnPausePressed(InputAction.CallbackContext callback)
     {
         if(callback.performed)
@@ -72,112 +52,36 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void SetCurrentSelectedItem(GameObject button)//Used when changing menus for controller input
+    {
+        es.SetSelectedGameObject(button);
+    }
+
     public void Resume() //represents changes in the game that occur when the game is resumed
     {
         isGamePaused = false;
-        
         gameplayUI.SetActive(true); //returns gameplay UI when game is resumed
-        buttons.SetActive(true); //ensures buttons are placed back on menu
-
-        //everything flagged false is hidden when game is resumed
-        pauseMenuUI.SetActive(false);
-        optionButtons.SetActive(false);
-        backButton.SetActive(false);
-        slider.SetActive(false);
-        graphicsDropdown.SetActive(false);
-        resolutionDropDown.gameObject.SetActive(false);
-        fullScreenToggle.SetActive(false);
-        credits.SetActive(false);
-        creditButton.SetActive(false);
-        controlsPage.SetActive(false);
-
+        foreach(GameObject go in subMenus)
+        {
+            go.SetActive(false);
+        }
+        mainPauseMenuUI.SetActive(true);
+        pauseMenu.SetActive(false);
         audioSource.Play(); //Changed to have direct reference to audio source to stop delay
-
-        playerInputController.EnablePlayerControls(); //allows for player to move around in-game
-
+        PlayerInputController.instance.EnablePlayerControls(); //allows for player to move around in-game
     }
 
     void Pause() //represents changes in the game that occur when the game is paused
     {
         isGamePaused = true;
 
-        pauseMenuUI.SetActive(true); //shows pauseMenuUI when game is paused
+        pauseMenu.SetActive(true); //shows pauseMenuUI when game is paused
        
         gameplayUI.SetActive(false); //hides gameplayUI when game is paused
         
         audioSource.Pause(); //Changed to have direct reference to audio source to stop delay
 
-        playerInputController.DisablePlayerControls(); //ceases player ability to move around in-game
-
-        es.SetSelectedGameObject(buttons.transform.GetChild(0).gameObject);
-    }
-
-    public void Options() //displays option menu
-    {
-        buttons.SetActive(false);
-        backButton.SetActive(true);
-        optionButtons.SetActive(true);
-        es.SetSelectedGameObject(optionButtons.transform.GetChild(0).gameObject);
-    }
-
-    public void Audio() //displays audio menu
-    {
-        optionButtons.SetActive(false);
-        slider.SetActive(true);
-        es.SetSelectedGameObject(backButton);
-    }
-
-    public void Display() //displays display menu
-    {
-        optionButtons.SetActive(false);
-        graphicsDropdown.SetActive(true);
-        resolutionDropDown.gameObject.SetActive(true);
-        fullScreenToggle.SetActive(true);
-        es.SetSelectedGameObject(backButton);
-    }
-
-    public void Credits() //displays credit menu
-    {
-        optionButtons.SetActive(false);
-        credits.SetActive(true);
-        creditButton.SetActive(true);
-        backButton.SetActive(true);
-        es.SetSelectedGameObject(backButton);
-    }
-
-    public void Controls() //displays controls menu
-    {
-        optionButtons.SetActive(false);
-        controlsPage.SetActive(true);
-        backButton.SetActive(true);
-        es.SetSelectedGameObject(backButton);
-        //content on controls page will be present in final game
-    }
-
-    public void Back() //displays previous menu dependant on what menu user was in
-    {
-        if (buttons.activeSelf == false && optionButtons.activeSelf == true) //deals with transition from options menu back to the main section of the pause menu
-        {
-            //everything below is hidden
-            backButton.SetActive(false);
-            optionButtons.SetActive(false);
-            buttons.SetActive(true);
-            es.SetSelectedGameObject(buttons.transform.GetChild(0).gameObject);
-        }
-        else if (optionButtons.activeSelf == false && buttons.activeSelf == false) //deals with transition from submenus of option menu back to the option menu
-        {
-            optionButtons.SetActive(true);
-            es.SetSelectedGameObject(optionButtons.transform.GetChild(0).gameObject);
-            //everything below is hidden
-            slider.SetActive(false);
-            graphicsDropdown.SetActive(false);
-            resolutionDropDown.gameObject.SetActive(false);
-            fullScreenToggle.SetActive(false);
-            credits.SetActive(false);
-            backButton.SetActive(true);
-            buttons.SetActive(false);
-            controlsPage.SetActive(false);
-        }
+        PlayerInputController.instance.DisablePlayerControls(); //ceases player ability to move around in-game
     }
 
     public void SaveGame() //Saves Game
@@ -208,24 +112,34 @@ public class PauseMenu : MonoBehaviour
         QualitySettings.SetQualityLevel(quality);
     }
 
-    public void SetFullScreen(bool isFullScreen) //Sets the game window to fullscreen if true and windowed if false
+    public void ToggleFullscreen() //Sets the game window to fullscreen if true and windowed if false
     {
-        Screen.fullScreen = isFullScreen;
+        if(fullScreenToggle.isOn)
+        {
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+            //Debug.Log("Is Fullscreen");
+        }
+        else
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+            //Debug.Log("Is Windowed");
+        }
     }
 
     public void SetResolution(int resolutionIndex) //Sets the resolution of the game to one of the selections from the resolution index
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        ObjectPickUp opu = FindObjectOfType<ObjectPickUp>();//Finds object pickup script and updates the screen height and width
-        opu.UpdateScreenSize();
+        ObjectPickUp.instance.UpdateScreenSize();
     }
 
     public void OpenMusicCredit() //credits the user of the in game music   
     {
         Application.OpenURL("https://pinevoc.bandcamp.com/album/green-ideas"); 
+
     }
 
+    public string[] allowedResolutions;
     public void GetResolutions() //gets all resolutions user can set and stores them in a list, while also setting the default resolution to best fit the current screen 
     {
         resolutions = Screen.resolutions;
@@ -238,7 +152,13 @@ public class PauseMenu : MonoBehaviour
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height + " @" + resolutions[i].refreshRate + "Hz"; //represents each resolution by showing their width, height and refresh rate
-            options.Add(option);
+            foreach(string st in allowedResolutions)
+            {
+                if(option.Contains(st))
+                {
+                    options.Add(option);
+                }
+            }
 
             if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height) //sets the default resolution used in game to match the current resolution of the screen 
             {
@@ -249,18 +169,6 @@ public class PauseMenu : MonoBehaviour
         resolutionDropDown.AddOptions(options); //adds the list options to the drop down
         resolutionDropDown.value = currentResolutionIndex;
         resolutionDropDown.RefreshShownValue();
-    }
-
-    public void InitialiseMenu() //hides content within menus that aren't immediately visible
-    {
-        optionButtons.SetActive(false);
-        backButton.SetActive(false);
-        creditButton.SetActive(false);
-        graphicsDropdown.SetActive(false);
-        resolutionDropDown.gameObject.SetActive(false);
-        fullScreenToggle.SetActive(false);
-        slider.SetActive(false);
-        controlsPage.SetActive(false);
     }
 }
 

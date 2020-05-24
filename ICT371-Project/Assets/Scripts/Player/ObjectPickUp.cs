@@ -34,8 +34,7 @@ public class ObjectPickUp : MonoBehaviour
     }
     private void Start()
     {
-        screenWidth = Screen.width;
-        screenHeight = Screen.height;
+        UpdateScreenSize();
 
         cam = Camera.main;  
     }

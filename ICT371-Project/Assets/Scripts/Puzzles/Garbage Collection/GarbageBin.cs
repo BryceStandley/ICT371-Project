@@ -80,15 +80,22 @@ public class GarbageBin : MonoBehaviour
                     }
                 }
             }
-            else
+            else if(!other.gameObject.CompareTag("Player"))
             {
                 numberOfIndisposableItemsInBin++;
                 //Debug.Log("Player placed a puzzle item in the bin");
                 ResetLocation(other.transform.gameObject);
                 TrackingController.instance.totalMistakes++;
                 collectionSounds.SetAudioClipAndPlay(false, true);
-                PuzzleManager.instance.CheckGarbageCollectionComplete();
             }
+        }
+        else if(!other.gameObject.CompareTag("Player"))
+        {
+            numberOfIndisposableItemsInBin++;
+            //Debug.Log("Player placed a puzzle item in the bin");
+            ResetLocation(other.transform.gameObject);
+            TrackingController.instance.totalMistakes++;
+            collectionSounds.SetAudioClipAndPlay(false, true);
         }
 
     }

@@ -20,6 +20,7 @@ public class WashingMachine : MonoBehaviour
             WashedBasket basket = washedBasket.GetComponent<WashedBasket>();
             basket.SetFullBasket();
             basket.tempWashedAt = tempWashedAt;
+            washComplete=false;
         }
     }
 
@@ -38,6 +39,7 @@ public class WashingMachine : MonoBehaviour
             //display washing machine ui
             temperatureController.MakeWashingMachine();
             temperatureUI.SetActive(true);
+            PauseMenu.instance.inDialogue = true;
             PlayerInputController.instance.DisablePlayerControls();
         }
     }

@@ -32,6 +32,7 @@ public class TemperatureController : MonoBehaviour
     {   
         tempWashedAt = temp;
         temperatureUI.SetActive(false);
+        PauseMenu.instance.inDialogue = false;
         PlayerInputController.instance.EnablePlayerControls();
         if(isWashingMachine)
         {
@@ -60,6 +61,7 @@ public class TemperatureController : MonoBehaviour
     }
     IEnumerator UpdateDryerTimer()
     {
+        timer = 0;
         for(int i = 0; i < machineTimersInSeconds; i++)
         {
             timer += 100 / machineTimersInSeconds;
