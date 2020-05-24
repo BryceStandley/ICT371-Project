@@ -19,7 +19,7 @@ public class ObjectPickUp : MonoBehaviour
     public bool holding = false;
     private bool canPickUp = false;
 
-    public GameObject lookedAtItem;
+    public GameObject lookedAtItem, lastLookedAtItem;
     public GameObject heldItem;
 
     private float screenWidth, screenHeight;
@@ -67,8 +67,8 @@ public class ObjectPickUp : MonoBehaviour
                     if (!holding && !detailsDisplaying)//Check if the player isn'y holding a object and the details aren't showing
                     {
                         pointer.sprite = handOpen;
-                        ObjectInformationToolTip.GetPromptObject().GetComponent<PromptChanger>().dualPurpPrompt = true;
-                        ObjectInformationToolTip.GetPromptObject().GetComponent<PromptChanger>().UpdateUI();
+                        PromptChanger.instance.dualPurpPrompt = true;
+                        PromptChanger.instance.UpdateUI();
                         ObjectInformationToolTip.ShowPrompt();
                     }
                 }
@@ -77,12 +77,10 @@ public class ObjectPickUp : MonoBehaviour
                     canPickUp = false; //object can NOT be picked up
                     lookedAtItem = hit.transform.gameObject;// tracking the game object the player is looking at
 
-                    if (!holding && !detailsDisplaying)//Check if the player isn'y holding a object and the details aren't showing
+                    if (!holding && !detailsDisplaying)//Check if the player isn't holding a object and the details aren't showing
                     {
-                        //pointer.sprite = handOpen; //We dont need to show a different cursor because you cant pick up this item
-                        //ObjectInformationToolTip.instance.Get
-                        ObjectInformationToolTip.GetPromptObject().GetComponent<PromptChanger>().dualPurpPrompt = false;
-                        ObjectInformationToolTip.GetPromptObject().GetComponent<PromptChanger>().UpdateUI();
+                        PromptChanger.instance.dualPurpPrompt = false;
+                        PromptChanger.instance.UpdateUI();
                         ObjectInformationToolTip.ShowPrompt();
                     }
                 }
@@ -122,7 +120,7 @@ public class ObjectPickUp : MonoBehaviour
         {
             pointer.sprite = handClosed;
         }
-
+        lastLookedAtItem = lookedAtItem;
     }
 
     public void OnObjectDetailsDisplayed(InputAction.CallbackContext context)// Triggered when player presses details input

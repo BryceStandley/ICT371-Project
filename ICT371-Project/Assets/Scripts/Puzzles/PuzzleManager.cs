@@ -24,9 +24,10 @@ public class PuzzleManager : MonoBehaviour
         instance = this;
         holesInWorld = new List<GameObject>();
         laundryItems = new List<GameObject>();
-        garbageItems = new List<GameObject>();
+        garbageItems = new List<GarbageItem>();
         garbageBins = new List<GarbageBin>();
         lightHousings = new List<GameObject>();
+        powerOutlets = new List<GameObject>();
 
     }
 
@@ -267,11 +268,11 @@ public class PuzzleManager : MonoBehaviour
     #region Garbage Collection Puzzle
     //Garbage Collection Puzzle
     //Usign Objective ID of 96
-    private List<GameObject> garbageItems;
+    private List<GarbageItem> garbageItems;
     private List<GarbageBin> garbageBins;
     private bool hasSeenMistakeMessage = false;
 
-    public void AddGarbageItem(GameObject item)
+    public void AddGarbageItem(GarbageItem item)
     {
         garbageItems.Add(item);
     }
@@ -280,13 +281,26 @@ public class PuzzleManager : MonoBehaviour
     {
         garbageBins.Add(bin);
     }
-    public List<GameObject> GetGarbageList()
+    public List<GarbageItem> GetGarbageList()
     {
         return garbageItems;
     }
 
     public void CheckGarbageCollectionComplete()
     {
+        List<GarbageItem> toRemove = new List<GarbageItem>();//Checking the garbage items and removing any bulbs that add them selfs
+        foreach(GarbageItem gi in garbageItems)
+        {
+            if(gi.itemType == GarbageItem.ItemType.Bulb)
+            {
+                toRemove.Add(gi);
+            }
+        }
+        foreach(GarbageItem gi in toRemove)
+        {
+            garbageItems.Remove(gi);
+        }
+
         int total = 0;
         int mistake = 0;
         foreach(GarbageBin bin in garbageBins)
@@ -389,6 +403,81 @@ public class PuzzleManager : MonoBehaviour
                 return;
             }
             
+        }
+    }
+    #endregion
+
+    #region  Phantom Power Unplugging
+    //Using Objective ID of 92
+    public List<GameObject> powerOutlets;
+    public Dialogue allPlugsUnplugged, oneDeivceUnplugged;
+    private bool ppMade = false;
+
+    public void AddToPowerOutlets(GameObject outlet)
+    {
+        powerOutlets.Add(outlet);
+    }
+
+    public void CreatePhantomPowerObjective()
+    {
+        if(!ppMade)
+        {
+            ObjectiveManager.instance.AddNewMainObjective("Unplug devices", 92, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 10);
+            ppMade = true;
+        }
+    }
+    public void CheckIfAllOutletsAreUnplugged()
+    {
+        Objective objective = new Objective();
+        int count = 0;
+        int percentage = 0;
+        foreach(GameObject go in powerOutlets)
+        {
+            PowerSocket ps = go.GetComponent<PowerSocket>();
+            if(ps.isUnplugged)
+            {
+                count++;
+            }
+        }
+        percentage = (count / powerOutlets.Count) * 100;
+        
+        foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+        {
+            if(obj.objectiveType == Objective.ObjectiveType.Main)
+            {
+                if(obj.objectiveID == 92)
+                {
+                    objective = obj;
+                    break;
+                }
+            }
+        }
+        if(percentage >= 95)
+        {
+            percentage = 100;
+        }
+        if(objective != null)
+        {
+            objective.puzzleCompletionPercentage = percentage;
+        }
+
+        if(count == powerOutlets.Count)
+        {
+            if(objective != null)
+            {
+                objective.hasComplete = true;
+                DialogueManager.instance.StartDialogue(allPlugsUnplugged);
+                TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+                ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                if (objective.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(objective.hasComplete))
+                {
+                    ObjectiveManager.instance.CheckCompletedList();
+                }
+            }
+        }
+        else if(count == 1)
+        {
+            DialogueManager.instance.StartDialogue(oneDeivceUnplugged);
         }
     }
     #endregion

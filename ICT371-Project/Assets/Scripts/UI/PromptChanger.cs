@@ -5,7 +5,9 @@ using TMPro;
 
 public class PromptChanger : MonoBehaviour
 {
+    public static PromptChanger instance;
     public InputUISwitcher uiMaster;
+
     public string actionType;
     public TextMeshProUGUI promptText;
     public UIManager uiManager;
@@ -19,6 +21,11 @@ public class PromptChanger : MonoBehaviour
     public enum CustomNameAction {First, Second, Third};
 
     private GameActions m_action, m_secondAction, m_thirdAction;
+
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     { 
         for(int i = 0; i < uiManager.actions.Count; i++)

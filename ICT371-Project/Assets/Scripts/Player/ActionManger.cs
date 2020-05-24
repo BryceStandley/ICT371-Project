@@ -13,7 +13,7 @@ public class ActionManger : MonoBehaviour
     public static ActionManger instance;
     private string actionAvailable;
 
-    private string[] actions = { "TakeSeed" };
+    private string[] actions = { "TakeSeed", "Unplug" };
 
     public GameObject seed;
 
@@ -33,11 +33,17 @@ public class ActionManger : MonoBehaviour
             if (!actionAvailable.Equals(""))//check if there is a action available, could change this to a list or queue over a string check
             {
                 //Debug.Log("Action is availabe");
-                if (actionAvailable.ToLower().Equals(actions[0].ToLower()))//convert strings to lower and check if they match a given action
+                if (actionAvailable.ToLower().Contains(actions[0].ToLower()))//convert strings to lower and check if they match a given action
                 {
                     TakeSeed();
                     ClearCurrentAction();
                 }
+                else if(actionAvailable.ToLower().Contains(actions[1].ToLower()))
+                {
+                    UnplugCable();
+                    ClearCurrentAction();
+                }
+                
             }
         }
     }
@@ -61,5 +67,14 @@ public class ActionManger : MonoBehaviour
         }
         seed.GetComponent<Rigidbody>().useGravity = true;
         objectPickUp.PickUpItem(seed);
+    }
+
+    private void UnplugCable()
+    {   
+        PowerSocket ps = ObjectPickUp.instance.lastLookedAtItem.GetComponent<PowerSocket>();
+        if(ps != null)
+        {
+            ps.UnplugItem();
+        }
     }
 }

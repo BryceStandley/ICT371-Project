@@ -10,6 +10,6 @@ public class GarbageItem : MonoBehaviour
 
     private void Start()
     {
-        PuzzleManager.instance.AddGarbageItem(this.gameObject);
+        PuzzleManager.instance.AddGarbageItem(this);
     }
 }

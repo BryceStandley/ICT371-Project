@@ -23,7 +23,9 @@ public class Dryer : MonoBehaviour
             //display washing machine ui
             temperatureController.MakeDryer();
             temperatureUI.SetActive(true);
+            PauseMenu.instance.inDialogue = true;
             PlayerInputController.instance.DisablePlayerControls();
+            
         }
     }
 
