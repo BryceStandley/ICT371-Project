@@ -288,6 +288,23 @@ public class PuzzleManager : MonoBehaviour
 
     public void CheckGarbageCollectionComplete()
     {
+        Objective obj = new Objective();
+        if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
+            {
+                foreach(Objective ob in ObjectiveManager.instance.MainObjectives)
+                {
+                    if(ob.objectiveID == 96)
+                    {
+                        if(ob.objective.Contains("trash"))
+                        {
+                            obj = ob;
+                            break;
+                        }
+                    }
+                }
+            }
+
+
         List<GarbageItem> toRemove = new List<GarbageItem>();//Checking the garbage items and removing any bulbs that add them selfs
         foreach(GarbageItem gi in garbageItems)
         {
@@ -303,11 +320,18 @@ public class PuzzleManager : MonoBehaviour
 
         int total = 0;
         int mistake = 0;
+        float percentage = 0f;
         foreach(GarbageBin bin in garbageBins)
         {
             total += bin.binTotal;
             mistake += bin.numberOfIncorrectItemsInBin;
+            percentage += (float) total / garbageItems.Count;
             //removed mistake counter as mistakes are added to the tracker in the bin script
+        }
+        if(percentage >= 90)
+        {
+            percentage = 100f;
+            obj.puzzleCompletionPercentage = (int)percentage;
         }
 
         if(mistake == 2 && !hasSeenMistakeMessage)
@@ -316,24 +340,20 @@ public class PuzzleManager : MonoBehaviour
             hasSeenMistakeMessage = true;
         }
 
-        if (total == garbageItems.Count)
+        if(obj != null)
         {
-            if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
+            if (total == garbageItems.Count)
             {
-                foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+
+                obj.hasComplete = true;
+                DialogueManager.instance.StartDialogue(allRubbishCompletedDialogue);
+                TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+                ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                 {
-                    if(obj.objectiveID == 96)
-                    {
-                        obj.hasComplete = true;
-                        DialogueManager.instance.StartDialogue(allRubbishCompletedDialogue);
-                        TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                        ObjectiveManager.instance.PlayCompleteObjectiveSound();
-                        if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
-                        {
-                            ObjectiveManager.instance.CheckCompletedList();
-                        }
-                    }
+                    ObjectiveManager.instance.CheckCompletedList();
                 }
+            
             }
         }
     }
@@ -352,7 +372,7 @@ public class PuzzleManager : MonoBehaviour
     public void CheckTreePuzzleComplete()//This is a temp method to track the tree puzzle, a more dynamic method will be used later
     {
         int count = 0;
-        int percentage = 0;
+        float percentage = 0f;
         Objective ob = new Objective();
 
         if(currentObjectiveListType == ObjectiveManager.ObjectiveListType.Main)
@@ -376,7 +396,7 @@ public class PuzzleManager : MonoBehaviour
             if(h.hasBeenPlanted)
             {
                 count++;
-                percentage += 100/3;
+                percentage += (float)count / holesInWorld.Count;
             }
 
         }
@@ -384,15 +404,15 @@ public class PuzzleManager : MonoBehaviour
         {
             DialogueManager.instance.StartDialogue(oneTreePlantedDialogue);
         }
-        if(percentage > 90)
+        if(percentage >= 90)
         {
-            percentage = 100;
+            percentage = 100f;
         }
         if(count == holesInWorld.Count)
         {
             //get objective manager and update ui
             ob.hasComplete = true;
-            ob.puzzleCompletionPercentage = percentage;
+            ob.puzzleCompletionPercentage = (int)percentage;
             DialogueManager.instance.StartDialogue(allTreesPlantedDialogue);
             TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
             ObjectiveManager.instance.PlayCompleteObjectiveSound();
@@ -430,17 +450,16 @@ public class PuzzleManager : MonoBehaviour
     {
         Objective objective = new Objective();
         int count = 0;
-        int percentage = 0;
+        float percentage = 0;
         foreach(GameObject go in powerOutlets)
         {
             PowerSocket ps = go.GetComponent<PowerSocket>();
             if(ps.isUnplugged)
             {
                 count++;
+                percentage += 1f;
             }
         }
-        percentage = (count / powerOutlets.Count) * 100;
-        
         foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
         {
             if(obj.objectiveType == Objective.ObjectiveType.Main)
@@ -452,13 +471,19 @@ public class PuzzleManager : MonoBehaviour
                 }
             }
         }
-        if(percentage >= 95)
-        {
-            percentage = 100;
-        }
         if(objective != null)
         {
-            objective.puzzleCompletionPercentage = percentage;
+            float per = (float)percentage / powerOutlets.Count;
+            per *= 100;
+            if(per >= 95)
+            {
+                per = 100f;
+                objective.puzzleCompletionPercentage = (int)per;
+            }
+            else
+            {
+                objective.puzzleCompletionPercentage = (int)per;
+            }
         }
 
         if(count == powerOutlets.Count)
@@ -478,6 +503,44 @@ public class PuzzleManager : MonoBehaviour
         else if(count == 1)
         {
             DialogueManager.instance.StartDialogue(oneDeivceUnplugged);
+        }
+    }
+    #endregion
+
+    #region Food Buying
+    //using Objective ID of 91
+
+    public void AddFoodBuyObjective()
+    {
+        ObjectiveManager.instance.AddNewMainObjective("Buy some food", 91, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 5);
+    }
+
+    public void TriggerFoodBuyComplete()
+    {
+        Objective obj = new Objective();
+        foreach(Objective ob in ObjectiveManager.instance.MainObjectives)
+        {
+            if(ob.objectiveID == 91)
+            {
+                if(ob.objective.Contains("food"))
+                {
+                    obj = ob;
+                    break;
+                }
+            }
+        }
+
+        if(obj != null)
+        {
+            obj.hasComplete = true;
+            obj.puzzleCompletionPercentage = 100;
+            //DialogueManager.instance.StartDialogue(allPlugsUnplugged);
+            TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+            ObjectiveManager.instance.PlayCompleteObjectiveSound();
+            if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+            {
+                ObjectiveManager.instance.CheckCompletedList();
+            }
         }
     }
     #endregion

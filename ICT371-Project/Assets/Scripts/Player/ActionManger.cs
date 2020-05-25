@@ -13,7 +13,7 @@ public class ActionManger : MonoBehaviour
     public static ActionManger instance;
     private string actionAvailable;
 
-    private string[] actions = { "TakeSeed", "Unplug" };
+    private string[] actions = { "TakeSeed", "Unplug" , "BuyFood", "InspectMagnet"};
 
     public GameObject seed;
 
@@ -43,9 +43,29 @@ public class ActionManger : MonoBehaviour
                     UnplugCable();
                     ClearCurrentAction();
                 }
+                else if(actionAvailable.ToLower().Contains(actions[2].ToLower()))
+                {
+                    BuyFood();
+                    ClearCurrentAction();
+                }
+                else if(actionAvailable.ToLower().Contains(actions[3].ToLower()))
+                {
+                    InspectMagnet();
+                    ClearCurrentAction();
+                }
                 
             }
         }
+    }
+
+    private void LateUpdate()
+    {
+        if(actionAvailable == "")
+        {
+            PromptChanger.instance.thirdPurpPrompt = false;
+            PromptChanger.instance.hasCustomName = false;
+            PromptChanger.instance.UpdateUI();
+        }    
     }
 
     public void SetCurrentAction(string action)
@@ -55,26 +75,70 @@ public class ActionManger : MonoBehaviour
 
     public void ClearCurrentAction()
     {
+        //Debug.Log("Action Cleared");
         actionAvailable = "";
     }
 
     private void TakeSeed()
     {
-        ObjectPickUp objectPickUp = FindObjectOfType<ObjectPickUp>();
-        if(objectPickUp.heldItem != null)
+        if(ObjectPickUp.instance.heldItem != null)
         {
-            objectPickUp.DropItem(objectPickUp.heldItem);
+            ObjectPickUp.instance.DropItem(ObjectPickUp.instance.heldItem);
         }
         seed.GetComponent<Rigidbody>().useGravity = true;
-        objectPickUp.PickUpItem(seed);
+        ObjectPickUp.instance.PickUpItem(seed);
     }
 
     private void UnplugCable()
     {   
-        PowerSocket ps = ObjectPickUp.instance.lastLookedAtItem.GetComponent<PowerSocket>();
-        if(ps != null)
+        if(ObjectPickUp.instance.lookedAtItem != null)
         {
-            ps.UnplugItem();
+            PowerSocket ps = ObjectPickUp.instance.lookedAtItem.GetComponent<PowerSocket>();
+            if(ps != null)
+            {
+                ps.UnplugItem();
+            }
+            else
+            {
+                Debug.Log("not looking at a power socket");
+                ClearCurrentAction();
+            }
+        }
+
+    }
+
+    private void BuyFood()
+    {
+        if(ObjectPickUp.instance.lookedAtItem != null)
+        {
+            Fridge fridge = ObjectPickUp.instance.lookedAtItem.GetComponent<Fridge>();
+            if(fridge != null)
+            {
+                fridge.BuyFood();
+            }
+            else
+            {
+                Debug.Log("not looking at a fridge");
+                ClearCurrentAction();
+            }
         }
     }
+
+    private void InspectMagnet()
+    {
+        if(ObjectPickUp.instance.lookedAtItem != null)
+        {
+            FridgeMagnet magnet = ObjectPickUp.instance.lookedAtItem.GetComponent<FridgeMagnet>();
+            if(magnet != null)
+            {
+                magnet.Inspect();
+            }
+            else
+            {
+                Debug.Log("not looking at a fridge magnet");
+                ClearCurrentAction();
+            }
+        }
+    }
+
 }

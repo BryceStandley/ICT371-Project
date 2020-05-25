@@ -31,12 +31,6 @@ public class SeedPacket : MonoBehaviour
                 PromptChanger.instance.UpdateUI();
                 ActionManger.instance.SetCurrentAction("TakeSeed");
             }
-            else
-            {
-                PromptChanger.instance.thirdPurpPrompt = false;
-                PromptChanger.instance.hasCustomName = false;
-                PromptChanger.instance.UpdateUI();
-            }
         }
     }
 

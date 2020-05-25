@@ -102,6 +102,7 @@ public class ObjectPickUp : MonoBehaviour
                 ObjectInformationToolTip.HidePrompt();
                 ObjectInformationToolTip.HideTip();
                 detailsDisplaying = false;
+                ActionManger.instance.ClearCurrentAction();
             }
             
         }
@@ -114,13 +115,17 @@ public class ObjectPickUp : MonoBehaviour
             lookedAtItem = null;
             canPickUp = false;
             holding = false;
+            ActionManger.instance.ClearCurrentAction();
         }
 
         if(holding && heldItem != null)
         {
             pointer.sprite = handClosed;
         }
-        lastLookedAtItem = lookedAtItem;
+        if(lookedAtItem == null)
+        {
+            ActionManger.instance.ClearCurrentAction();
+        }
     }
 
     public void OnObjectDetailsDisplayed(InputAction.CallbackContext context)// Triggered when player presses details input

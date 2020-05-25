@@ -28,12 +28,6 @@ public class PowerSocket : MonoBehaviour
                     PromptChanger.instance.UpdateUI();
                     ActionManger.instance.SetCurrentAction("Unplug");
                 }
-                else
-                {
-                    PromptChanger.instance.dualPurpPrompt = false;
-                    PromptChanger.instance.hasCustomName = false;
-                    PromptChanger.instance.UpdateUI();
-                }
             }
         }
     }
