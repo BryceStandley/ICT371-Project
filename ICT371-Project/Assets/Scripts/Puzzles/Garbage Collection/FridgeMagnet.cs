@@ -42,4 +42,5 @@ public class FridgeMagnet : MonoBehaviour
         PauseMenu.instance.inDialogue = false;
         PlayerInputController.instance.EnablePlayerControls();
     }
+
 }

@@ -7,6 +7,8 @@ public class PowerSocket : MonoBehaviour
     public GameObject powerCable;
     public GameObject unpluggedLocation;
     public bool isUnplugged = false;
+    public bool isLamp = false;
+    public Light PointLight;
 
     private void Start()
     {
@@ -37,6 +39,10 @@ public class PowerSocket : MonoBehaviour
         powerCable.transform.position = unpluggedLocation.transform.position;
         powerCable.transform.rotation = unpluggedLocation.transform.rotation;
         isUnplugged = true;
+        if (isLamp) 
+        {
+            PointLight.enabled = false;
+        }
         PuzzleManager.instance.CreatePhantomPowerObjective();
         PuzzleManager.instance.CheckIfAllOutletsAreUnplugged();
     }

@@ -13,7 +13,7 @@ public class ActionManger : MonoBehaviour
     public static ActionManger instance;
     private string actionAvailable;
 
-    private string[] actions = { "TakeSeed", "Unplug" , "BuyFood", "InspectMagnet"};
+    private string[] actions = { "TakeSeed", "Unplug" , "BuyFood", "InspectMagnet", "InspectCCS1", "InspectCCS2"};
 
     public GameObject seed;
 
@@ -53,7 +53,16 @@ public class ActionManger : MonoBehaviour
                     InspectMagnet();
                     ClearCurrentAction();
                 }
-                
+                else if (actionAvailable.ToLower().Contains(actions[4].ToLower()))
+                {
+                    InspectCCS1();
+                    ClearCurrentAction();
+                }
+                else if (actionAvailable.ToLower().Contains(actions[5].ToLower()))
+                {
+                    InspectCCS2();
+                    ClearCurrentAction();
+                }
             }
         }
     }
@@ -111,14 +120,14 @@ public class ActionManger : MonoBehaviour
     {
         if(ObjectPickUp.instance.lookedAtItem != null)
         {
-            Fridge fridge = ObjectPickUp.instance.lookedAtItem.GetComponent<Fridge>();
-            if(fridge != null)
+            FoodOrderer foodOrderer = ObjectPickUp.instance.lookedAtItem.GetComponent<FoodOrderer>();
+            if(foodOrderer != null)
             {
-                fridge.BuyFood();
+                foodOrderer.BuyFood();
             }
             else
             {
-                Debug.Log("not looking at a fridge");
+                Debug.Log("not looking at a food orderer");
                 ClearCurrentAction();
             }
         }
@@ -136,6 +145,40 @@ public class ActionManger : MonoBehaviour
             else
             {
                 Debug.Log("not looking at a fridge magnet");
+                ClearCurrentAction();
+            }
+        }
+    }
+
+    private void InspectCCS1()
+    {
+        if (ObjectPickUp.instance.lookedAtItem != null)
+        {
+            CCSDoc1 doc1 = ObjectPickUp.instance.lookedAtItem.GetComponent<CCSDoc1>();
+            if (doc1 != null)
+            {
+                doc1.Inspect();
+            }
+            else
+            {
+                Debug.Log("not looking at doc");
+                ClearCurrentAction();
+            }
+        }
+    }
+
+    private void InspectCCS2()
+    {
+        if (ObjectPickUp.instance.lookedAtItem != null)
+        {
+            CCSDoc2 doc2 = ObjectPickUp.instance.lookedAtItem.GetComponent<CCSDoc2>();
+            if (doc2 != null)
+            {
+                doc2.Inspect();
+            }
+            else
+            {
+                Debug.Log("not looking at doc");
                 ClearCurrentAction();
             }
         }

@@ -8,6 +8,7 @@ public class Lightbulb : MonoBehaviour
     public LightbulbType lightbulbType = LightbulbType.Halogen;
     public LightHousing lightHousing;
     public bool isGarbage = false;
+
     private void Update()
     {
         if(PuzzleManager.instance.currentObjectiveListType == ObjectiveManager.ObjectiveListType.Tutorial)
