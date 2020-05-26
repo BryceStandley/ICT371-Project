@@ -11,6 +11,7 @@ TagManager:
   - Synty Tree
   - Synty Medium Farm
   - Information
+  - DialogueTrigger
   layers:
   - Default
   - TransparentFX

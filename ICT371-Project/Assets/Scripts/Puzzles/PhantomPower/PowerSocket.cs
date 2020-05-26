@@ -9,6 +9,8 @@ public class PowerSocket : MonoBehaviour
     public bool isUnplugged = false;
     public bool isLamp = false;
     public Light PointLight;
+    public bool isDryer;
+    public Dryer dryer;
 
     private void Start()
     {
@@ -46,6 +48,10 @@ public class PowerSocket : MonoBehaviour
         if (isLamp) 
         {
             PointLight.enabled = false;
+        }
+        if(isDryer)
+        {
+            dryer.allowedToUseDryer = false;
         }
         PuzzleManager.instance.CreatePhantomPowerObjective();
         PuzzleManager.instance.CheckIfAllOutletsAreUnplugged();

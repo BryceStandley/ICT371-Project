@@ -14,19 +14,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Walk_Anim
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Open_Anim
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -104,9 +104,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.954473
   m_TransitionOffset: 0
-  m_ExitTime: 0.9381443
+  m_ExitTime: 0.76736313
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -129,9 +129,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.73569596
   m_TransitionOffset: 0
-  m_ExitTime: 0.68421054
+  m_ExitTime: 0.4427223
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -264,7 +264,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: anim_Walk_Loop
-  m_Speed: 1
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101000013184607196}
@@ -458,7 +458,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102000011554377458}
-    m_Position: {x: 300, y: 96, z: 0}
+    m_Position: {x: 300, y: 100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102000012095775066}
     m_Position: {x: 300, y: -108, z: 0}
@@ -470,7 +470,7 @@ AnimatorStateMachine:
     m_Position: {x: 552, y: -48, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102000010368300008}
-    m_Position: {x: 24, y: 0, z: 0}
+    m_Position: {x: 20, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102304750334914288}
     m_Position: {x: 552, y: -120, z: 0}

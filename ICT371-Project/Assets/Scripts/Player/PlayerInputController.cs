@@ -47,11 +47,12 @@ public class PlayerInputController : MonoBehaviour
 
     public void EnablePlayerControls()//Inverts Disable controls method
     {
+        Cursor.lockState = CursorLockMode.Locked;//Locking cursor to the center of the screen and hiding it
+        Cursor.visible = false; 
         playerController.enabled = true;
         playerLook.enabled = true;
         objPickUp.disabledInput = false;
         objPickUp.enabled = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
     }
 }

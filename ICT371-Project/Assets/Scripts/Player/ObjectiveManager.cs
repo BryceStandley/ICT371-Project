@@ -18,6 +18,7 @@ public class ObjectiveManager : MonoBehaviour
 
     public GameObject objectiveUIElement;
     public GameObject objectiveList;
+    public GameObject optionalObjectiveList;
 
     public ObjectiveListType objectiveListType;
     public enum ObjectiveListType {Tutorial, Main, End};
@@ -106,7 +107,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if(objectiveListType == ObjectiveListType.Main)
         {   
-            GameObject uiElement = CreateNewObjectiveUIElement();
+            GameObject uiElement = CreateNewObjectiveUIElement(objRequirement);
             Objective obj = new Objective(objective, objID, uiElement, objType, objRequirement, percentage, weight);
             uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.objective);
             MainObjectives.Add(obj);
@@ -118,20 +119,35 @@ public class ObjectiveManager : MonoBehaviour
         foreach (Objective obj in objList)
         {
             GameObject objective = Object.Instantiate(objectiveUIElement as GameObject);
-            objective.transform.SetParent(objectiveList.transform);
+            if(obj.objectiveRequirement == Objective.ObjectiveRequirement.Required)
+            {
+                objective.transform.SetParent(objectiveList.transform);
+            }
+            else
+            {
+                objective.transform.SetParent(optionalObjectiveList.transform);
+            }
             obj.uiElement = objective;
             objective.transform.localScale = Vector3.one;//resetting the scale to be correct
             objective.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.objective);
             objectiveUI.Add(objective);
         }
     }
-    public GameObject CreateNewObjectiveUIElement()
+    public GameObject CreateNewObjectiveUIElement(Objective.ObjectiveRequirement requirement)
     {
         GameObject uiElement = Object.Instantiate(objectiveUIElement as GameObject);
         uiElement.transform.localScale = Vector3.one;
         uiElement.transform.position = Vector3.zero;
         uiElement.transform.localRotation = new Quaternion(0,0,0,0); //resetiing rotation of object incase it didnt spawn with the correct values
         uiElement.transform.SetParent(objectiveList.transform);
+        if(requirement == Objective.ObjectiveRequirement.Required)
+        {
+            uiElement.transform.SetParent(objectiveList.transform);
+        }
+        else
+        {
+            uiElement.transform.SetParent(optionalObjectiveList.transform);
+        }
         objectiveUI.Add(uiElement);
         return uiElement;
     }

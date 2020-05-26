@@ -8,8 +8,8 @@ public class TemperatureController : MonoBehaviour
     public GameObject temperatureUI;
     public int tempWashedAt = 0;
     public bool isWashingMachine = false;
-    public GameObject washingMachine;
-    public GameObject dryer;
+    public WashingMachine washingMachine;
+    public Dryer dryer;
     public float machineTimersInSeconds = 60;
     public TimerUI washingMachineTimerUI;
     public TimerUI dryerTimerUI;
@@ -56,7 +56,7 @@ public class TemperatureController : MonoBehaviour
         {
             timer += 100 / machineTimersInSeconds;
             washingMachineTimerUI.UpdateSliderVal(timer);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSecondsRealtime(1);
         }
     }
     IEnumerator UpdateDryerTimer()
@@ -66,7 +66,19 @@ public class TemperatureController : MonoBehaviour
         {
             timer += 100 / machineTimersInSeconds;
             dryerTimerUI.UpdateSliderVal(timer);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSecondsRealtime(1);
+        }
+    }
+
+    private void Update()
+    {
+        if(washingMachine.washComplete)
+        {
+            washingMachineTimerUI.UpdateSliderVal(100);
+        }
+        else if(dryer.dryingComplete)
+        {
+            dryerTimerUI.UpdateSliderVal(100);
         }
     }
 
@@ -74,22 +86,20 @@ public class TemperatureController : MonoBehaviour
     {
         if(isWashingMachine)
         {
-            WashingMachine washer = washingMachine.GetComponent<WashingMachine>();
-            washer.washComplete = true;
-            washer.tempWashedAt = tempWashedAt;
+            washingMachine.washComplete = true;
+            washingMachine.tempWashedAt = tempWashedAt;
             TrackingController.instance.tempClothesWashedAt = tempWashedAt;
-            washer.ResetBasket();
+            washingMachine.ResetBasket();
             PuzzleManager.instance.SetWashingClothesObjectiveComplete();
         }
         else
         {
             // do stuff from the dryer
-            Dryer dry = dryer.GetComponent<Dryer>();
-            dry.tempDryedAt = tempWashedAt;
+            dryer.tempDryedAt = tempWashedAt;
             TrackingController.instance.tempClothesDriedAt = tempWashedAt;
             TrackingController.instance.driedWithDryer = true;
-            dry.dryingComplete = true;
-            dry.ResetBasket();
+            dryer.dryingComplete = true;
+            dryer.ResetBasket();
             //Add change of percentage based on how the clothes were dried
             PuzzleManager.instance.SetDryClothesObjectiveComplete();
         }

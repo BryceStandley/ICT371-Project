@@ -23,8 +23,11 @@ public class ObjectHoldingPoint : MonoBehaviour
         //Debug.DrawLine(Camera.main.transform.position, transform.position, Color.red, 5f);
         if(Physics.Linecast(Camera.main.transform.position, transform.position, out hit))
         {
-            Vector3 moveTo = new Vector3(hit.point.x + hit.normal.x * 0.5f, hit.point.y + hit.normal.y * 0.5f, hit.point.z + hit.normal.z * 0.5f);
-            transform.position = moveTo;
+            if(!hit.transform.gameObject.CompareTag("DialogueTrigger"))
+            {
+                Vector3 moveTo = new Vector3(hit.point.x + hit.normal.x * 0.5f, hit.point.y + hit.normal.y * 0.5f, hit.point.z + hit.normal.z * 0.5f);
+                transform.position = moveTo;
+            }
             if(hit.transform.gameObject.GetComponent<LightHousing>())
             {
                 if(ObjectPickUp.instance.heldItem != null && ObjectPickUp.instance.heldItem.GetComponent<Lightbulb>())

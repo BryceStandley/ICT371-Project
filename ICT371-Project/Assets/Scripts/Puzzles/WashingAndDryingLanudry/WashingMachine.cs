@@ -30,18 +30,27 @@ public class WashingMachine : MonoBehaviour
         {
             //player has placed laundry basket into the washing machine
             ObjectPickUp.instance.DropItem(basket);
-            //destroy old basket
-            Destroy(basket);
-            //move new basket ontop of machine
-            washedBasket.transform.position = washedBasketLocation.transform.position;
-            washedBasket.transform.rotation = washedBasketLocation.transform.rotation;
-            washedBasket.GetComponent<Rigidbody>().useGravity = true;
-            //display washing machine ui
-            temperatureController.MakeWashingMachine();
-            temperatureUI.SetActive(true);
-            PauseMenu.instance.inDialogue = true;
-            PlayerInputController.instance.DisablePlayerControls();
+            b = basket;
+            Invoke("SetUpBasket", 0.1f);
+
+            
         }
+    }
+    
+    private GameObject b;
+    private void SetUpBasket()
+    {
+        //destroy old basket
+        Destroy(b);
+        //move new basket ontop of machine
+        washedBasket.transform.position = washedBasketLocation.transform.position;
+        washedBasket.transform.rotation = washedBasketLocation.transform.rotation;
+        washedBasket.GetComponent<Rigidbody>().useGravity = true;
+        //display washing machine ui
+        temperatureController.MakeWashingMachine();
+        temperatureUI.SetActive(true);
+        PauseMenu.instance.inDialogue = true;
+        PlayerInputController.instance.DisablePlayerControls();
     }
 
     public void ResetBasket()
