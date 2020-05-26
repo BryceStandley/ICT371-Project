@@ -15,9 +15,9 @@ MonoBehaviour:
   dialogueTriggerName: Unplugging First Device
   npcName: GOV Bot
   sentences:
-  - "\u201CVery smart TMC!\u201D\r\n\n\u201CWhen electronic devices are off but still
-    plugged in, they still use power. This leads to not only a higher than needed
-    energy bill, but plenty of carbon emissions being expended that otherwise could\u2019ve
-    been avoided.\u201D\r"
+  - "\u201CVery smart TMC!\u201D\r"
+  - "\u201CWhen electronic devices are off but still plugged in, they still use power.
+    This leads to not only a higher than needed energy bill, but plenty of carbon
+    emissions being expended that otherwise could\u2019ve been avoided.\u201D\r"
   - "\u201CUnplugging devices when not in use is an easy and effective way to reduce
     emissions in the household.\u201D\r"

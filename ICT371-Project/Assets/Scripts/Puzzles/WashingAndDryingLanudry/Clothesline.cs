@@ -5,7 +5,7 @@ using UnityEngine;
 public class Clothesline : MonoBehaviour
 {
     public GameObject[] clothes;
-
+    public PowerSocket dryerPowerSocket;
     public Dialogue clothesOnClothesLineDialogue;
     public void AcceptBasket(GameObject other)
     {
@@ -31,6 +31,7 @@ public class Clothesline : MonoBehaviour
         PuzzleManager.instance.SetDryClothesObjectiveComplete();
         TrackingController.instance.tempClothesDriedAt = 30;
         DialogueManager.instance.StartDialogue(clothesOnClothesLineDialogue);
+        dryerPowerSocket.UnplugItem();
 
     }
 }

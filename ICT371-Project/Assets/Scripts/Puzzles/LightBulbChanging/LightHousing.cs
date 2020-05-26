@@ -19,20 +19,23 @@ public class LightHousing : MonoBehaviour
     {
         if(currentBulb == null)
         {
-            if(other.GetComponent<Lightbulb>())
+            Lightbulb lb = other.GetComponent<Lightbulb>();
+            if(lb != null)
             {
-                if(other.GetComponent<Lightbulb>().lightbulbType == Lightbulb.LightbulbType.EnergySaver)
+                if(lb.lightbulbType == Lightbulb.LightbulbType.EnergySaver)
                 {
                     ObjectPickUp.instance.DropItem(other.gameObject);
                     //ObjectPickUp.instance.holding = false;
-                    other.tag = "Information";
                     Destroy(other.GetComponent<PickUp>());
                     Destroy(other.GetComponent<Rigidbody>());
                     other.transform.position = bulbLocation.transform.position;
                     other.transform.rotation = new Quaternion(0,0,0,0);
                     other.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    other.tag = "Information";
+                    lb.tagChanged = true;
                     currentBulb = other;
                     changedBulb = true;
+                    lb.lightHousing = this;
                     PuzzleManager.instance.CheckAllLightsChanged();
                 }
             }

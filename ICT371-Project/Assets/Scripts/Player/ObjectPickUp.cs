@@ -197,10 +197,11 @@ public class ObjectPickUp : MonoBehaviour
             Debug.Log("Player cant pick up more that one item at a time...");
         }
         else// Updates the pick up script to move to the follow point and forces ToolTip to hide
-        {
-            item.GetComponent<PickUp>().pickedUp = true;
-            item.GetComponent<PickUp>().pickupCounter++;
-            item.GetComponent<PickUp>().SetHoldPoint(holdPoint);
+        {   
+            PickUp pu = item.GetComponent<PickUp>();
+            pu.pickedUp = true;
+            pu.pickupCounter++;
+            pu.SetHoldPoint(holdPoint);
             heldItem = item;
             holding = true;
             ObjectInformationToolTip.HidePrompt();
@@ -211,8 +212,9 @@ public class ObjectPickUp : MonoBehaviour
 
     public void DropItem(GameObject item)// Used to drop a item from the hold point
     {
-        item.GetComponent<PickUp>().pickedUp = false;
-        item.GetComponent<PickUp>().DropItem();
+        PickUp pu = item.GetComponent<PickUp>();
+        pu.pickedUp = false;
+        pu.DropItem();
         heldItem = null;
         holding = false;
         ObjectInformationToolTip.HideTip();

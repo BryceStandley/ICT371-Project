@@ -19,6 +19,8 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> sentences;
     private EventSystem es;
     public PauseMenu pauseMenu;
+
+    public bool inDialogue = false;
     #endregion
     private void Awake()
     {
@@ -35,6 +37,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)//Method triggered when a dialogue is triggered
 	{
         pauseMenu.inDialogue = true;
+        inDialogue = true;
         dialogueUIElement.SetActive(true);
         dialogueName.text = dialogue.npcName;
 
@@ -79,6 +82,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueUIElement.SetActive(false);
         pauseMenu.inDialogue = false;
+        inDialogue = false;
     }
 
     private void ChangeSelectedItem()

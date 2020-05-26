@@ -21,17 +21,21 @@ public class PowerSocket : MonoBehaviour
         {
             if(ObjectPickUp.instance.lookedAtItem != null)
             {
-                if(ObjectPickUp.instance.lookedAtItem.name.Contains("power"))
+                if(ObjectPickUp.instance.lookedAtItem == this.gameObject)
                 {
-                    PromptChanger.instance.thirdPurpPrompt = true;
-                    PromptChanger.instance.hasCustomName = true;
-                    PromptChanger.instance.customName = "Unplug";
-                    PromptChanger.instance.customNameAction = PromptChanger.CustomNameAction.Third;
-                    PromptChanger.instance.UpdateUI();
-                    ActionManger.instance.SetCurrentAction("Unplug");
+                    if(!isUnplugged)
+                    {
+                        PromptChanger.instance.thirdPurpPrompt = true;
+                        PromptChanger.instance.hasCustomName = true;
+                        PromptChanger.instance.customName = "Unplug";
+                        PromptChanger.instance.customNameAction = PromptChanger.CustomNameAction.Third;
+                        PromptChanger.instance.UpdateUI();
+                        ActionManger.instance.SetCurrentAction("Unplug");
+                    }
                 }
             }
         }
+        
     }
 
     public void UnplugItem()

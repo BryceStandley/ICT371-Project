@@ -57,6 +57,7 @@ public class PickUp : MonoBehaviour
                 transform.position = holdPoint.transform.position;
                 rb.useGravity = false;
                 col.enabled = false;
+                rb.isKinematic = false;
                 //transform.parent = holdPoint.transform;
                 rb.freezeRotation = true;
 

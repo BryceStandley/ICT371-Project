@@ -5,6 +5,7 @@ using UnityEngine;
 public class BuyFood : MonoBehaviour
 {
     public GameObject foodBuyUI;
+    public FoodOrderer foodOrderer;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class BuyFood : MonoBehaviour
         //trigger tracking for beef
         Debug.Log("buying beef...");
         HideBuyUI();
+        foodOrderer.foodBought = true;
         PuzzleManager.instance.TriggerFoodBuyComplete();
 
     }
@@ -32,6 +34,7 @@ public class BuyFood : MonoBehaviour
         //trigger tracking for organic
         Debug.Log("buying organic...");
         HideBuyUI();
+        foodOrderer.foodBought = true;
         PuzzleManager.instance.TriggerFoodBuyComplete();
     }
 
@@ -40,6 +43,7 @@ public class BuyFood : MonoBehaviour
         //trigger tracking for local
         Debug.Log("buying local...");
         HideBuyUI();
+        foodOrderer.foodBought = true;
         PuzzleManager.instance.TriggerFoodBuyComplete();
 
     }

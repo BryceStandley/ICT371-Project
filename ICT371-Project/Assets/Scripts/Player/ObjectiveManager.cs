@@ -23,7 +23,9 @@ public class ObjectiveManager : MonoBehaviour
     public enum ObjectiveListType {Tutorial, Main, End};
 
     public List<Objective> TutorialObjectives;
-    public Animation[] doors;
+    public Animation bedroomDoor;
+    public Animation garrageInsideDoor;
+    public Animation garrageOutsideDoor;
     public List<Objective> MainObjectives;
     public List<Objective> EndObjectives;
 
@@ -59,11 +61,8 @@ public class ObjectiveManager : MonoBehaviour
                 SetObjectiveList(MainObjectives);
                 objectiveListType = ObjectiveListType.Main;
                 PuzzleManager.instance.currentObjectiveListType = ObjectiveListType.Main; 
-                //player has completed tutorial, open doors
-                foreach(Animation anim in doors)
-                {
-                    anim.Play("door");
-                }
+                //player has completed tutorial, open garrage inside door
+                garrageInsideDoor.Play();
 
             }
         }
@@ -83,6 +82,7 @@ public class ObjectiveManager : MonoBehaviour
                 SetObjectiveList(EndObjectives);
                 objectiveListType = ObjectiveListType.End;
                 PuzzleManager.instance.currentObjectiveListType = ObjectiveListType.End;
+                garrageOutsideDoor.Play();
             }
         }
         else if (objectiveListType == ObjectiveListType.End)

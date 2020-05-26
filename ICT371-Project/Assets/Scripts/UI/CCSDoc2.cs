@@ -43,6 +43,6 @@ public class CCSDoc2 : MonoBehaviour
 
     public void ProvideLink()
     {
-        Application.OpenURL("https://climate.nasa.gov/faq/30/if-all-of-earths-ice-melts-and-flows-into-the-ocean-what-would-happen-to-the-planets-rotation/");
+        Application.OpenURL("");
     }
 }

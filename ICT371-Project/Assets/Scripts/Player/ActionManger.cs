@@ -13,9 +13,10 @@ public class ActionManger : MonoBehaviour
     public static ActionManger instance;
     private string actionAvailable;
 
-    private string[] actions = { "TakeSeed", "Unplug" , "BuyFood", "InspectMagnet", "InspectCCS1", "InspectCCS2"};
+    private string[] actions = { "TakeSeed", "Unplug" , "BuyFood", "InspectMagnet", "InspectDoc"};
 
     public GameObject seed;
+    public CCSInspect docToInspect;
 
     private void Awake()//using clear function to set up empty string
     {
@@ -55,12 +56,8 @@ public class ActionManger : MonoBehaviour
                 }
                 else if (actionAvailable.ToLower().Contains(actions[4].ToLower()))
                 {
-                    InspectCCS1();
-                    ClearCurrentAction();
-                }
-                else if (actionAvailable.ToLower().Contains(actions[5].ToLower()))
-                {
-                    InspectCCS2();
+                    Debug.Log("action triggered");
+                    InspectDoc();
                     ClearCurrentAction();
                 }
             }
@@ -86,6 +83,7 @@ public class ActionManger : MonoBehaviour
     {
         //Debug.Log("Action Cleared");
         actionAvailable = "";
+        docToInspect = null;
     }
 
     private void TakeSeed()
@@ -150,14 +148,14 @@ public class ActionManger : MonoBehaviour
         }
     }
 
-    private void InspectCCS1()
+    private void InspectDoc()
     {
+        Debug.Log("Looking at doc");
         if (ObjectPickUp.instance.lookedAtItem != null)
         {
-            CCSDoc1 doc1 = ObjectPickUp.instance.lookedAtItem.GetComponent<CCSDoc1>();
-            if (doc1 != null)
+            if (docToInspect != null)
             {
-                doc1.Inspect();
+                docToInspect.Inspect();
             }
             else
             {
@@ -165,23 +163,6 @@ public class ActionManger : MonoBehaviour
                 ClearCurrentAction();
             }
         }
+    
     }
-
-    private void InspectCCS2()
-    {
-        if (ObjectPickUp.instance.lookedAtItem != null)
-        {
-            CCSDoc2 doc2 = ObjectPickUp.instance.lookedAtItem.GetComponent<CCSDoc2>();
-            if (doc2 != null)
-            {
-                doc2.Inspect();
-            }
-            else
-            {
-                Debug.Log("not looking at doc");
-                ClearCurrentAction();
-            }
-        }
-    }
-
 }
