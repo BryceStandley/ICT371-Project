@@ -21,6 +21,10 @@ public class ActionManger : MonoBehaviour
     private void Awake()//using clear function to set up empty string
     {
         instance = this;
+        
+    }
+    private void Start()
+    {
         ClearCurrentAction();
     }
 
@@ -56,7 +60,6 @@ public class ActionManger : MonoBehaviour
                 }
                 else if (actionAvailable.ToLower().Contains(actions[4].ToLower()))
                 {
-                    Debug.Log("action triggered");
                     InspectDoc();
                     ClearCurrentAction();
                 }
@@ -65,13 +68,7 @@ public class ActionManger : MonoBehaviour
     }
 
     private void LateUpdate()
-    {
-        if(actionAvailable == "")
-        {
-            PromptChanger.instance.thirdPurpPrompt = false;
-            PromptChanger.instance.hasCustomName = false;
-            PromptChanger.instance.UpdateUI();
-        }    
+    {   
     }
 
     public void SetCurrentAction(string action)
@@ -84,6 +81,9 @@ public class ActionManger : MonoBehaviour
         //Debug.Log("Action Cleared");
         actionAvailable = "";
         docToInspect = null;
+        PromptChanger.instance.thirdPurpPrompt = false;
+        PromptChanger.instance.hasCustomName = false;
+        PromptChanger.instance.UpdateUI();
     }
 
     private void TakeSeed()
@@ -150,7 +150,6 @@ public class ActionManger : MonoBehaviour
 
     private void InspectDoc()
     {
-        Debug.Log("Looking at doc");
         if (ObjectPickUp.instance.lookedAtItem != null)
         {
             if (docToInspect != null)

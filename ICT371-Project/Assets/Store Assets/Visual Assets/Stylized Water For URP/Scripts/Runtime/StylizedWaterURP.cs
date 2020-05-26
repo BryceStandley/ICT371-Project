@@ -347,7 +347,16 @@ namespace StylizedWaterForURP
             data.Set();
 
             BeginPlanarReflections?.Invoke(context, _reflectionCamera);
-            UniversalRenderPipeline.RenderSingleCamera(context, _reflectionCamera);
+            #if UNITY_EDITOR
+
+                if(!SceneView.lastActiveSceneView.in2DMode)
+                {
+                    UniversalRenderPipeline.RenderSingleCamera(context, _reflectionCamera);
+                }
+            #endif
+            #if UNITY_STANDALONE
+                UniversalRenderPipeline.RenderSingleCamera(context, _reflectionCamera);
+            #endif
 
             data.Restore();
             Shader.SetGlobalTexture(_planarReflectionTextureId, _reflectionTexture);

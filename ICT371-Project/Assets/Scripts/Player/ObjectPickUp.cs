@@ -47,7 +47,8 @@ public class ObjectPickUp : MonoBehaviour
 
     private void LateUpdate()// Called after the update method
     {
-        centerRay = cam.ScreenPointToRay(new Vector3(screenWidth / 2, screenHeight / 2, 0));
+        //centerRay = cam.ScreenPointToRay(new Vector3(screenWidth / 2, screenHeight / 2, 0));
+        centerRay = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         if (Physics.Raycast(centerRay, out hit, pickupDistance) || heldItem != null)//Casting ray from center of screen and checking if the player is holding a object
         {

@@ -6,55 +6,54 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject mainButtons;
-    public GameObject backButton;
-    public GameObject optionButtons;
-    public GameObject slider;
-    public GameObject credits;
-    public GameObject creditButton;
-    public GameObject displayOptions;
-    public GameObject graphicsDropdown;
-    public GameObject fullScreenToggle;
-    public GameObject controlsPage;
+    public GameObject mainMenu, optionsMenu, audioMenu, displayMenu, creditsMenu, controlsMenu;
 
-    public AudioMixer audioMixer;
-
-    public TMP_Dropdown resolutionDropDown;
-
-    Resolution[] resolutions;
+    public AudioMixer volumeMixer;
+    public Slider volumeSlider;
+    public Toggle fullScreenToggle, gamepadControlsToggle, keyboardControlsToggle;
+    public Image controlsImage;
+    public Sprite gamepadControlsSprite, keyboardControlsSprite;
+    public EventSystem eventSystem;
+    public TMP_Dropdown resolutionDropdown, displayDropdown;
+    public string[] allowedResolutions;
+    public List<Display> displays;
+    public List<Resolution> resolutions;
 
     private void Start()
     {
+        resolutions = new List<Resolution>();
         GetResolutions(); //gets all the resolutions available to the player based on their display
-        SetFullScreen(true); //starts the game off in fullscreen
-        InitialiseMenu(); //sets up the menu for use
+        displays = new List<Display>();
+        GetDisplays();
+        LoadSettings();
     }
 
-    public void Update()
+    private void LoadSettings()
     {
-
+        LoadVolume();
+        LoadScreenMode();
+        LoadResolution();
     }
-
     public void OnPausePress(InputAction.CallbackContext callback)
     {
         if(callback.performed)//if pause button is pressed while in menu it will return to the home menu
         {
-            mainButtons.SetActive(true);
-            optionButtons.SetActive(false);
-            backButton.SetActive(false);
-            slider.SetActive(false);
-            credits.SetActive(false);
-            displayOptions.SetActive(false);
-            controlsPage.SetActive(false);
+            mainMenu.SetActive(true);
+            optionsMenu.SetActive(false);
+            audioMenu.SetActive(false);
+            displayMenu.SetActive(false);
+            creditsMenu.SetActive(false);
+            controlsMenu.SetActive(false);
         }
     }
 
     public void NewGame() //starts a new game by loading in the game scene
     {
-        Debug.Log("Loading New Game...");
+        //Debug.Log("Loading New Game...");
         SceneManager.LoadScene("MenuToGame");
     }
 
@@ -64,71 +63,6 @@ public class MainMenu : MonoBehaviour
         //feature will be implemented in final release
     }
 
-    public void Options() //displays option menu
-    {
-        Debug.Log("Loading Options...");
-        mainButtons.SetActive(false);
-        backButton.SetActive(true);
-        optionButtons.SetActive(true);
-    }
-
-    public void Audio() //displays audio menu
-    {
-        optionButtons.SetActive(false);
-        Debug.Log("Displaying Audio...");
-        slider.SetActive(true);
-    }
-
-    public void Display() //displays display menu
-    {
-        optionButtons.SetActive(false);
-        displayOptions.SetActive(true);
-        graphicsDropdown.SetActive(true);
-        resolutionDropDown.gameObject.SetActive(true);
-        fullScreenToggle.SetActive(true);
-    }
-
-    public void Credits() //displays credit menu
-    {
-        optionButtons.SetActive(false);
-        Debug.Log("Displaying Credits...");
-        credits.SetActive(true);
-        creditButton.SetActive(true);
-        backButton.SetActive(true);
-    }
-
-    public void Controls() //displays controls menu
-    {
-        optionButtons.SetActive(false);
-        controlsPage.SetActive(true);
-        backButton.SetActive(true);
-        //content on controls page will be present in final game
-    }
-
-    public void Back() //displays previous menu dependant on what menu user was in
-    {
-        if (mainButtons.activeSelf == false && optionButtons.activeSelf == true)
-        {
-            //everything below is hidden
-            backButton.SetActive(false);
-            optionButtons.SetActive(false);
-            mainButtons.SetActive(true);
-        }
-        else if (optionButtons.activeSelf == false && mainButtons.activeSelf == false)
-        {
-            optionButtons.SetActive(true);
-            //everything below is hidden
-            slider.SetActive(false); 
-            graphicsDropdown.SetActive(false);
-            resolutionDropDown.gameObject.SetActive(false);
-            fullScreenToggle.SetActive(false);
-            credits.SetActive(false);
-            backButton.SetActive(true);
-            mainButtons.SetActive(false);
-            controlsPage.SetActive(false);
-        }
-    }
-
     public void QuitGame() //Quits Game
     {
         Application.Quit();
@@ -136,23 +70,73 @@ public class MainMenu : MonoBehaviour
 
     public void SetVolume(float volume) //Sets the volume of the in-game audio
     {
-        audioMixer.SetFloat("volume", volume);
+        volumeMixer.SetFloat("volume", volume);
+        PlayerPrefs.SetFloat("GameMusicVolume", volume);
+    }
+    public void LoadVolume()
+    {
+        float vol = PlayerPrefs.GetFloat("GameMusicVolume", -100);
+        if(vol != -100)
+        {
+            volumeMixer.SetFloat("volume", vol);
+            volumeSlider.value = vol;
+        }
     }
 
-    public void SetQuality(int quality) //Sets the graphical quality
+    public void SetFullScreen() //Sets the game window to fullscreen if true and windowed if false
     {
-        QualitySettings.SetQualityLevel(quality);
+        if(fullScreenToggle.isOn)
+        {
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+            PlayerPrefs.SetInt("GameFullscreenMode", 1);
+            GetResolutions();
+        }
+        else
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+            PlayerPrefs.SetInt("GameFullscreenMode", -1);
+        }
     }
 
-    public void SetFullScreen(bool isFullScreen) //Sets the game window to fullscreen if true and windowed if false
+    public void LoadScreenMode()
     {
-        Screen.fullScreen = isFullScreen;
+        int mode = PlayerPrefs.GetInt("GameFullscreenMode", 2);
+        if(mode != 2)
+        {
+            if(mode == 1)
+            {
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                fullScreenToggle.isOn = true;
+            }
+            else if(mode == -1)
+            {
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                fullScreenToggle.isOn = false;
+            }
+        }
     }
 
     public void SetResolution(int resolutionIndex) //Sets the resolution of the game to one of the selections from the resolution index
     {
         Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
+        PlayerPrefs.SetInt("GameResolutionWidth", resolution.width);
+        PlayerPrefs.SetInt("GameResolutionHeight", resolution.height);
+    }
+
+    private void LoadResolution()
+    {
+        int w, h;
+        w = PlayerPrefs.GetInt("GameResolutionWidth");
+        h = PlayerPrefs.GetInt("GameResolutionHeight");
+        if(w != 0 || h != 0)
+        {
+            Screen.SetResolution(w, h, Screen.fullScreenMode);
+        }
+        else
+        {
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, Screen.fullScreenMode);
+        }
     }
 
     public void OpenMusicCredit()
@@ -160,40 +144,78 @@ public class MainMenu : MonoBehaviour
         Application.OpenURL("https://pinevoc.bandcamp.com/album/green-ideas"); //credits the user of the in game music
     }
 
+    public void ToggleKeyboardControlsImage()
+    {
+        if(keyboardControlsToggle.isOn)
+        {
+            gamepadControlsToggle.isOn = false;
+            controlsImage.sprite = keyboardControlsSprite;
+        }
+    }
+
+    public void ToggleGamepadControlsImage()
+    {
+        if(gamepadControlsToggle.isOn)
+        {
+            keyboardControlsToggle.isOn = false;
+            controlsImage.sprite = gamepadControlsSprite;
+        }
+    }
+
+    public void GetDisplays()
+    {
+        displayDropdown.ClearOptions();
+        List<string> options = new List<string>();
+        int index = 0;
+        foreach(Display display in Display.displays)
+        {
+            string option = "Display: " +index;
+            displays.Add(display);
+            options.Add(option);
+            index++;
+        }
+        displayDropdown.AddOptions(options);
+    }
+
+    public void SetDisplay(int index)
+    {
+        Camera.main.targetDisplay = index;
+    }
+
+    public void SetSelectedObject(GameObject obj)
+    {
+        eventSystem.SetSelectedGameObject(obj);
+    }
+
     public void GetResolutions() //gets all resolutions user can set and stores them in a list, while also setting the default resolution to best fit the current screen 
     {
-        resolutions = Screen.resolutions;
-        resolutionDropDown.ClearOptions();
+        Resolution[] tempRes = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
 
-        for (int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < tempRes.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height + " @" + resolutions[i].refreshRate + "Hz"; //represents each resolution by showing their width, height and refresh rate
-            options.Add(option);
+            string option = tempRes[i].width + " x " + tempRes[i].height + " @" + tempRes[i].refreshRate + "Hz"; //represents each resolution by showing their width, height and refresh rate
+            foreach(string st in allowedResolutions)
+            {
+                if(option.Contains(st))
+                {
+                    options.Add(option);
+                    resolutions.Add(tempRes[i]);
+                }
+            }
 
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height) //sets the default resolution used in game to match the current resolution of the screen 
+            if (tempRes[i].width == Screen.currentResolution.width && tempRes[i].height == Screen.currentResolution.height) //sets the default resolution used in game to match the current resolution of the screen 
             {
                 currentResolutionIndex = i;
             }
         }
 
-        resolutionDropDown.AddOptions(options); //adds the list options to the drop down
-        resolutionDropDown.value = currentResolutionIndex;
-        resolutionDropDown.RefreshShownValue();
-    }
-
-    public void InitialiseMenu() //hides content within menus that aren't immediately visible
-    {
-        optionButtons.SetActive(false);
-        backButton.SetActive(false);
-        creditButton.SetActive(false);
-        graphicsDropdown.SetActive(false);
-        resolutionDropDown.gameObject.SetActive(false);
-        fullScreenToggle.SetActive(false);
-        slider.SetActive(false);
-        controlsPage.SetActive(false);
+        resolutionDropdown.AddOptions(options); //adds the list options to the drop down
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
 }

@@ -18,8 +18,9 @@ public class PauseMenu : MonoBehaviour
     public AudioMixer audioMixer;
     public TMP_Dropdown resolutionDropDown;
     public Toggle fullScreenToggle;
+    public Slider volumeSlider;
     public AudioSource audioSource;
-    private Resolution[] resolutions;
+    private List<Resolution> resolutions;
     private EventSystem es;
     private GameObject origSelectedItem;
 
@@ -32,10 +33,19 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
+
+        resolutions = new List<Resolution>();
         GetResolutions(); //gets all the resolutions available to the player based on their display
-        ToggleFullscreen(); //starts the game off in fullscreen
+        LoadSettings();
         origSelectedItem = es.currentSelectedGameObject;
 
+    }
+
+    private void LoadSettings()
+    {
+        LoadVolume();
+        LoadScreenMode();
+        LoadResolution();
     }
     public void OnPausePressed(InputAction.CallbackContext callback)
     {
@@ -67,7 +77,7 @@ public class PauseMenu : MonoBehaviour
         }
         mainPauseMenuUI.SetActive(true);
         pauseMenu.SetActive(false);
-        audioSource.Play(); //Changed to have direct reference to audio source to stop delay
+        //audioSource.Play(); //Changed to have direct reference to audio source to stop delay
         PlayerInputController.instance.EnablePlayerControls(); //allows for player to move around in-game
     }
 
@@ -79,7 +89,7 @@ public class PauseMenu : MonoBehaviour
        
         gameplayUI.SetActive(false); //hides gameplayUI when game is paused
         
-        audioSource.Pause(); //Changed to have direct reference to audio source to stop delay
+        //audioSource.Pause(); //Changed to have direct reference to audio source to stop delay
 
         PlayerInputController.instance.DisablePlayerControls(); //ceases player ability to move around in-game
     }
@@ -105,11 +115,17 @@ public class PauseMenu : MonoBehaviour
     public void SetVolume(float volume) //Sets the volume of the in-game audio
     {
         audioMixer.SetFloat("volume", volume);
+        PlayerPrefs.SetFloat("GameMusicVolume", volume);
     }
 
-    public void SetQuality(int quality) //Sets the graphical quality
+    public void LoadVolume()
     {
-        QualitySettings.SetQualityLevel(quality);
+        float vol = PlayerPrefs.GetFloat("GameMusicVolume", -100);
+        if(vol != -100)
+        {
+            audioMixer.SetFloat("volume", vol);
+            volumeSlider.value = vol;
+        }
     }
 
     public void ToggleFullscreen() //Sets the game window to fullscreen if true and windowed if false
@@ -117,20 +133,56 @@ public class PauseMenu : MonoBehaviour
         if(fullScreenToggle.isOn)
         {
             Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-            //Debug.Log("Is Fullscreen");
+            PlayerPrefs.SetInt("GameFullscreenMode", 1);
+            GetResolutions();
         }
         else
         {
             Screen.fullScreenMode = FullScreenMode.Windowed;
-            //Debug.Log("Is Windowed");
+            PlayerPrefs.SetInt("GameFullscreenMode", -1);
+        }
+    }
+
+    public void LoadScreenMode()
+    {
+        int mode = PlayerPrefs.GetInt("GameFullscreenMode", 2);
+        if(mode != 2)
+        {
+            if(mode == 1)
+            {
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                fullScreenToggle.isOn = true;
+            }
+            else if(mode == -1)
+            {
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                fullScreenToggle.isOn = false;
+            }
         }
     }
 
     public void SetResolution(int resolutionIndex) //Sets the resolution of the game to one of the selections from the resolution index
     {
         Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        ObjectPickUp.instance.UpdateScreenSize();
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
+        PlayerPrefs.SetInt("GameResolutionWidth", resolution.width);
+        PlayerPrefs.SetInt("GameResolutionHeight", resolution.height);
+        //ObjectPickUp.instance.UpdateScreenSize();
+    }
+
+    private void LoadResolution()
+    {
+        int w, h;
+        w = PlayerPrefs.GetInt("GameResolutionWidth");
+        h = PlayerPrefs.GetInt("GameResolutionHeight");
+        if(w != 0 || h != 0)
+        {
+            Screen.SetResolution(w, h, Screen.fullScreenMode);
+        }
+        else
+        {
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, Screen.fullScreenMode);
+        }
     }
 
     public void OpenMusicCredit() //credits the user of the in game music   
@@ -140,27 +192,28 @@ public class PauseMenu : MonoBehaviour
     }
 
     public string[] allowedResolutions;
-    public void GetResolutions() //gets all resolutions user can set and stores them in a list, while also setting the default resolution to best fit the current screen 
+public void GetResolutions() //gets all resolutions user can set and stores them in a list, while also setting the default resolution to best fit the current screen 
     {
-        resolutions = Screen.resolutions;
+        Resolution[] tempRes = Screen.resolutions;
         resolutionDropDown.ClearOptions();
 
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
 
-        for (int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < tempRes.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height + " @" + resolutions[i].refreshRate + "Hz"; //represents each resolution by showing their width, height and refresh rate
+            string option = tempRes[i].width + " x " + tempRes[i].height + " @" + tempRes[i].refreshRate + "Hz"; //represents each resolution by showing their width, height and refresh rate
             foreach(string st in allowedResolutions)
             {
                 if(option.Contains(st))
                 {
                     options.Add(option);
+                    resolutions.Add(tempRes[i]);
                 }
             }
 
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height) //sets the default resolution used in game to match the current resolution of the screen 
+            if (tempRes[i].width == Screen.currentResolution.width && tempRes[i].height == Screen.currentResolution.height) //sets the default resolution used in game to match the current resolution of the screen 
             {
                 currentResolutionIndex = i;
             }

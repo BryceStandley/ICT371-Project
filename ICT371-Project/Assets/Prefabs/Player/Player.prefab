@@ -2526,7 +2526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5119861901293288276
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4842,7 +4842,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2968705042814778106}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16c9b9d2b3a2245848c8f69f3c9236b9, type: 3}
   m_Name: 
@@ -8272,7 +8272,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 547697247165089987}
   m_Direction: 0
   m_MinValue: -80
-  m_MaxValue: 0
+  m_MaxValue: 20
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -8481,7 +8481,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8512,10 +8512,10 @@ MonoBehaviour:
   m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontSizeMax: 40
+  m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -9232,7 +9232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4220445010451007733
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10184,7 +10184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1307143670005197126
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11330,7 +11330,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: -15
     m_Right: 0
-    m_Top: -33
+    m_Top: -45
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
@@ -11567,7 +11567,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: -15
     m_Right: 0
-    m_Top: -33
+    m_Top: -45
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
@@ -13956,6 +13956,7 @@ MonoBehaviour:
   playerController: {fileID: 8135916886998940537}
   playerLook: {fileID: 8135916888646205442}
   objPickUp: {fileID: 8269289810949244988}
+  gamePlayUI: {fileID: 2379232819650748147}
 --- !u!114 &8269289810949244988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15697,8 +15698,8 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 1
-  m_MatchWidthOrHeight: 0
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 0
   m_FallbackScreenDPI: 300
   m_DefaultSpriteDPI: 300
@@ -15745,6 +15746,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 0e3eb0d177fdb42feaa345eb4367a33e, type: 2}
   resolutionDropDown: {fileID: 2714621346437196855}
   fullScreenToggle: {fileID: 7359999122621900557}
+  volumeSlider: {fileID: 4954861439869255166}
   audioSource: {fileID: 2330101873867327128}
   allowedResolutions:
   - 1920 x 1080
@@ -15844,7 +15846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1012593109773167663
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15895,7 +15897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8663053687775611512
 RectTransform:
   m_ObjectHideFlags: 0

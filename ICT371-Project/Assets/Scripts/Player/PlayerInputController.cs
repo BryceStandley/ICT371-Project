@@ -9,12 +9,17 @@ public class PlayerInputController : MonoBehaviour
     public PlayerController playerController;
     public PlayerLook playerLook;
     public ObjectPickUp objPickUp;
+    public GameObject objectiveUI, crossHair;
 
     private bool gamepad = false;
 
     private void Awake()
     {
         instance = this;
+    }
+    private void Start()
+    {
+        DisablePlayerControls();
     }
 
     public void OnInputChange(PlayerInput input)
@@ -38,6 +43,7 @@ public class PlayerInputController : MonoBehaviour
         playerLook.enabled = false;
         objPickUp.disabledInput = true;
         objPickUp.enabled = false; 
+        HideMainGameUI();
         Cursor.lockState = CursorLockMode.None;
         if(!gamepad)
         {
@@ -48,11 +54,24 @@ public class PlayerInputController : MonoBehaviour
     public void EnablePlayerControls()//Inverts Disable controls method
     {
         Cursor.lockState = CursorLockMode.Locked;//Locking cursor to the center of the screen and hiding it
-        Cursor.visible = false; 
+        Cursor.visible = false;
+        ShowMainGameUI();
         playerController.enabled = true;
         playerLook.enabled = true;
         objPickUp.disabledInput = false;
         objPickUp.enabled = true;
 
+    }
+
+    private void HideMainGameUI()
+    {
+        objectiveUI.SetActive(false);
+        crossHair.SetActive(false);
+    }
+
+    private void ShowMainGameUI()
+    {
+        objectiveUI.SetActive(true);
+        crossHair.SetActive(true);
     }
 }

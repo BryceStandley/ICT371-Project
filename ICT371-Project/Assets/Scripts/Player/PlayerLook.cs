@@ -27,13 +27,10 @@ public class PlayerLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;//Locking cursor to the center of the screen and hiding it
         Cursor.visible = false; 
         controls = new InputMaster();//Creating a new inputMaster component
-
         headOriginOrientation = transform.localRotation;
         bodyOriginOrientation = playerBody.localRotation;
-
-
         inputAction = controls.Player.Camera;
-        PlayerInputController.instance.DisablePlayerControls();
+        
     }
 
     private void OnEnable()//Enables camera controls if camera is enabled

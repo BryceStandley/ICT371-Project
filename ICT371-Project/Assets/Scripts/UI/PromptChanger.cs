@@ -48,12 +48,12 @@ public class PromptChanger : MonoBehaviour
         uiMaster.AddToPromptList(this);
         UpdateUI();
         //ObjectInformationToolTip.HidePrompt();
-    }
 
+    }
+    string customNameFirst, customNameSecond, customNameThird;
     private string CreatePromptString(bool gp, bool xb)
     {
         string outString;
-        string customNameFirst;
         if(hasCustomName && customNameAction == CustomNameAction.First)
         {
             customNameFirst = customName;
@@ -82,7 +82,7 @@ public class PromptChanger : MonoBehaviour
 
         if (dualPurpPrompt)
         {
-            string customNameSecond;
+            
             if(hasCustomName && customNameAction == CustomNameAction.Second)
             {
                 customNameSecond = customName;
@@ -111,7 +111,6 @@ public class PromptChanger : MonoBehaviour
 
         if (thirdPurpPrompt)//Going to assume the third purp of a prompt will be a custom named action
         {
-            string customNameThird;
             if(hasCustomName && customNameAction == CustomNameAction.Third)
             {
                 customNameThird = customName;
