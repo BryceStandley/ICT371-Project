@@ -54,7 +54,7 @@ public class PuzzleManager : MonoBehaviour
         int percentage = 0;
         Objective ob = new Objective();
 
-        foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+        foreach(Objective obj in ObjectiveManager.instance.SideObjetives)
         {
             if(obj.objectiveID == 95)
             {
@@ -117,7 +117,7 @@ public class PuzzleManager : MonoBehaviour
     {
         if(!lightBulbGarbageObjectiveCreated)
         {
-            ObjectiveManager.instance.AddNewMainObjective("Throw away the bulbs.", 94, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 10);
+            ObjectiveManager.instance.AddNewSideObjective("Throw away the bulbs.", 94, Objective.ObjectiveType.Side, Objective.ObjectiveRequirement.Optional, 0, 10);
             lightBulbGarbageObjectiveCreated = true;
             DialogueManager.instance.StartDialogue(unpluggingFirstBulbDialogue);
         }
@@ -129,7 +129,7 @@ public class PuzzleManager : MonoBehaviour
         int percentage = 0;
         Objective ob = new Objective();
 
-        foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+        foreach(Objective obj in ObjectiveManager.instance.SideObjetives)
         {
             if(obj.objectiveID == 94)
             {
@@ -235,7 +235,7 @@ public class PuzzleManager : MonoBehaviour
 
     private void AddDryObjective()
     {
-        ObjectiveManager.instance.AddNewMainObjective("Dry your clothes.", 93, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 20);
+        ObjectiveManager.instance.AddNewSideObjective("Dry your clothes.", 93, Objective.ObjectiveType.Side, Objective.ObjectiveRequirement.Optional, 0, 20);
 
     }
 
@@ -246,7 +246,7 @@ public class PuzzleManager : MonoBehaviour
     //using objective ID of 93
     public void SetDryClothesObjectiveComplete()
     {
-        foreach (Objective obj in ObjectiveManager.instance.MainObjectives)
+        foreach (Objective obj in ObjectiveManager.instance.SideObjetives)
         {
             if (obj.objectiveID == 93)
             {
@@ -443,7 +443,7 @@ public class PuzzleManager : MonoBehaviour
     {
         if(!ppMade)
         {
-            ObjectiveManager.instance.AddNewMainObjective("Unplug devices", 92, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 10);
+            ObjectiveManager.instance.AddNewSideObjective("Unplug devices", 92, Objective.ObjectiveType.Side, Objective.ObjectiveRequirement.Optional, 0, 10);
             ppMade = true;
         }
     }
@@ -466,7 +466,7 @@ public class PuzzleManager : MonoBehaviour
             DialogueManager.instance.StartDialogue(oneDeivceUnplugged);
         }
 
-        foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
+        foreach(Objective obj in ObjectiveManager.instance.SideObjetives)
         {
             if(obj.objectiveType == Objective.ObjectiveType.Main)
             {
@@ -518,13 +518,13 @@ public class PuzzleManager : MonoBehaviour
 
     public void AddFoodBuyObjective()
     {
-        ObjectiveManager.instance.AddNewMainObjective("Buy some food", 91, Objective.ObjectiveType.Main, Objective.ObjectiveRequirement.Optional, 0, 5);
+        ObjectiveManager.instance.AddNewSideObjective("Buy some food", 91, Objective.ObjectiveType.Side, Objective.ObjectiveRequirement.Optional, 0, 5);
     }
 
     public void TriggerFoodBuyComplete()
     {
         Objective obj = new Objective();
-        foreach(Objective ob in ObjectiveManager.instance.MainObjectives)
+        foreach(Objective ob in ObjectiveManager.instance.SideObjetives)
         {
             if(ob.objectiveID == 91)
             {

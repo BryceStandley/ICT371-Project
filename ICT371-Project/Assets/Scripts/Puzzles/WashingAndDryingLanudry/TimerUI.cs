@@ -16,7 +16,6 @@ public class TimerUI : MonoBehaviour
         {
             audioSource.clip = washingCompleteSound;
             audioSource.Play();
-            Destroy(slider.gameObject);
         }
     }
 }

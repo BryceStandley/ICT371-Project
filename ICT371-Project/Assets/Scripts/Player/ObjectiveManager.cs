@@ -21,14 +21,16 @@ public class ObjectiveManager : MonoBehaviour
     public GameObject optionalObjectiveList;
 
     public ObjectiveListType objectiveListType;
-    public enum ObjectiveListType {Tutorial, Main, End};
+    public enum ObjectiveListType {Tutorial, Main, End, Side};
 
     public List<Objective> TutorialObjectives;
     public Animation bedroomDoor;
     public Animation garrageInsideDoor;
     public Animation garrageOutsideDoor;
+    public Dialogue allMainObjectivesCompleteDialogue;
     public List<Objective> MainObjectives;
     public List<Objective> EndObjectives;
+    public List<Objective> SideObjetives;
 
     public List<GameObject> objectiveUI;
 
@@ -60,6 +62,7 @@ public class ObjectiveManager : MonoBehaviour
                 //Tutorials complete, change list
                 ClearUI();
                 SetObjectiveList(MainObjectives);
+                SetObjectiveList(SideObjetives);
                 objectiveListType = ObjectiveListType.Main;
                 PuzzleManager.instance.currentObjectiveListType = ObjectiveListType.Main; 
                 //player has completed tutorial, open garrage inside door
@@ -81,7 +84,9 @@ public class ObjectiveManager : MonoBehaviour
                 //Mains complete, change list
                 ClearUI();
                 SetObjectiveList(EndObjectives);
+                SetObjectiveList(SideObjetives);
                 objectiveListType = ObjectiveListType.End;
+                DialogueManager.instance.StartDialogue(allMainObjectivesCompleteDialogue);
                 PuzzleManager.instance.currentObjectiveListType = ObjectiveListType.End;
                 garrageOutsideDoor.Play();
             }
@@ -103,14 +108,15 @@ public class ObjectiveManager : MonoBehaviour
         }
     }
 
-    public void AddNewMainObjective(string objective, int objID, Objective.ObjectiveType objType, Objective.ObjectiveRequirement objRequirement, int percentage, int weight)
+    public void AddNewSideObjective(string objective, int objID, Objective.ObjectiveType objType, Objective.ObjectiveRequirement objRequirement, int percentage, int weight)
     {
         if(objectiveListType == ObjectiveListType.Main)
         {   
             GameObject uiElement = CreateNewObjectiveUIElement(objRequirement);
             Objective obj = new Objective(objective, objID, uiElement, objType, objRequirement, percentage, weight);
             uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.objective);
-            MainObjectives.Add(obj);
+            SideObjetives.Add(obj);
+            TrackingController.instance.totalObjectives++;
         }
     }
 
@@ -129,7 +135,13 @@ public class ObjectiveManager : MonoBehaviour
             }
             obj.uiElement = objective;
             objective.transform.localScale = Vector3.one;//resetting the scale to be correct
-            objective.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.objective);
+            ObjectiveUIElement uIElement = objective.GetComponent<ObjectiveUIElement>();
+            uIElement.UpdateObjective(obj.objective);
+            if(obj.hasComplete)
+            {
+                uIElement.UpdateObjective(obj.hasComplete);
+            }
+            
             objectiveUI.Add(objective);
         }
     }
@@ -140,14 +152,7 @@ public class ObjectiveManager : MonoBehaviour
         uiElement.transform.position = Vector3.zero;
         uiElement.transform.localRotation = new Quaternion(0,0,0,0); //resetiing rotation of object incase it didnt spawn with the correct values
         uiElement.transform.SetParent(objectiveList.transform);
-        if(requirement == Objective.ObjectiveRequirement.Required)
-        {
-            uiElement.transform.SetParent(objectiveList.transform);
-        }
-        else
-        {
-            uiElement.transform.SetParent(optionalObjectiveList.transform);
-        }
+        uiElement.transform.SetParent(optionalObjectiveList.transform);
         objectiveUI.Add(uiElement);
         return uiElement;
     }
@@ -185,7 +190,7 @@ public class Objective
     public GameObject uiElement;
 
     public ObjectiveType objectiveType;
-    public enum ObjectiveType {Tutorial, Main, End};
+    public enum ObjectiveType {Tutorial, Main, End, Side};
 
     public ObjectiveRequirement objectiveRequirement;
     public enum ObjectiveRequirement {Required, Optional};

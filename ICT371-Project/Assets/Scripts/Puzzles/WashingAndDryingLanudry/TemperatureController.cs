@@ -70,18 +70,6 @@ public class TemperatureController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if(washingMachine.washComplete)
-        {
-            washingMachineTimerUI.UpdateSliderVal(100);
-        }
-        else if(dryer.dryingComplete)
-        {
-            dryerTimerUI.UpdateSliderVal(100);
-        }
-    }
-
     private void EndTimer()
     {
         if(isWashingMachine)
@@ -91,6 +79,8 @@ public class TemperatureController : MonoBehaviour
             TrackingController.instance.tempClothesWashedAt = tempWashedAt;
             washingMachine.ResetBasket();
             PuzzleManager.instance.SetWashingClothesObjectiveComplete();
+            washingMachineTimerUI.UpdateSliderVal(100);
+            washingMachineTimerUI.gameObject.SetActive(false);
         }
         else
         {
@@ -102,6 +92,8 @@ public class TemperatureController : MonoBehaviour
             dryer.ResetBasket();
             //Add change of percentage based on how the clothes were dried
             PuzzleManager.instance.SetDryClothesObjectiveComplete();
+            dryerTimerUI.UpdateSliderVal(100);
+            dryerTimerUI.gameObject.SetActive(false);
         }
     }
 }
