@@ -31,7 +31,7 @@ public class Clothesline : MonoBehaviour
         PuzzleManager.instance.SetDryClothesObjectiveComplete();
         TrackingController.instance.tempClothesDriedAt = 30;
         DialogueManager.instance.StartDialogue(clothesOnClothesLineDialogue);
-        dryerPowerSocket.UnplugItem();
+        //dryerPowerSocket.UnplugItem();
 
     }
 }

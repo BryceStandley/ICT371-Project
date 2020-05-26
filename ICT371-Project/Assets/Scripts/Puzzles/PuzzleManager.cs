@@ -461,6 +461,11 @@ public class PuzzleManager : MonoBehaviour
                 percentage += 1f;
             }
         }
+        if(count == 1)
+        {
+            DialogueManager.instance.StartDialogue(oneDeivceUnplugged);
+        }
+
         foreach(Objective obj in ObjectiveManager.instance.MainObjectives)
         {
             if(obj.objectiveType == Objective.ObjectiveType.Main)

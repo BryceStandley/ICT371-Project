@@ -13,6 +13,7 @@ public class MeetGOVBotTrigger : MonoBehaviour
         {
             DialogueManager.instance.StartDialogue(meetGovBotDialogue);
             startCheckingEndDialogue = true;
+            Destroy(gameObject.GetComponent<Collider>());//Destrys any colliders on the object
         }
     }
 

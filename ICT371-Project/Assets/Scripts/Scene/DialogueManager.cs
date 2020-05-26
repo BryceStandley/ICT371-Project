@@ -71,6 +71,7 @@ public class DialogueManager : MonoBehaviour
         //Debug.Log("Dialogue Ended...");
         dialogueBox.DOAnchorPos(new Vector2(0, -125), 0.5f);//Animates dialogue box out of cameras view
         es.SetSelectedGameObject(originalSelectedObject);
+        inDialogue = false;
         PlayerInputController.instance.EnablePlayerControls();
         Invoke("DisableDialogue",0.6f);
         
@@ -82,7 +83,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueUIElement.SetActive(false);
         pauseMenu.inDialogue = false;
-        inDialogue = false;
+
     }
 
     private void ChangeSelectedItem()
