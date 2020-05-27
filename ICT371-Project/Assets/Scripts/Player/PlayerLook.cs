@@ -31,7 +31,7 @@ public class PlayerLook : MonoBehaviour
         headOriginOrientation = transform.localRotation;
         bodyOriginOrientation = playerBody.localRotation;
         inputAction = controls.Player.Camera;
-        Invoke("AllowInput", 0.5f); // Adding a small delay to allow the mouse to recenter before getting input data
+        
         
     }
 
@@ -39,13 +39,14 @@ public class PlayerLook : MonoBehaviour
     {
         controls.Player.Enable();
         input = Vector2.zero;
-        
-        
+        Invoke("AllowInput", 0.1f); // Adding a small delay to allow the mouse to recenter before getting input data
     }
 
     private void OnDisable()//Disables camera controls if camera is disabled
     {
         allowedInput = false;
+        zeroed = false;
+        isFirstInput = true;
         controls.Player.Disable();
         
     }
@@ -53,7 +54,6 @@ public class PlayerLook : MonoBehaviour
     private void AllowInput()
     {
         allowedInput = true;
-        
     }
 
     private void Update() // Generating rotation values based on input
@@ -77,15 +77,22 @@ public class PlayerLook : MonoBehaviour
 
             if(isFirstInput)
             {
-                //Debug.Log("Main input: " +input);
+                Debug.Log("Main input: " +input);
                 if(input.x > 10 || input.x < -10)
                 {
-                    currentYaw = 0f;
-                    currentPitch = 0f;
-                    input = Vector2.zero;
+                    if(currentPitch == 0f && currentYaw == 0)
+                    {
+                        currentYaw = 0f;
+                        currentPitch = 0f;
+                        input = Vector2.zero;
+                    }
+                    else
+                    {
+                        input = Vector2.zero;
+                    }
                     isFirstInput = true;
                     zeroed = true;
-                    //Debug.Log("Zeroed Input: " +input);
+                    Debug.Log("Zeroed Input: " +input);
                 }
                 else if(zeroed)
                 {

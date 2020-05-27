@@ -582,4 +582,41 @@ public class PuzzleManager : MonoBehaviour
         }
     }
     #endregion
+
+    #region End Objective
+    //Using Objective ID of 100
+
+    public void TriggerEndObjective()
+    {
+        Objective obj = new Objective();
+        foreach(Objective ob in ObjectiveManager.instance.EndObjectives)
+        {
+            if(ob.objectiveID == 100)
+            {
+                if(ob.objective.Contains("house"))
+                {
+                    obj = ob;
+                    break;
+                }
+            }
+        }
+
+        if(obj != null)
+        {
+            obj.hasComplete = true;
+            obj.puzzleCompletionPercentage = 100;//This will change based on the option of the player
+            
+            //DialogueManager.instance.StartDialogue(allPlugsUnplugged);
+            TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
+            ObjectiveManager.instance.PlayCompleteObjectiveSound();
+            if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
+            {
+                ObjectiveManager.instance.CheckCompletedList();
+            }
+        }
+    }
+
+    #endregion
+
+
 }

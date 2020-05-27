@@ -13,7 +13,7 @@ public class ActionManger : MonoBehaviour
     public static ActionManger instance;
     private string actionAvailable;
 
-    private string[] actions = { "TakeSeed", "Unplug" , "BuyFood", "InspectMagnet", "InspectDoc"};
+    private string[] actions = { "TakeSeed", "Unplug" , "BuyFood", "InspectMagnet", "InspectDoc", "TakeCar", "TakeBike"};
 
     public GameObject seed;
     public CCSInspect docToInspect;
@@ -61,6 +61,16 @@ public class ActionManger : MonoBehaviour
                 else if (actionAvailable.ToLower().Contains(actions[4].ToLower()))
                 {
                     InspectDoc();
+                    ClearCurrentAction();
+                }
+                else if (actionAvailable.ToLower().Contains(actions[5].ToLower()))
+                {
+                    TakeCar();
+                    ClearCurrentAction();
+                }
+                else if (actionAvailable.ToLower().Contains(actions[6].ToLower()))
+                {
+                    TakeBike();
                     ClearCurrentAction();
                 }
             }
@@ -163,5 +173,24 @@ public class ActionManger : MonoBehaviour
             }
         }
     
+    }
+
+    private void TakeCar()
+    {
+        PuzzleManager.instance.TriggerEndObjective();
+        //trigger end cinematic
+        //trigger final objective
+        //trigger final scoring
+        //Show Scoring
+    }
+
+    private void TakeBike()
+    {
+        PuzzleManager.instance.TriggerEndObjective();
+        //trigger end cinematic
+        //trigger final objective
+        //trigger final scoring
+        //Show Scoring
+        
     }
 }
