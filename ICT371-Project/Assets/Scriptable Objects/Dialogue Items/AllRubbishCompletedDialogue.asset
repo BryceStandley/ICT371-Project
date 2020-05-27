@@ -19,9 +19,11 @@ MonoBehaviour:
     house. Placing items in the correct bin ensures that all rubbish is dealt with
     efficiently. Organic materials can be used to make gardening and farming products,
     recycling can be recycled and reused, and general waste can go to landfill.\u201D"
-  - "Accidentally placing an item in the wrong bin can lead to that bin being compromised,
-    leading to potentially compostable or recyclable materials ending up in landfill.\r\nLosing
-    those otherwise recyclable material leads to more needing to be made, which in
-    turn uses energy that leads to more carbon emissions. \r"
-  - "\u201CA simple error can have a huge impact.\u201D\r\n\u201CYou placed x/x pieces
-    of rubbish in the correct bins.\u201D\r"
+  - '"Accidentally placing an item in the wrong bin can lead to that bin being compromised,
+    leading to potentially compostable or recyclable materials ending up in landfill.
+
+    Losing
+    otherwise recyclable material leads to more needing to be made, which in turn
+    uses energy that leads to more carbon emissions. "'
+  - '"You will receive a score based on how many items you placed in the correct
+    bins on your result sheet later on!"'

@@ -16,14 +16,13 @@ MonoBehaviour:
   npcName: GOV Bot
   sentences:
   - "\u201CGood job TMC, listening to my instructions have affirmed that you will
-    be a suitable citizen. As you would have learnt in the message from Mr Green,
+    be a suitable citizen. As you would have learnt in the message from Mr. Green,
     I am here to outline some core tasks that you will need to complete before you
     vacate the premises today.\u201D\r"
   - "\u201CEach task I give you will help reduce your carbon footprint, and will
     be used as the basis for the tasks we give the people of society, however in
     order to test you, there are some other tasks you can complete that I won\u2019t
     tell you.\u201D\r"
-  - "\u201CI will add my tasks to your objective list, come and chat to me once you
-    have completed all of your given tasks and you will be free to leave the home
-    while I judge your efforts.\u201D\r\n"
+  - "\u201CI will add my tasks to your objective list, once you have completed all
+    of your given tasks you will be free to leave the home while I judge your efforts.\u201D\r\n"
   - "\u201CGood luck!\u201D\r"
