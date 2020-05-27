@@ -10,7 +10,8 @@ public class TemperatureController : MonoBehaviour
     public bool isWashingMachine = false;
     public WashingMachine washingMachine;
     public Dryer dryer;
-    public float machineTimersInSeconds = 60;
+    public float machineTimersInSeconds = 60f;
+    public float delayTakingWashing = 10f;
     public TimerUI washingMachineTimerUI;
     public TimerUI dryerTimerUI;
 
@@ -24,8 +25,11 @@ public class TemperatureController : MonoBehaviour
 
     public void MakeDryer()
     {
-        machineName.text = "Dryer";
+        dryerTimerUI.gameObject.SetActive(true);
+        StartCoroutine("UpdateDryerTimer");
+        DialogueManager.instance.StartDialogue(clothesInDryerDialogue);
         isWashingMachine = false;
+        Invoke("EndTimer", machineTimersInSeconds);
     }
 
     public void SetTemperature(int temp)
@@ -39,14 +43,29 @@ public class TemperatureController : MonoBehaviour
             washingMachineTimerUI.gameObject.SetActive(true);
             StartCoroutine("UpdateWasherTimer");
             DialogueManager.instance.StartDialogue(clothesInWashingMachineDialogue);
-        }
-        else
-        {
-            dryerTimerUI.gameObject.SetActive(true);
-            StartCoroutine("UpdateDryerTimer");
-            DialogueManager.instance.StartDialogue(clothesInDryerDialogue);
+            ObjectPickUp.instance.DropItem(washingMachine.fullBasket);
+            //destroy old basket
+            Destroy(washingMachine.fullBasket);
+            //move new basket ontop of machine
+            washingMachine.washedBasket.transform.position = washingMachine.washedBasketLocation.transform.position;
+            washingMachine.washedBasket.transform.rotation = washingMachine.washedBasketLocation.transform.rotation;
+            washingMachine.washedBasket.GetComponent<Rigidbody>().useGravity = true;
         }
         Invoke("EndTimer", machineTimersInSeconds);//Starting a timer that waits x seconds before machine is finished;
+    }
+
+    public void QuitUI()
+    {
+        temperatureUI.SetActive(false);
+        PauseMenu.instance.inDialogue = false;
+        PlayerInputController.instance.EnablePlayerControls();
+        washingMachine.delayTakingWashing = true;
+        Invoke("DelayTakingNewBasket", delayTakingWashing);
+    }
+    private void DelayTakingNewBasket()
+    {
+        washingMachine.delayTakingWashing = false;
+        washingMachine.showedUI = false;
     }
 
     float timer = 0;
@@ -76,18 +95,30 @@ public class TemperatureController : MonoBehaviour
         {
             washingMachine.washComplete = true;
             washingMachine.tempWashedAt = tempWashedAt;
-            TrackingController.instance.tempClothesWashedAt = tempWashedAt;
             washingMachine.ResetBasket();
             PuzzleManager.instance.SetWashingClothesObjectiveComplete();
             washingMachineTimerUI.UpdateSliderVal(100);
             washingMachineTimerUI.gameObject.SetActive(false);
+            washingMachine.powerSocket.isWasher = false;
+            if(tempWashedAt == 30)
+            {
+                TrackingController.instance.AddWashingClothesFootprint(TrackingController.TemperatureUsed.Cold);
+                TrackingController.instance.temperatureUsedToWashClothes = TrackingController.TemperatureUsed.Cold;
+            }
+            else if(tempWashedAt == 40)
+            {
+                TrackingController.instance.AddWashingClothesFootprint(TrackingController.TemperatureUsed.Worm);
+                TrackingController.instance.temperatureUsedToWashClothes = TrackingController.TemperatureUsed.Worm;
+            }
+            else
+            {
+                TrackingController.instance.AddWashingClothesFootprint(TrackingController.TemperatureUsed.Hot);
+                TrackingController.instance.temperatureUsedToWashClothes = TrackingController.TemperatureUsed.Hot;
+            }
         }
         else
         {
             // do stuff from the dryer
-            dryer.tempDryedAt = tempWashedAt;
-            TrackingController.instance.tempClothesDriedAt = tempWashedAt;
-            TrackingController.instance.driedWithDryer = true;
             dryer.dryingComplete = true;
             dryer.ResetBasket();
             //Add change of percentage based on how the clothes were dried

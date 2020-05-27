@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class PowerSocket : MonoBehaviour
 {
-    public GameObject powerCable;
-    public GameObject unpluggedLocation;
+    public GameObject[] powerCables;
+    public GameObject[] unpluggedLocations;
     public bool isUnplugged = false;
     public bool isLamp = false;
     public Light PointLight;
     public bool isDryer;
     public Dryer dryer;
+    public bool isWasher;
+    public Dialogue unpluggingWasherDialogue;
+    public TrackingController.PhantomType[] phantomTypes;
+    public int[] itemPercentages;
 
     private void Start()
     {
-        PuzzleManager.instance.AddToPowerOutlets(gameObject);
+        PuzzleManager.instance.AddToPowerOutlets(this);
     }
 
     private void LateUpdate()
@@ -42,18 +46,32 @@ public class PowerSocket : MonoBehaviour
 
     public void UnplugItem()
     {
-        powerCable.transform.position = unpluggedLocation.transform.position;
-        powerCable.transform.rotation = unpluggedLocation.transform.rotation;
-        isUnplugged = true;
-        if (isLamp) 
+        if(!isWasher)
         {
-            PointLight.enabled = false;
+            for(int i = 0; i < powerCables.Length; i++)
+            {
+                powerCables[i].transform.position = unpluggedLocations[i].transform.position;
+                powerCables[i].transform.rotation = unpluggedLocations[i].transform.rotation;
+            }
+            isUnplugged = true;
+            if (isLamp) 
+            {
+                PointLight.enabled = false;
+            }
+            if(isDryer)
+            {
+                dryer.allowedToUseDryer = false;
+            }
+            PuzzleManager.instance.CreatePhantomPowerObjective();
+            PuzzleManager.instance.CheckIfAllOutletsAreUnplugged();
+            foreach(TrackingController.PhantomType pt in phantomTypes)
+            {
+                TrackingController.instance.AddPhantomPowerSaved(pt);
+            }
         }
-        if(isDryer)
+        else
         {
-            dryer.allowedToUseDryer = false;
+            DialogueManager.instance.StartDialogue(unpluggingWasherDialogue);
         }
-        PuzzleManager.instance.CreatePhantomPowerObjective();
-        PuzzleManager.instance.CheckIfAllOutletsAreUnplugged();
     }
 }

@@ -22,29 +22,32 @@ public class BuyFood : MonoBehaviour
     public void BuyBeef()
     {
         //trigger tracking for beef
-        Debug.Log("buying beef...");
+        //Debug.Log("buying beef...");
         HideBuyUI();
         foodOrderer.foodBought = true;
         PuzzleManager.instance.TriggerFoodBuyComplete();
+        TrackingController.instance.AddBoughtFood(TrackingController.FoodBoughtType.Beef);
 
     }
 
-    public void BuyOrganic()
+    public void BuyFish()
     {
         //trigger tracking for organic
-        Debug.Log("buying organic...");
+        //Debug.Log("buying fish...");
         HideBuyUI();
         foodOrderer.foodBought = true;
         PuzzleManager.instance.TriggerFoodBuyComplete();
+        TrackingController.instance.AddBoughtFood(TrackingController.FoodBoughtType.Fish);
     }
 
-    public void BuyLocal()
+    public void BuyVeggie()
     {
         //trigger tracking for local
-        Debug.Log("buying local...");
+        //Debug.Log("buying veggie...");
         HideBuyUI();
         foodOrderer.foodBought = true;
         PuzzleManager.instance.TriggerFoodBuyComplete();
+        TrackingController.instance.AddBoughtFood(TrackingController.FoodBoughtType.Veggie);
 
     }
 

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class TrackingController : MonoBehaviour
 {
-    #region Static Setup
+    #region Static Setup and Awake
     public static TrackingController instance;
     private void Awake()
     {
         instance = this;
+        co2SavedPerAnnumInKg = 0;
     }
     #endregion
 
@@ -37,14 +38,13 @@ public class TrackingController : MonoBehaviour
     //EMMISIONS VARIABLES
     public static readonly float s_benchmarkCarbonFootprintInKg = 0f;//Base carbon footprint in Greenhouse Gas
     public float avgDailyCarbonFootprintInKg  = 0f;
+    public float co2SavedPerAnnumInKg {get; set;}//Used for the final scoring
 
     //PUZZLE VARIABLES
 
-    #region Washing And Drying Clothes
-    public int tempClothesWashedAt {get; set;}
-    public int tempClothesDriedAt {get; set;}
-    public bool driedWithDryer = false;
-    #endregion
+    public bool playerViewedCCSDoc1 = false;
+    public bool playerViewedCCSDoc2 = false;
+    public TemperatureUsed temperatureUsedToWashClothes;
 
 
     #endregion
@@ -122,11 +122,134 @@ public class TrackingController : MonoBehaviour
 
     #region Puzzle Functions
 
-        #region Washing and Drying Clothes Functions
+        #region Tree Planting
+        public void AddTreePlantingFootprint()
+        {
+            co2SavedPerAnnumInKg += 21.7724f * 3;
+        }
+        #endregion
+
+        #region Laundry Collection
         
         #endregion
 
+        #region Washing Clothes
+        public enum TemperatureUsed {Cold, Worm, Hot};
+        public void AddWashingClothesFootprint(TemperatureUsed temp)
+        {  
+            if(temp == TemperatureUsed.Worm)
+            {
+                co2SavedPerAnnumInKg += 185.64f;
+            }
+            else if(temp == TemperatureUsed.Cold)
+            {
+                co2SavedPerAnnumInKg += 458.64f;
+            }
 
+        }
+        #endregion
+
+        #region Rubbish Collection
+        
+        #endregion
+
+        #region Light bulb changing
+        public void AddOneLightbulbChanged()
+        {
+            co2SavedPerAnnumInKg += 8.687f;
+        }
+        #endregion
+
+        #region Trashing Light bulbs
+        
+        #endregion
+
+        #region Drying Clothes
+        public void AddDryWithOutDryer()
+        {
+            co2SavedPerAnnumInKg += 518.7f;
+        }
+        #endregion
+
+        #region Phantom Power
+        public enum PhantomType {Microwave, LCDTV, PC, WashingMachine, Dryer, DeskLamp, LargeLamp};
+        public void AddPhantomPowerSaved(PhantomType type)
+        {
+            switch(type)
+            {
+                case PhantomType.Microwave:
+                    co2SavedPerAnnumInKg += 1106.2128f;
+                    break;
+                case PhantomType .LCDTV:
+                    co2SavedPerAnnumInKg += 1060.1206f;
+                    break;
+                case PhantomType.PC:
+                    co2SavedPerAnnumInKg += 13827.66f;
+                    break;
+                case PhantomType .WashingMachine:
+                    co2SavedPerAnnumInKg += 1843.688f;
+                    break;
+                case PhantomType.Dryer:
+                    co2SavedPerAnnumInKg += 1198.3972f;
+                    break;
+                case PhantomType.DeskLamp:
+                    co2SavedPerAnnumInKg += 0f;
+                    break;
+                case PhantomType.LargeLamp:
+                    co2SavedPerAnnumInKg += 0f;
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
+
+        #region Buying Food
+        public enum FoodBoughtType {Beef, Fish, Veggie};
+        public void AddBoughtFood(FoodBoughtType type)
+        {
+            switch(type)
+            {
+                case FoodBoughtType.Beef:
+                    co2SavedPerAnnumInKg += 0;
+                    break;
+                case FoodBoughtType.Fish:
+                    co2SavedPerAnnumInKg += 10037.5f;
+                    break;
+                case FoodBoughtType.Veggie:
+                    co2SavedPerAnnumInKg += 10767.5f;
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
+
+        #region Leaving the House
+        public enum TransportType {Car, Bike};
+        public void AddTransportUsage(TransportType type)
+        {
+            switch(type)
+            {
+                case TransportType.Car:
+                    co2SavedPerAnnumInKg += 0;
+                    break;
+                case TransportType.Bike:
+                    co2SavedPerAnnumInKg += 3560.94f;
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
+
+        #region Solar Activity Ariticle
+        
+        #endregion
+
+        #region Earth Rotation Article
+        
+        #endregion
 
     #endregion
 

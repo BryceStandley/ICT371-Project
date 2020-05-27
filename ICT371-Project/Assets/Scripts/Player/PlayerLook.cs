@@ -39,7 +39,7 @@ public class PlayerLook : MonoBehaviour
     {
         controls.Player.Enable();
         input = Vector2.zero;
-        Invoke("AllowInput", 0.1f); // Adding a small delay to allow the mouse to recenter before getting input data
+        Invoke("AllowInput", 0.01f); // Adding a small delay to allow the mouse to recenter before getting input data
     }
 
     private void OnDisable()//Disables camera controls if camera is disabled
@@ -78,7 +78,7 @@ public class PlayerLook : MonoBehaviour
             if(isFirstInput)
             {
                 //Debug.Log("Main input: " +input);
-                if(input.x > 10 || input.x < -10)
+                if(input.x > 2.5f || input.x < -2.5f)
                 {
                     if(currentPitch == 0f && currentYaw == 0)
                     {

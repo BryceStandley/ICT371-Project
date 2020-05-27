@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class WashingMachine : MonoBehaviour
 {
+    public GameObject fullBasket;
     public GameObject washedBasket;
     public GameObject washedBasketLocation;
     public GameObject temperatureUI;
     public TemperatureController temperatureController;
     public int tempWashedAt = 0;
     public bool washComplete = false;
+    public PowerSocket powerSocket;
+    public bool delayTakingWashing = false;
+    public bool showedUI = false;
 
     public void TakeWashing(GameObject other)
     {
@@ -28,27 +32,24 @@ public class WashingMachine : MonoBehaviour
     {
         if(basket.GetComponent<LaundryBasket>().isFull)
         {
-            //player has placed laundry basket into the washing machine
-            ObjectPickUp.instance.DropItem(basket);
-            b = basket;
-            Invoke("SetUpBasket", 0.1f);
-
-            
+            if(!delayTakingWashing)
+            {
+                if(!showedUI)
+                {
+                    //player has placed laundry basket into the washing machine
+                    fullBasket = basket;
+                    Invoke("SetUpBasket", 0.1f);
+                }
+            }
         }
     }
     
-    private GameObject b;
     private void SetUpBasket()
     {
-        //destroy old basket
-        Destroy(b);
-        //move new basket ontop of machine
-        washedBasket.transform.position = washedBasketLocation.transform.position;
-        washedBasket.transform.rotation = washedBasketLocation.transform.rotation;
-        washedBasket.GetComponent<Rigidbody>().useGravity = true;
         //display washing machine ui
         temperatureController.MakeWashingMachine();
         temperatureUI.SetActive(true);
+        showedUI = true;
         PauseMenu.instance.inDialogue = true;
         PlayerInputController.instance.DisablePlayerControls();
     }

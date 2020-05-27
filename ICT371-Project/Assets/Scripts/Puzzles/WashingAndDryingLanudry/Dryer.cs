@@ -27,9 +27,6 @@ public class Dryer : MonoBehaviour
                 washedBasket.GetComponent<WashedBasket>().SetEmptyBasket();
                 //display washing machine ui
                 temperatureController.MakeDryer();
-                temperatureUI.SetActive(true);
-                PauseMenu.instance.inDialogue = true;
-                PlayerInputController.instance.DisablePlayerControls();
             }
             else if(!hasShownDialogue)
             {

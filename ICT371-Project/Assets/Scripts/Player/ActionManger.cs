@@ -179,6 +179,7 @@ public class ActionManger : MonoBehaviour
     private void TakeCar()
     {
         PuzzleManager.instance.TriggerEndObjective();
+        TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Car);
         //trigger end cinematic
         //trigger final objective
         //trigger final scoring
@@ -188,6 +189,7 @@ public class ActionManger : MonoBehaviour
     private void TakeBike()
     {
         PuzzleManager.instance.TriggerEndObjective();
+        TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Bike);
         //trigger end cinematic
         //trigger final objective
         //trigger final scoring

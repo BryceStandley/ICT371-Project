@@ -30,6 +30,16 @@ public class CCSInspect : MonoBehaviour
         inspectUI.SetActive(true);
         PauseMenu.instance.inDialogue = true;
         PlayerInputController.instance.DisablePlayerControls();
+        if(this.gameObject.name.Contains("1"))
+        {
+            //this is  ccs doc 1
+            TrackingController.instance.playerViewedCCSDoc1 = true;
+        }
+        else if(this.gameObject.name.Contains("2"))
+        {
+            //this is  ccs doc 2
+            TrackingController.instance.playerViewedCCSDoc2 = true;
+        }
     }
 
     public void CloseInspect()

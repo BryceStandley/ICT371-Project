@@ -29,7 +29,7 @@ public class Clothesline : MonoBehaviour
             go.SetActive(true);
         }
         PuzzleManager.instance.SetDryClothesObjectiveComplete();
-        TrackingController.instance.tempClothesDriedAt = 30;
+        TrackingController.instance.AddDryWithOutDryer();
         DialogueManager.instance.StartDialogue(clothesOnClothesLineDialogue);
         //dryerPowerSocket.UnplugItem();
 

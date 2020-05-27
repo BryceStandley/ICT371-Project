@@ -36,6 +36,7 @@ public class LightHousing : MonoBehaviour
                     currentBulb = other;
                     changedBulb = true;
                     lb.lightHousing = this;
+                    TrackingController.instance.AddOneLightbulbChanged();
                     PuzzleManager.instance.CheckAllLightsChanged();
                 }
             }
