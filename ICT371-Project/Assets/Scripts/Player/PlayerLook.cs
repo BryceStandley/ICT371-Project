@@ -20,6 +20,7 @@ public class PlayerLook : MonoBehaviour
     public Transform playerBody; //Reference to main player transform
     private bool allowedInput = false;
     private bool isFirstInput = true;
+    private bool zeroed = false;
 
 
     private void Awake()
@@ -30,6 +31,7 @@ public class PlayerLook : MonoBehaviour
         headOriginOrientation = transform.localRotation;
         bodyOriginOrientation = playerBody.localRotation;
         inputAction = controls.Player.Camera;
+        Invoke("AllowInput", 0.5f); // Adding a small delay to allow the mouse to recenter before getting input data
         
     }
 
@@ -37,7 +39,7 @@ public class PlayerLook : MonoBehaviour
     {
         controls.Player.Enable();
         input = Vector2.zero;
-        Invoke("AllowInput", 0.5f); // Adding a small delay to allow the mouse to recenter before getting input data
+        
         
     }
 
@@ -51,6 +53,7 @@ public class PlayerLook : MonoBehaviour
     private void AllowInput()
     {
         allowedInput = true;
+        
     }
 
     private void Update() // Generating rotation values based on input
@@ -71,20 +74,37 @@ public class PlayerLook : MonoBehaviour
             {
                 onInput = false;
             }
-            lastInput = input;
-            input.x *= Time.deltaTime * sensitivity;
-            input.y *= Time.deltaTime * sensitivity;
 
-            currentYaw += input.x;
-            currentPitch += input.y;
-            currentPitch = Mathf.Clamp(currentPitch, -85f, 75f);
             if(isFirstInput)
             {
-                currentYaw = 0f;
-                currentPitch = 0f;
-                input = Vector2.zero;
-                isFirstInput = false;
+                //Debug.Log("Main input: " +input);
+                if(input.x > 10 || input.x < -10)
+                {
+                    currentYaw = 0f;
+                    currentPitch = 0f;
+                    input = Vector2.zero;
+                    isFirstInput = true;
+                    zeroed = true;
+                    //Debug.Log("Zeroed Input: " +input);
+                }
+                else if(zeroed)
+                {
+                    isFirstInput = false;
+                    
+                }
             }
+            else
+            {
+                lastInput = input;
+                input.x *= Time.deltaTime * sensitivity;
+                input.y *= Time.deltaTime * sensitivity;
+
+                currentYaw += input.x;
+                currentPitch += input.y;
+                currentPitch = Mathf.Clamp(currentPitch, -85f, 75f);
+            }
+
+
         }
         
         

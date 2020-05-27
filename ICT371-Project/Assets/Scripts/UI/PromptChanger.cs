@@ -47,7 +47,7 @@ public class PromptChanger : MonoBehaviour
         }
         uiMaster.AddToPromptList(this);
         UpdateUI();
-        //ObjectInformationToolTip.HidePrompt();
+        ObjectInformationToolTip.HidePrompt();
 
     }
     string customNameFirst, customNameSecond, customNameThird;

@@ -28,13 +28,11 @@ public class PauseMenu : MonoBehaviour
     {
         instance = this;
         es = FindObjectOfType<EventSystem>();
-
+        resolutions = new List<Resolution>();
     }
 
     private void Start()
     {
-
-        resolutions = new List<Resolution>();
         GetResolutions(); //gets all the resolutions available to the player based on their display
         LoadSettings();
         origSelectedItem = es.currentSelectedGameObject;
@@ -192,9 +190,10 @@ public class PauseMenu : MonoBehaviour
     }
 
     public string[] allowedResolutions;
-public void GetResolutions() //gets all resolutions user can set and stores them in a list, while also setting the default resolution to best fit the current screen 
+    public Resolution[] tempRes;
+    public void GetResolutions() //gets all resolutions user can set and stores them in a list, while also setting the default resolution to best fit the current screen 
     {
-        Resolution[] tempRes = Screen.resolutions;
+        tempRes = Screen.resolutions;
         resolutionDropDown.ClearOptions();
 
         List<string> options = new List<string>();

@@ -4696,7 +4696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6818305964703269563
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9509,6 +9509,7 @@ MonoBehaviour:
   bedroomDoor: {fileID: 0}
   garrageInsideDoor: {fileID: 0}
   garrageOutsideDoor: {fileID: 0}
+  allMainObjectivesCompleteDialogue: {fileID: 0}
   MainObjectives:
   - objective: Plant Some Trees!
     objectiveID: 99
@@ -9559,6 +9560,7 @@ MonoBehaviour:
     objectiveRequirement: 1
     puzzleCompletionPercentage: 0
     objectiveWeight: 0
+  SideObjetives: []
   objectiveUI: []
   taskCompleteAudio: {fileID: 8300000, guid: 72b57691467af4cfea48b54a5b8e2b2c, type: 3}
   audioSource: {fileID: 0}
@@ -13956,7 +13958,8 @@ MonoBehaviour:
   playerController: {fileID: 8135916886998940537}
   playerLook: {fileID: 8135916888646205442}
   objPickUp: {fileID: 8269289810949244988}
-  gamePlayUI: {fileID: 2379232819650748147}
+  objectiveUI: {fileID: 0}
+  crossHair: {fileID: 0}
 --- !u!114 &8269289810949244988
 MonoBehaviour:
   m_ObjectHideFlags: 0
