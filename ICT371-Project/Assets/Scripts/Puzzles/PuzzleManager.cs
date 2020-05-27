@@ -584,14 +584,14 @@ public class PuzzleManager : MonoBehaviour
     #endregion
 
     #region End Objective
-    //Using Objective ID of 100
+    //Using Objective ID of 1
 
     public void TriggerEndObjective()
     {
         Objective obj = new Objective();
         foreach(Objective ob in ObjectiveManager.instance.EndObjectives)
         {
-            if(ob.objectiveID == 100)
+            if(ob.objectiveID == 1)
             {
                 if(ob.objective.Contains("house"))
                 {
@@ -605,7 +605,7 @@ public class PuzzleManager : MonoBehaviour
         {
             obj.hasComplete = true;
             obj.puzzleCompletionPercentage = 100;//This will change based on the option of the player
-            
+
             //DialogueManager.instance.StartDialogue(allPlugsUnplugged);
             TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
             ObjectiveManager.instance.PlayCompleteObjectiveSound();

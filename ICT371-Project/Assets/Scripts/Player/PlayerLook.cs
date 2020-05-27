@@ -77,7 +77,7 @@ public class PlayerLook : MonoBehaviour
 
             if(isFirstInput)
             {
-                Debug.Log("Main input: " +input);
+                //Debug.Log("Main input: " +input);
                 if(input.x > 10 || input.x < -10)
                 {
                     if(currentPitch == 0f && currentYaw == 0)
@@ -92,7 +92,7 @@ public class PlayerLook : MonoBehaviour
                     }
                     isFirstInput = true;
                     zeroed = true;
-                    Debug.Log("Zeroed Input: " +input);
+                    //Debug.Log("Zeroed Input: " +input);
                 }
                 else if(zeroed)
                 {

@@ -16,9 +16,11 @@ public class DialogueManager : MonoBehaviour
     public GameObject continueButton;
     public RectTransform dialogueBox;
     private GameObject originalSelectedObject;
+    [SerializeField]
     private Queue<string> sentences;
     private EventSystem es;
     public PauseMenu pauseMenu;
+    public List<string> tempList;
 
     public bool inDialogue = false;
     #endregion
@@ -29,6 +31,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
+        tempList = new List<string>();
         es = FindObjectOfType<EventSystem>();
         dialogueUIElement.SetActive(false);
 
@@ -36,8 +39,27 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)//Method triggered when a dialogue is triggered
 	{
+        if(inDialogue)
+        {
+            if(dialogue != null)
+            {
+                foreach(string sentence in dialogue.sentences)
+                {
+                    sentences.Enqueue(sentence);
+                    tempList.Add(sentence);
+                }
+            }
+        }
+        else
+        {
+            inDialogue = true;
+            InitDialogue(dialogue);
+        }
+	}
+
+    private void InitDialogue(Dialogue dialogue)//Supporting 2 dialogues at once
+    {
         pauseMenu.inDialogue = true;
-        inDialogue = true;
         dialogueUIElement.SetActive(true);
         dialogueName.text = dialogue.npcName;
 
@@ -48,11 +70,12 @@ public class DialogueManager : MonoBehaviour
         foreach(string sentence in dialogue.sentences)//looping though each sentence and adding it to the queue to be displayed
         {
             sentences.Enqueue(sentence);
+            tempList.Add(sentence);
         }
         dialogueBox.DOAnchorPos(new Vector2(0, 125), 0.5f);//Animates dialogue box into the cameras view
         ChangeSelectedItem();//Sets Selected Item to the continue button
         DisplayNextSentence();//Triggeres display method
-	}
+    }
 
     public void DisplayNextSentence()//Displays the next sentence in the dialogue queue
     {
@@ -72,6 +95,7 @@ public class DialogueManager : MonoBehaviour
         dialogueBox.DOAnchorPos(new Vector2(0, -125), 0.5f);//Animates dialogue box out of cameras view
         es.SetSelectedGameObject(originalSelectedObject);
         inDialogue = false;
+        tempList.Clear();
         PlayerInputController.instance.EnablePlayerControls();
         Invoke("DisableDialogue",0.6f);
         

@@ -164,6 +164,7 @@ public class ActionManger : MonoBehaviour
         {
             if (docToInspect != null)
             {
+                Debug.Log("inspect Doc");
                 docToInspect.Inspect();
             }
             else
