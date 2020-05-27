@@ -14,6 +14,11 @@ public class ObjectiveManager : MonoBehaviour
     {
         instance = this;
         audioSource = GetComponent<AudioSource>();
+        foreach(Objective obj in allObjectives)
+        {
+            obj.hasComplete = false;
+            obj.puzzleCompletionPercentage = 0;//Setting to 50% complete for testing
+        }
     }
 
     public GameObject objectiveUIElement;
@@ -31,6 +36,7 @@ public class ObjectiveManager : MonoBehaviour
     public List<Objective> MainObjectives;
     public List<Objective> EndObjectives;
     public List<Objective> SideObjetives;
+    public List<Objective> allObjectives;
 
     public List<GameObject> objectiveUI;
 
@@ -108,17 +114,20 @@ public class ObjectiveManager : MonoBehaviour
         }
     }
 
-    public void AddNewSideObjective(string objective, int objID, Objective.ObjectiveType objType, Objective.ObjectiveRequirement objRequirement, int percentage, int weight)
+    public void AddNewSideObjective(Objective obj)
     {
-        if(objectiveListType == ObjectiveListType.Main)
+        if(objectiveListType == ObjectiveListType.Main || objectiveListType == ObjectiveListType.End)
         {   
-            GameObject uiElement = CreateNewObjectiveUIElement(objRequirement);
-            Objective obj = new Objective(objective, objID, uiElement, objType, objRequirement, percentage, weight);
-            uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.objective);
-            SideObjetives.Add(obj);
+            GameObject uiElement = CreateNewObjectiveUIElement(obj.objectiveRequirement);
+            obj.uiElement = uiElement;
+            Objective objective = obj;
+            uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(objective.objective);
+            SideObjetives.Add(objective);
             TrackingController.instance.totalObjectives++;
         }
     }
+    
+
 
     public void SetObjectiveList(List<Objective> objList)
     {
@@ -180,8 +189,9 @@ public class ObjectiveManager : MonoBehaviour
 
 
 
+[CreateAssetMenu(fileName = "SideObjective", menuName = "Side Objective", order = 1)]
 [System.Serializable]
-public class Objective
+public class Objective : ScriptableObject
 {
     [SerializeField]
     public string objective;
@@ -210,7 +220,7 @@ public class Objective
         puzzleCompletionPercentage = 0;
         objectiveWeight = 0;
     }
-        public Objective(string obj, int id, GameObject element, ObjectiveType type, ObjectiveRequirement requirement, int percentage, int weight)
+    /*public Objective(string obj, int id, GameObject element, ObjectiveType type, ObjectiveRequirement requirement, int percentage, int weight)
     {
         objective = obj;
         hasComplete = false;
@@ -220,5 +230,5 @@ public class Objective
         objectiveRequirement = requirement;
         puzzleCompletionPercentage = percentage;
         objectiveWeight = weight;
-    }
+    }*/
 }

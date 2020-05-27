@@ -10,6 +10,7 @@ public class GarbageBin : MonoBehaviour
     public int numberOfIncorrectItemsInBin = 0;
     public int numberOfIndisposableItemsInBin = 0;
     public int numberOfBulbsInBin = 0;
+    public bool isCompromised = false;
 
     public int binTotal = 0;
 

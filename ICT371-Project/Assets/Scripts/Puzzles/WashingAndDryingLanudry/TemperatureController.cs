@@ -121,7 +121,7 @@ public class TemperatureController : MonoBehaviour
             // do stuff from the dryer
             dryer.dryingComplete = true;
             dryer.ResetBasket();
-            //Add change of percentage based on how the clothes were dried
+            TrackingController.instance.playerUsedDryer = true;
             PuzzleManager.instance.SetDryClothesObjectiveComplete();
             dryerTimerUI.UpdateSliderVal(100);
             dryerTimerUI.gameObject.SetActive(false);

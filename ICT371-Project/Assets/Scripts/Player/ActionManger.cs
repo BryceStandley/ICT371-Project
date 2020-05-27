@@ -164,7 +164,7 @@ public class ActionManger : MonoBehaviour
         {
             if (docToInspect != null)
             {
-                Debug.Log("inspect Doc");
+                //Debug.Log("inspect Doc");
                 docToInspect.Inspect();
             }
             else
@@ -176,24 +176,39 @@ public class ActionManger : MonoBehaviour
     
     }
 
+    public GameObject finalCinematicCamera, playerCamera, playerModel, gamePlayUI, dialogues, objectHoldPoint;
     private void TakeCar()
     {
         PuzzleManager.instance.TriggerEndObjective();
         TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Car);
-        //trigger end cinematic
-        //trigger final objective
-        //trigger final scoring
-        //Show Scoring
+        TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Car;
+        PlayerInputController.instance.DisablePlayerControls();
+        playerCamera.GetComponent<Camera>().enabled = false;
+        playerCamera.GetComponent<AudioListener>().enabled = false;
+        gamePlayUI.SetActive(false);
+        dialogues.SetActive(false);
+        objectHoldPoint.SetActive(false);
+        finalCinematicCamera.SetActive(true);
+        PuzzleManager.instance.TriggerEndObjective();
+        FinalScoring.instance.TriggerFinalScoring();
+        FinalScoring.instance.DisplayFinalScoreUI();
     }
 
     private void TakeBike()
     {
         PuzzleManager.instance.TriggerEndObjective();
         TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Bike);
-        //trigger end cinematic
-        //trigger final objective
-        //trigger final scoring
-        //Show Scoring
+        TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Bike;
+        PlayerInputController.instance.DisablePlayerControls();
+        playerCamera.GetComponent<Camera>().enabled = false;
+        playerCamera.GetComponent<AudioListener>().enabled = false;
+        gamePlayUI.SetActive(false);
+        dialogues.SetActive(false);
+        objectHoldPoint.SetActive(false);
+        finalCinematicCamera.SetActive(true);
+        PuzzleManager.instance.TriggerEndObjective();
+        FinalScoring.instance.TriggerFinalScoring();
+        FinalScoring.instance.DisplayFinalScoreUI();
         
     }
 }

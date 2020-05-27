@@ -23,7 +23,7 @@ public class PowerSocket : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(ObjectiveManager.instance.objectiveListType == ObjectiveManager.ObjectiveListType.Main)
+        if(ObjectiveManager.instance.objectiveListType == ObjectiveManager.ObjectiveListType.Main || ObjectiveManager.instance.objectiveListType == ObjectiveManager.ObjectiveListType.End)
         {
             if(ObjectPickUp.instance.lookedAtItem != null)
             {

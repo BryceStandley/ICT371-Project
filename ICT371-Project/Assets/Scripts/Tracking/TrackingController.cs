@@ -15,7 +15,7 @@ public class TrackingController : MonoBehaviour
 
     #region Variables
     //BASE GAME VARIABLES
-    public float gameTimeInSeconds = 0f; //Game time in seconds
+    public int gameTimeInSeconds = 0; //Game time in seconds
     public int completedObjectives {get; set;} //Total objectives the playe completed
     public int totalObjectives {get; set;} //Total objectives in the game
     public int totalMistakes {get; set;} //How many times the player could of chosen a better option
@@ -39,12 +39,16 @@ public class TrackingController : MonoBehaviour
     public static readonly float s_benchmarkCarbonFootprintInKg = 0f;//Base carbon footprint in Greenhouse Gas
     public float avgDailyCarbonFootprintInKg  = 0f;
     public float co2SavedPerAnnumInKg {get; set;}//Used for the final scoring
+    public float co2SavedPerAnnumByTotalHouseholdsInKg {get; set;}
 
     //PUZZLE VARIABLES
 
     public bool playerViewedCCSDoc1 = false;
     public bool playerViewedCCSDoc2 = false;
     public TemperatureUsed temperatureUsedToWashClothes;
+    public bool playerUsedDryer = false;
+    public FoodBoughtType typeOfFoodThePlayerBought;
+    public TransportType typeOfTransportThePlayerUsed;
 
 
     #endregion
@@ -250,6 +254,88 @@ public class TrackingController : MonoBehaviour
         #region Earth Rotation Article
         
         #endregion
+
+    #endregion
+
+    #region Mist Functions
+    public int[] GetGameTime()
+    {
+        int[] time = new int[3];
+        gameTimeInSeconds = Mathf.RoundToInt(Time.time);
+        int hours = Mathf.FloorToInt(gameTimeInSeconds / 3600f);
+		int minutes = Mathf.FloorToInt((gameTimeInSeconds % 3600)/60);
+		int seconds = Mathf.FloorToInt(gameTimeInSeconds % 60);
+        time[0] = hours;
+        time[1] = minutes;
+        time[2] = seconds;
+        return time;
+    }
+
+    public void CalculateTotalCO2SavedCountryWide()
+    {
+        co2SavedPerAnnumByTotalHouseholdsInKg = co2SavedPerAnnumInKg * (9204.6f * 1000);
+    }
+
+    public int[] GetTotalUnpluggedDevices()
+    {
+        int[] devices = new int[2];
+        foreach(PowerSocket ps in PuzzleManager.instance.powerOutlets)
+        {
+            if(ps.isUnplugged)
+            {
+                devices[0]++;
+            }
+        }
+        devices[1] = PuzzleManager.instance.powerOutlets.Count;
+        return devices;
+    }
+
+    public int GetTotalCCSDocumentsLookedAt()
+    {
+        int total = 0;
+        if(playerViewedCCSDoc1)
+        {
+            total++;
+            if(playerViewedCCSDoc2)
+            {
+                total++;
+            }
+        }
+        return total;
+    }
+
+    public int GetTotalCorrectTrashItems()
+    {
+        int totalCorrect = 0;
+        foreach(GarbageBin gb in PuzzleManager.instance.garbageBins)
+        {
+            totalCorrect += gb.numberOfCorrectItemsInBin;
+        }
+        return totalCorrect;
+    }
+
+    public int GetTotalOfBulbsTrashed()
+    {
+        int totalCorrect = 0;
+        foreach(GarbageBin gb in PuzzleManager.instance.garbageBins)
+        {
+            totalCorrect += gb.numberOfBulbsInBin;
+        }
+        return totalCorrect;
+    }
+
+    public int GetTotalCompromisedBins()
+    {
+        int totalCorrect = 0;
+        foreach(GarbageBin gb in PuzzleManager.instance.garbageBins)
+        {
+            if(gb.isCompromised)
+            {
+                totalCorrect++;
+            }
+        }
+        return totalCorrect;
+    }
 
     #endregion
 

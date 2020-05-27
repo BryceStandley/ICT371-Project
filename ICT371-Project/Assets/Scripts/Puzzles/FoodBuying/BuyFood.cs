@@ -27,6 +27,7 @@ public class BuyFood : MonoBehaviour
         foodOrderer.foodBought = true;
         PuzzleManager.instance.TriggerFoodBuyComplete();
         TrackingController.instance.AddBoughtFood(TrackingController.FoodBoughtType.Beef);
+        TrackingController.instance.typeOfFoodThePlayerBought = TrackingController.FoodBoughtType.Beef;
 
     }
 
@@ -38,6 +39,7 @@ public class BuyFood : MonoBehaviour
         foodOrderer.foodBought = true;
         PuzzleManager.instance.TriggerFoodBuyComplete();
         TrackingController.instance.AddBoughtFood(TrackingController.FoodBoughtType.Fish);
+        TrackingController.instance.typeOfFoodThePlayerBought = TrackingController.FoodBoughtType.Fish;
     }
 
     public void BuyVeggie()
@@ -48,6 +50,7 @@ public class BuyFood : MonoBehaviour
         foodOrderer.foodBought = true;
         PuzzleManager.instance.TriggerFoodBuyComplete();
         TrackingController.instance.AddBoughtFood(TrackingController.FoodBoughtType.Veggie);
+        TrackingController.instance.typeOfFoodThePlayerBought = TrackingController.FoodBoughtType.Veggie;
 
     }
 

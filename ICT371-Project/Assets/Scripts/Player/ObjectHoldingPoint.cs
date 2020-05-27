@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectHoldingPoint : MonoBehaviour
 {
     public float distance = 5f;
+    public GameObject playerCamera;
     private void Start()
     {
         transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
