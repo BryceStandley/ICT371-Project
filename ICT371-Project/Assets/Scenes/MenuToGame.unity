@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1179,7 +1179,7 @@ MonoBehaviour:
     The Model Citizen (TMC for short), you are tasked with showing the people of
     society what can be done at home to reduce their carbon emissions.  \r\r\n\nThe
     decisions you make are important; if you fail to address certain climate reducing
-    tips, we could see the Earth react its tipping point. \r\n\r\nWe have sent a
+    tips, we could see the Earth reach its tipping point. \r\n\r\nWe have sent a
     GovBot to your location, an eco-friendly robot who will outline some tasks for
     you, while also overseeing your performance. \n\nHe's not going to tell you everything
     that can be done however. As the TMC we expect you to put your own knowledge
