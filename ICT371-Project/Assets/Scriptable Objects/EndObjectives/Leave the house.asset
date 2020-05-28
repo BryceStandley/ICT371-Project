@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 56aba5c368e8e4d9489998a6022fe7df, type: 3}
   m_Name: Leave the house
   m_EditorClassIdentifier: Assembly-CSharp::Objective
   objective: Leave the house
   objectiveID: 1
   hasComplete: 0
   uiElement: {fileID: 0}
-  objectiveType: 0
+  objectiveType: 2
   objectiveRequirement: 0
   puzzleCompletionPercentage: 0
   objectiveWeight: 15

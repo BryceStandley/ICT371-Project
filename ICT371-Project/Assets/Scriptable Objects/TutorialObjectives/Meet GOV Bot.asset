@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Objective
   objective: Meet GOV Bot
   objectiveID: 100
-  hasComplete: 1
+  hasComplete: 0
   uiElement: {fileID: 0}
   objectiveType: 0
   objectiveRequirement: 0
-  puzzleCompletionPercentage: 100
+  puzzleCompletionPercentage: 0
   objectiveWeight: 0

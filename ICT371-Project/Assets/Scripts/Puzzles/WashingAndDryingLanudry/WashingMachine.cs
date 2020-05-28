@@ -49,6 +49,8 @@ public class WashingMachine : MonoBehaviour
         //display washing machine ui
         temperatureController.MakeWashingMachine();
         temperatureUI.SetActive(true);
+        ObjectInformationToolTip.HideTip();
+        ObjectInformationToolTip.HidePrompt();
         showedUI = true;
         PauseMenu.instance.inDialogue = true;
         PlayerInputController.instance.DisablePlayerControls();

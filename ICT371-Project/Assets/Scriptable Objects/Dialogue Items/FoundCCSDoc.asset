@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FoundCCSDoc
   m_EditorClassIdentifier: 
   dialogueTriggerName: 
-  npcName: 
+  npcName: GOV Bot
   sentences:
   - '"Hey TMC! I see you have found one the Climate Correction Scheme Information
     Documents I left out for you. They contain interesting climate change info, and

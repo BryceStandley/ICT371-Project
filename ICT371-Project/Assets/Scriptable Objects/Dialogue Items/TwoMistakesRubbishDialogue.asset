@@ -16,6 +16,6 @@ MonoBehaviour:
   npcName: GOV Bot
   sentences:
   - "\u201CHey TMC, you appear to have placed two items in the incorrect bin. Think
-    carefully about what sort of waste should go in each bin\u201D \r\n\n\u201CIf
-    you need some help, I suggest you check the fridge magnet for a guide on what
-    products should go in each bin\u201D\r"
+    carefully about what sort of waste should go in each bin\u201D"
+  - "\u201CIf you need some help, I suggest you check the fridge magnet for a guide
+    on what products should go in each bin\u201D\r"

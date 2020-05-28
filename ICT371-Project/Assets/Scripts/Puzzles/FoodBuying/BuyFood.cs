@@ -1,22 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuyFood : MonoBehaviour
 {
     public GameObject foodBuyUI;
     public FoodOrderer foodOrderer;
+    public GameObject oldEsItem, beefButton;
+    public EventSystem eventSystem;
 
     private void Awake()
     {
         foodBuyUI.SetActive(false);
+        oldEsItem = eventSystem.currentSelectedGameObject;
     }
     public void OpenFoodBuyUI()
     {
         foodBuyUI.SetActive(true);
+        eventSystem.SetSelectedGameObject(beefButton);
         PauseMenu.instance.inDialogue = true;
         PlayerInputController.instance.DisablePlayerControls();
-        PuzzleManager.instance.AddFoodBuyObjective();
     }
 
     public void BuyBeef()
@@ -57,7 +61,10 @@ public class BuyFood : MonoBehaviour
     private void HideBuyUI()
     {
         foodBuyUI.SetActive(false);
+        eventSystem.SetSelectedGameObject(oldEsItem);
         PauseMenu.instance.inDialogue = false;
         PlayerInputController.instance.EnablePlayerControls();
+        ObjectInformationToolTip.HideTip();
+        ObjectInformationToolTip.HidePrompt();
     }
 }

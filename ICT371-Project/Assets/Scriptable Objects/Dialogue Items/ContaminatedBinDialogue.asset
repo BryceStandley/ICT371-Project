@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d244c50509640e396ba129591d356b, type: 3}
+  m_Name: ContaminatedBinDialogue
+  m_EditorClassIdentifier: 
+  dialogueTriggerName: Contaminated Bin Dialogue
+  npcName: GOV Bot
+  sentences:
+  - '"By using the wrong bin for different items can cause the bin to become contaminated!"'
+  - '"When a bin is contaminated, the contets of the bin is treated as general waste
+    and put into land fill "'

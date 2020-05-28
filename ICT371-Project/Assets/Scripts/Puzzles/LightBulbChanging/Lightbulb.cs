@@ -43,6 +43,7 @@ public class Lightbulb : MonoBehaviour
         GarbageItem gi = GetComponent<GarbageItem>();
         gi.garbageType = GarbageBin.GarbageType.General;
         gi.itemType = GarbageItem.ItemType.Bulb;
+        gi.item = GarbageItem.Item.Bulb;
         return true;
     }
 }

@@ -15,9 +15,9 @@ MonoBehaviour:
   dialogueTriggerName: Leave In Car
   npcName: GOV Bot
   sentences:
-  - "\u201CYou didn\u2019t think I was going to have one more hidden test did you!\u201D\r\n\n\u201CAlthough
-    a car can get you to a location quicker and easier than a bike, for trips that
-    are within a cyclable distance, you should be opting for a bicycle\"."
+  - "\u201CYou didn\u2019t think I was going to have one more hidden test did you!\u201D\r"
+  - "\u201CAlthough a car can get you to a location quicker and easier than a bike,
+    for trips that are within a cyclable distance, you should be opting for a bicycle\"."
   - "\u201CAccording to a 2015 study from the Institute of Transportation and Development
     Policy, a 20% increase in cycling over driving worldwide would see carbon dioxide
     emissions from urban passenger transport drop by roughly 11% in 2050\u201D."

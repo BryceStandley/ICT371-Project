@@ -7,6 +7,7 @@ public class CCSInspect : MonoBehaviour
 
     public GameObject inspectUI;
     public string documentLink;
+
     private void LateUpdate()
     {
         
@@ -34,19 +35,24 @@ public class CCSInspect : MonoBehaviour
         {
             //this is  ccs doc 1
             TrackingController.instance.playerViewedCCSDoc1 = true;
+            thisDoc = 1;
         }
         else if(this.gameObject.name.Contains("2"))
         {
             //this is  ccs doc 2
             TrackingController.instance.playerViewedCCSDoc2 = true;
+            thisDoc = 2;
         }
     }
-
+    int thisDoc = 0;
     public void CloseInspect()
     {
         inspectUI.SetActive(false);
         PauseMenu.instance.inDialogue = false;
         PlayerInputController.instance.EnablePlayerControls();
+        ObjectInformationToolTip.HideTip();
+        ObjectInformationToolTip.HidePrompt();
+        PuzzleManager.instance.CheckCCSDocumentDialogues(thisDoc);
     }
 
     public void ProvideLink() 

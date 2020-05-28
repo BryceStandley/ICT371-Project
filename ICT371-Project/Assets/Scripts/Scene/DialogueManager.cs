@@ -18,11 +18,13 @@ public class DialogueManager : MonoBehaviour
     private GameObject originalSelectedObject;
     [SerializeField]
     private Queue<string> sentences;
-    private EventSystem es;
+    public EventSystem es;
     public PauseMenu pauseMenu;
     public List<string> tempList;
 
     public bool inDialogue = false;
+    public Dialogue tookBikeDialogue, tookCarDialogue;
+    public Dialogue currentDialogue;
     #endregion
     private void Awake()
     {
@@ -32,13 +34,13 @@ public class DialogueManager : MonoBehaviour
     {
         sentences = new Queue<string>();
         tempList = new List<string>();
-        es = FindObjectOfType<EventSystem>();
         dialogueUIElement.SetActive(false);
 
     }
 
     public void StartDialogue(Dialogue dialogue)//Method triggered when a dialogue is triggered
 	{
+        currentDialogue = dialogue;
         if(inDialogue)
         {
             if(dialogue != null)
@@ -97,7 +99,17 @@ public class DialogueManager : MonoBehaviour
         inDialogue = false;
         tempList.Clear();
         PlayerInputController.instance.EnablePlayerControls();
+        ObjectInformationToolTip.HidePrompt();
+        ObjectInformationToolTip.HideTip();
         Invoke("DisableDialogue",0.6f);
+        if(currentDialogue == tookCarDialogue || currentDialogue == tookBikeDialogue)
+        {
+            ActionManger.instance.endDialogueFinished = true;
+        }
+        else
+        {
+            currentDialogue = null;
+        }
         
         
         

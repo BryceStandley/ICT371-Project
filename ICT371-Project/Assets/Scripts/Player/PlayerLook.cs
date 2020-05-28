@@ -77,28 +77,36 @@ public class PlayerLook : MonoBehaviour
 
             if(isFirstInput)
             {
-                //Debug.Log("Main input: " +input);
-                if(input.x > 2.5f || input.x < -2.5f)
+                if(!PlayerInputController.instance.gamepad)
                 {
-                    if(currentPitch == 0f && currentYaw == 0)
+                    //Debug.Log("Main input: " +input);
+                    if (input.x > 2.5f || input.x < -2.5f)
                     {
-                        currentYaw = 0f;
-                        currentPitch = 0f;
-                        input = Vector2.zero;
+                        if (currentPitch == 0f && currentYaw == 0)
+                        {
+                            currentYaw = 0f;
+                            currentPitch = 0f;
+                            input = Vector2.zero;
+                        }
+                        else
+                        {
+                            input = Vector2.zero;
+                        }
+                        isFirstInput = true;
+                        zeroed = true;
+                        //Debug.Log("Zeroed Input: " +input);
                     }
-                    else
+                    else if (zeroed)
                     {
-                        input = Vector2.zero;
+                        isFirstInput = false;
+
                     }
-                    isFirstInput = true;
-                    zeroed = true;
-                    //Debug.Log("Zeroed Input: " +input);
                 }
-                else if(zeroed)
+                else
                 {
                     isFirstInput = false;
-                    
                 }
+
             }
             else
             {

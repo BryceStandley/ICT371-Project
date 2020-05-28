@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour
     public AudioMixer audioMixer;
     public TMP_Dropdown resolutionDropDown;
     public Toggle fullScreenToggle;
+    public Toggle gamepadControlsToggle;
     public Slider volumeSlider;
     public AudioSource audioSource;
     private List<Resolution> resolutions;
@@ -132,15 +133,29 @@ public class PauseMenu : MonoBehaviour
         {
             Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
             PlayerPrefs.SetInt("GameFullscreenMode", 1);
-            GetResolutions();
+            //GetResolutions();
+            Debug.Log("Fullscren");
         }
         else
         {
             Screen.fullScreenMode = FullScreenMode.Windowed;
             PlayerPrefs.SetInt("GameFullscreenMode", -1);
+            Debug.Log("NOT Fullscren");
         }
     }
-
+    public Image controlsImage;
+    public Sprite pcControlsSprite, gamepadControlsSprite;
+    public void ToggleGamepadControlsImage()
+    {
+        if (gamepadControlsToggle.isOn)
+        {
+            controlsImage.sprite = gamepadControlsSprite;
+        }
+        else
+        {
+            controlsImage.sprite = pcControlsSprite;
+        }
+    }
     public void LoadScreenMode()
     {
         int mode = PlayerPrefs.GetInt("GameFullscreenMode", 2);

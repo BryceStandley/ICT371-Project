@@ -11,7 +11,7 @@ public class PlayerInputController : MonoBehaviour
     public ObjectPickUp objPickUp;
     public GameObject objectiveUI, crossHair;
 
-    private bool gamepad = false;
+    public bool gamepad = false;
 
     private void Awake()
     {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllOptionalTasksCompletedDialogue
   m_EditorClassIdentifier: 
   dialogueTriggerName: 
-  npcName: 
+  npcName: GOV Bot
   sentences:
   - '"Congrats TMC! You have successfully completed all optional tasks. Make sure
     to have a read of the CCS documents I placed around the home if you haven''t

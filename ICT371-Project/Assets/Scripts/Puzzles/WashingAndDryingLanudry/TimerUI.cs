@@ -14,8 +14,7 @@ public class TimerUI : MonoBehaviour
         slider.value = val;
         if(val == 100)
         {
-            audioSource.clip = washingCompleteSound;
-            audioSource.Play();
+            SoundEffectsManager.instance.PlayWashingCompleteClip();
         }
     }
 }

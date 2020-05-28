@@ -13,12 +13,6 @@ public class ObjectiveManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        audioSource = GetComponent<AudioSource>();
-        foreach(Objective obj in allObjectives)
-        {
-            obj.hasComplete = false;
-            obj.puzzleCompletionPercentage = 0;//Setting to 50% complete for testing
-        }
     }
 
     public GameObject objectiveUIElement;
@@ -32,7 +26,7 @@ public class ObjectiveManager : MonoBehaviour
     public Animation bedroomDoor;
     public Animation garrageInsideDoor;
     public Animation garrageOutsideDoor;
-    public Dialogue allMainObjectivesCompleteDialogue;
+    public Dialogue allMainObjectivesCompleteDialogue, allCoreAndOptionalObjectivesComplete, allSideObjectivesCompleteDialogue;
     public List<Objective> MainObjectives;
     public List<Objective> EndObjectives;
     public List<Objective> SideObjetives;
@@ -40,12 +34,18 @@ public class ObjectiveManager : MonoBehaviour
 
     public List<GameObject> objectiveUI;
 
-    public AudioClip taskCompleteAudio;
-    public AudioSource audioSource;
-    
-
     private void Start()
     {
+        Invoke("DelayedStart", 1f);
+    }
+
+    private void DelayedStart()
+    {
+        foreach (Objective obj in allObjectives)
+        {
+            obj.hasComplete = false;
+            obj.puzzleCompletionPercentage = 0;//Setting to 50% complete for testing
+        }
         SetObjectiveList(TutorialObjectives);
         TrackingController.instance.totalObjectives = TutorialObjectives.Count + MainObjectives.Count + EndObjectives.Count;
     }
@@ -69,6 +69,7 @@ public class ObjectiveManager : MonoBehaviour
                 ClearUI();
                 SetObjectiveList(MainObjectives);
                 SetObjectiveList(SideObjetives);
+                CheckCompletedDialogue();
                 objectiveListType = ObjectiveListType.Main;
                 PuzzleManager.instance.currentObjectiveListType = ObjectiveListType.Main; 
                 //player has completed tutorial, open garrage inside door
@@ -91,8 +92,8 @@ public class ObjectiveManager : MonoBehaviour
                 ClearUI();
                 SetObjectiveList(EndObjectives);
                 SetObjectiveList(SideObjetives);
+                CheckCompletedDialogue();
                 objectiveListType = ObjectiveListType.End;
-                DialogueManager.instance.StartDialogue(allMainObjectivesCompleteDialogue);
                 PuzzleManager.instance.currentObjectiveListType = ObjectiveListType.End;
                 garrageOutsideDoor.Play();
             }
@@ -175,60 +176,39 @@ public class ObjectiveManager : MonoBehaviour
         objectiveUI.Clear();
     }
 
-    public void PlayCompleteObjectiveSound()
+    private void CheckCompletedDialogue()
     {
-        audioSource.clip = taskCompleteAudio;
-        audioSource.Play();
+        int mainObj = 0;
+        int sideObj = 0;
+        foreach(Objective obj in MainObjectives)
+        {
+            if(obj.hasComplete)
+            {
+                mainObj++;
+            }
+        }
+
+        foreach(Objective obj in SideObjetives)
+        {
+            if(obj.hasComplete)
+            {
+                sideObj++;
+            }
+        }
+
+        if(sideObj == 3 && mainObj == 5)
+        {
+            DialogueManager.instance.StartDialogue(allCoreAndOptionalObjectivesComplete);
+        }
+        else if(mainObj == 5 && sideObj != 3)
+        {
+            DialogueManager.instance.StartDialogue(allMainObjectivesCompleteDialogue);
+        }
+        else if(sideObj == 3 && mainObj != 5)
+        {
+            DialogueManager.instance.StartDialogue(allSideObjectivesCompleteDialogue);
+        }
     }
 
 
-}
-
-
-
-
-
-
-[CreateAssetMenu(fileName = "SideObjective", menuName = "Side Objective", order = 1)]
-[System.Serializable]
-public class Objective : ScriptableObject
-{
-    [SerializeField]
-    public string objective;
-    public int objectiveID;
-    public bool hasComplete = false;
-    public GameObject uiElement;
-
-    public ObjectiveType objectiveType;
-    public enum ObjectiveType {Tutorial, Main, End, Side};
-
-    public ObjectiveRequirement objectiveRequirement;
-    public enum ObjectiveRequirement {Required, Optional};
-    [Range(0, 100)]
-    public int puzzleCompletionPercentage = 0;
-    [Range(0,100)]
-    public int objectiveWeight = 0; //how mush this objective counts towards the final score
-
-    public Objective()
-    {
-        objective = "Not Defined";
-        hasComplete = false;
-        objectiveID = 0;
-        uiElement = null;
-        objectiveType = ObjectiveType.Tutorial;
-        objectiveRequirement = ObjectiveRequirement.Optional;
-        puzzleCompletionPercentage = 0;
-        objectiveWeight = 0;
-    }
-    /*public Objective(string obj, int id, GameObject element, ObjectiveType type, ObjectiveRequirement requirement, int percentage, int weight)
-    {
-        objective = obj;
-        hasComplete = false;
-        objectiveID = id;
-        uiElement = element;
-        objectiveType = type;
-        objectiveRequirement = requirement;
-        puzzleCompletionPercentage = percentage;
-        objectiveWeight = weight;
-    }*/
 }

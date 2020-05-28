@@ -37,7 +37,7 @@ public class InputUISwitcher : MonoBehaviour
         if(input.currentControlScheme == "Gamepad")
         {
             //Set all ui elements to gamepad
-            Debug.Log("Gamepad in use...");
+            //Debug.Log("Gamepad in use...");
             foreach(InputDevice dev in input.devices)
             {
                 string des = dev.name.ToString();

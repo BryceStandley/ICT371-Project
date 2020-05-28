@@ -138,10 +138,10 @@ public class TrackingController : MonoBehaviour
         #endregion
 
         #region Washing Clothes
-        public enum TemperatureUsed {Cold, Worm, Hot};
+        public enum TemperatureUsed {Cold, Warm, Hot};
         public void AddWashingClothesFootprint(TemperatureUsed temp)
         {  
-            if(temp == TemperatureUsed.Worm)
+            if(temp == TemperatureUsed.Warm)
             {
                 co2SavedPerAnnumInKg += 185.64f;
             }
@@ -154,7 +154,70 @@ public class TrackingController : MonoBehaviour
         #endregion
 
         #region Rubbish Collection
-        
+        public enum FoGoType {Apple, PizzaBox, PopStick};
+        public void AddFoGoWaste(FoGoType type)
+        {
+            switch (type)
+            {
+                case FoGoType.Apple:
+                    co2SavedPerAnnumInKg += 618.3216f;
+                    break;
+                case FoGoType.PizzaBox:
+                    co2SavedPerAnnumInKg += 618.3216f;
+                    break;
+                case FoGoType.PopStick:
+                    co2SavedPerAnnumInKg += 1268.9f;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public enum RecycledType {TPRole, ColaCan, ChipPacket, LightBulb};
+        public void AddRecycledWaste(RecycledType type)
+        {
+            switch (type)
+            {
+                case RecycledType.TPRole:
+                    co2SavedPerAnnumInKg += 2421.9f;
+                    break;
+                case RecycledType.ColaCan:
+                    co2SavedPerAnnumInKg += 1235.52f;
+                    break;
+                case RecycledType.ChipPacket:
+                    co2SavedPerAnnumInKg += 4766.58f;
+                    break;
+                case RecycledType.LightBulb:
+                    co2SavedPerAnnumInKg += 38.61f;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void RemoveWasteAmount(float amount)
+        {
+            co2SavedPerAnnumInKg -= amount;
+        }
+
+        public enum GeneralWasteType {Toothpaste, CoffeeCup, RustyRazor};
+        public void AddGeneraldWaste(GeneralWasteType type)
+        {
+            switch (type)
+            {
+                case GeneralWasteType.Toothpaste:
+                    co2SavedPerAnnumInKg += 0f;
+                    break;
+                case GeneralWasteType.CoffeeCup:
+                    co2SavedPerAnnumInKg += 0f;
+                    break;
+                case GeneralWasteType.RustyRazor:
+                    co2SavedPerAnnumInKg += 0f;
+                    break;
+                default:
+                    break;
+            }
+        }
         #endregion
 
         #region Light bulb changing

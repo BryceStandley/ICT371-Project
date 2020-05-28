@@ -16,7 +16,8 @@ MonoBehaviour:
   npcName: GOV Bot
   sentences:
   - "\u201CWell done TMC. You have successfully replaced all incandescent bulbs with
-    energy efficient alternatives.\u201D\r\n\n\"If every household in America were
-    to simply replace one bulb with an energy efficient one, they would reduce greenhouse
-    gas emissions by roughly 4 billion kilograms. Imagine how much could be reduced
-    if every household was able to change every bulb!\" \r\n"
+    energy efficient alternatives.\u201D\r"
+  - "\"If every household in America were to simply replace one bulb with an energy
+    efficient one, they would reduce greenhouse gas emissions by roughly 4 billion
+    kilograms. Imagine how much could be reduced if every household was able to change
+    every bulb!\" \r\n"

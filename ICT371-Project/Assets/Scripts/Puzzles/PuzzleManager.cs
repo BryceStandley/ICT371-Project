@@ -97,7 +97,7 @@ public class PuzzleManager : MonoBehaviour
             {
                 ob.hasComplete = true;
                 TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                 if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
                 {
                     ObjectiveManager.instance.CheckCompletedList();
@@ -167,8 +167,8 @@ public class PuzzleManager : MonoBehaviour
             {
                 ob.hasComplete = true;
                 TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                ObjectiveManager.instance.PlayCompleteObjectiveSound();
-                if(ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
+                SoundEffectsManager.instance.PlayObjectiveCompleteClip();
+                if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
                 {
                     ObjectiveManager.instance.CheckCompletedList();
                 }
@@ -204,7 +204,7 @@ public class PuzzleManager : MonoBehaviour
                     obj.puzzleCompletionPercentage = 100;
                     ObjectiveManager.instance.bedroomDoor.Play();
                     TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                    ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                    SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                     if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                     {
                         //Debug.Log("Objective Updated Correctly");
@@ -235,7 +235,7 @@ public class PuzzleManager : MonoBehaviour
                         case TrackingController.TemperatureUsed.Cold:
                             obj.puzzleCompletionPercentage = 100;
                             break;
-                        case TrackingController.TemperatureUsed.Worm:
+                        case TrackingController.TemperatureUsed.Warm:
                             obj.puzzleCompletionPercentage = 50;
                             break;
                         case TrackingController.TemperatureUsed.Hot:
@@ -246,7 +246,7 @@ public class PuzzleManager : MonoBehaviour
                             break;
                     }
                     TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                    ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                    SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                     if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                     {
                         ObjectiveManager.instance.CheckCompletedList();
@@ -281,7 +281,7 @@ public class PuzzleManager : MonoBehaviour
                         obj.puzzleCompletionPercentage = 100;
                     }
                     TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                    ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                    SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                     if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                     {
                         //Debug.Log("Objective Updated Correctly");
@@ -298,6 +298,8 @@ public class PuzzleManager : MonoBehaviour
     //Usign Objective ID of 96
     public List<GarbageItem> garbageItems;
     public List<GarbageBin> garbageBins;
+    public Dialogue firstBinContaminatedDialogue;
+    public bool shownContaminatedDialogue;
     private bool hasSeenMistakeMessage = false;
 
     public void AddGarbageItem(GarbageItem item)
@@ -349,12 +351,22 @@ public class PuzzleManager : MonoBehaviour
         int total = 0;
         int mistake = 0;
         int percentage = 0;
+        int contam = 0;
         foreach(GarbageBin bin in garbageBins)
         {
             total += bin.binTotal;
             mistake += bin.numberOfIncorrectItemsInBin;
             percentage += 10;
+            if(bin.isCompromised)
+            {
+                contam++;
+            }
             //removed mistake counter as mistakes are added to the tracker in the bin script
+        }
+        if(contam == 1 && !shownContaminatedDialogue)
+        {
+            DialogueManager.instance.StartDialogue(firstBinContaminatedDialogue);
+            shownContaminatedDialogue = true;
         }
 
         if(mistake == 2 && !hasSeenMistakeMessage)
@@ -370,7 +382,7 @@ public class PuzzleManager : MonoBehaviour
                 obj.hasComplete = true;
                 DialogueManager.instance.StartDialogue(allRubbishCompletedDialogue);
                 TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                 if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
                 {
                     ObjectiveManager.instance.CheckCompletedList();
@@ -438,7 +450,7 @@ public class PuzzleManager : MonoBehaviour
             DialogueManager.instance.StartDialogue(allTreesPlantedDialogue);
             TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
             TrackingController.instance.AddTreePlantingFootprint();
-            ObjectiveManager.instance.PlayCompleteObjectiveSound();
+            SoundEffectsManager.instance.PlayObjectiveCompleteClip();
             if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
             {
                 //Debug.Log("Objective Updated Correctly");
@@ -516,16 +528,12 @@ public class PuzzleManager : MonoBehaviour
                 objective.hasComplete = true;
                 DialogueManager.instance.StartDialogue(allPlugsUnplugged);
                 TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-                ObjectiveManager.instance.PlayCompleteObjectiveSound();
+                SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                 if (objective.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(objective.hasComplete))
                 {
                     ObjectiveManager.instance.CheckCompletedList();
                 }
             }
-        }
-        else if(count == 1)
-        {
-            DialogueManager.instance.StartDialogue(oneDeivceUnplugged);
         }
     }
     #endregion
@@ -535,13 +543,13 @@ public class PuzzleManager : MonoBehaviour
 
     public void AddFoodBuyObjective()
     {
-        ObjectiveManager.instance.AddNewSideObjective(foodSideObjective);
+        //ObjectiveManager.instance.AddNewSideObjective(foodSideObjective);
     }
 
     public void TriggerFoodBuyComplete()
     {
-        Objective obj = new Objective();
-        foreach(Objective ob in ObjectiveManager.instance.SideObjetives)
+        Objective obj = null;
+        foreach(Objective ob in ObjectiveManager.instance.MainObjectives)
         {
             if(ob.objectiveID == 91)
             {
@@ -573,7 +581,7 @@ public class PuzzleManager : MonoBehaviour
             }
             //DialogueManager.instance.StartDialogue(allPlugsUnplugged);
             TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-            ObjectiveManager.instance.PlayCompleteObjectiveSound();
+            SoundEffectsManager.instance.PlayObjectiveCompleteClip();
             if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
             {
                 ObjectiveManager.instance.CheckCompletedList();
@@ -605,7 +613,7 @@ public class PuzzleManager : MonoBehaviour
             obj.puzzleCompletionPercentage = 100;
             //DialogueManager.instance.StartDialogue(allPlugsUnplugged);
             TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-            ObjectiveManager.instance.PlayCompleteObjectiveSound();
+            SoundEffectsManager.instance.PlayObjectiveCompleteClip();
             if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
             {
                 ObjectiveManager.instance.CheckCompletedList();
@@ -649,16 +657,39 @@ public class PuzzleManager : MonoBehaviour
             }
 
             TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
-            ObjectiveManager.instance.PlayCompleteObjectiveSound();
-            //FinalScoring.instance.TriggerFinalScoring();
-            if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
-            {
-                ObjectiveManager.instance.CheckCompletedList();
-            }
+            SoundEffectsManager.instance.PlayObjectiveCompleteClip();
+            FinalScoring.instance.TriggerFinalScoring();
+            ObjectiveManager.instance.CheckCompletedList();
         }
     }
 
     #endregion
 
+    #region Misc Puzzle Items
+    public Dialogue firstCCSDocFoundDialogue, secondCCSDocFoundDialogue;
+    private bool shownFirstCCS = false;
+    private bool shownSecondCCS = false;
+    private int d = 0;
+
+    public void CheckCCSDocumentDialogues(int doc)
+    {
+        if(!shownFirstCCS)
+        {
+            DialogueManager.instance.StartDialogue(firstCCSDocFoundDialogue);
+            shownFirstCCS = true;
+
+        }
+
+        if(!shownSecondCCS)
+        {
+            if(d != doc)
+            {
+                DialogueManager.instance.StartDialogue(secondCCSDocFoundDialogue);
+                shownSecondCCS = true;
+            }
+        }
+    }
+
+    #endregion
 
 }

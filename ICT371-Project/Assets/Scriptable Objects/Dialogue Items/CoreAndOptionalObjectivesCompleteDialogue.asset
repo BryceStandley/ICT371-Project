@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CoreAndOptionalObjectivesCompleteDialogue
   m_EditorClassIdentifier: 
   dialogueTriggerName: 
-  npcName: 
+  npcName: GOV Bot
   sentences:
   - "\u201CSolid effort TMC, you have completed my given set of tasks. I have unlocked
     the door to the garage and you are free to head out for a bit while I inspect

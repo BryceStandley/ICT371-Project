@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FoundAllCCSDocsDialogue
   m_EditorClassIdentifier: 
   dialogueTriggerName: FoundAllCCSDocs
-  npcName: 
+  npcName: GOV Bot
   sentences:
   - You sure are an avid reader TMC! You have successfully read each CCS Document!

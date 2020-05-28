@@ -18,6 +18,9 @@ public class ActionManger : MonoBehaviour
     public GameObject seed;
     public CCSInspect docToInspect;
 
+    public Dialogue tookBikeDialogue, tookCarDialogue;
+    private bool endTriggered = false;
+
     private void Awake()//using clear function to set up empty string
     {
         instance = this;
@@ -28,7 +31,19 @@ public class ActionManger : MonoBehaviour
         ClearCurrentAction();
     }
 
-   
+    private void Update()
+    {
+        if(endDialogueFinished)
+        {
+            if(!endTriggered)
+            {
+                endTriggered = true;
+                End();   
+            }
+        }
+    }
+
+
 
     public void OnActionInput(InputAction.CallbackContext context)//This function is called whrn the action button is pressed
     {
@@ -41,36 +56,53 @@ public class ActionManger : MonoBehaviour
                 if (actionAvailable.ToLower().Contains(actions[0].ToLower()))//convert strings to lower and check if they match a given action
                 {
                     TakeSeed();
+                    SoundEffectsManager.instance.PlayActionClickClip();
                     ClearCurrentAction();
                 }
                 else if(actionAvailable.ToLower().Contains(actions[1].ToLower()))
                 {
                     UnplugCable();
+                    SoundEffectsManager.instance.PlayActionClickClip();
                     ClearCurrentAction();
                 }
                 else if(actionAvailable.ToLower().Contains(actions[2].ToLower()))
                 {
                     BuyFood();
+                    SoundEffectsManager.instance.PlayActionClickClip();
                     ClearCurrentAction();
                 }
                 else if(actionAvailable.ToLower().Contains(actions[3].ToLower()))
                 {
                     InspectMagnet();
+                    SoundEffectsManager.instance.PlayActionClickClip();
                     ClearCurrentAction();
                 }
                 else if (actionAvailable.ToLower().Contains(actions[4].ToLower()))
                 {
                     InspectDoc();
+                    SoundEffectsManager.instance.PlayActionClickClip();
                     ClearCurrentAction();
                 }
                 else if (actionAvailable.ToLower().Contains(actions[5].ToLower()))
                 {
-                    TakeCar();
+                    tookBike = true;
+                    PuzzleManager.instance.TriggerEndObjective();
+                    TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Bike);
+                    TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Bike;
+                    PlayerInputController.instance.DisablePlayerControls();
+                    DialogueManager.instance.StartDialogue(tookBikeDialogue);
+                    SoundEffectsManager.instance.PlayActionClickClip();
                     ClearCurrentAction();
                 }
                 else if (actionAvailable.ToLower().Contains(actions[6].ToLower()))
                 {
-                    TakeBike();
+                    tookBike = false;
+                    PuzzleManager.instance.TriggerEndObjective();
+                    TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Car);
+                    TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Car;
+                    PlayerInputController.instance.DisablePlayerControls();
+                    DialogueManager.instance.StartDialogue(tookCarDialogue);
+                    SoundEffectsManager.instance.PlayActionClickClip();
                     ClearCurrentAction();
                 }
             }
@@ -114,6 +146,8 @@ public class ActionManger : MonoBehaviour
             if(ps != null)
             {
                 ps.UnplugItem();
+                ObjectInformationToolTip.HidePrompt();
+                ObjectInformationToolTip.HideTip();
             }
             else
             {
@@ -132,6 +166,8 @@ public class ActionManger : MonoBehaviour
             if(foodOrderer != null)
             {
                 foodOrderer.BuyFood();
+                ObjectInformationToolTip.HidePrompt();
+                ObjectInformationToolTip.HideTip();
             }
             else
             {
@@ -149,6 +185,8 @@ public class ActionManger : MonoBehaviour
             if(magnet != null)
             {
                 magnet.Inspect();
+                ObjectInformationToolTip.HidePrompt();
+                ObjectInformationToolTip.HideTip();
             }
             else
             {
@@ -164,8 +202,9 @@ public class ActionManger : MonoBehaviour
         {
             if (docToInspect != null)
             {
-                //Debug.Log("inspect Doc");
                 docToInspect.Inspect();
+                ObjectInformationToolTip.HidePrompt();
+                ObjectInformationToolTip.HideTip();
             }
             else
             {
@@ -177,12 +216,10 @@ public class ActionManger : MonoBehaviour
     }
 
     public GameObject finalCinematicCamera, playerCamera, playerModel, gamePlayUI, dialogues, objectHoldPoint;
-    private void TakeCar()
-    {
-        PuzzleManager.instance.TriggerEndObjective();
-        TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Car);
-        TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Car;
-        PlayerInputController.instance.DisablePlayerControls();
+    public bool endDialogueFinished = false;
+    public bool tookBike = false;
+    private void End()
+    { 
         playerCamera.GetComponent<Camera>().enabled = false;
         playerCamera.GetComponent<AudioListener>().enabled = false;
         gamePlayUI.SetActive(false);

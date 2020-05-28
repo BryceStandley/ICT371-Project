@@ -36,6 +36,8 @@ public class TemperatureController : MonoBehaviour
     {   
         tempWashedAt = temp;
         temperatureUI.SetActive(false);
+        ObjectInformationToolTip.HideTip();
+        ObjectInformationToolTip.HidePrompt();
         PauseMenu.instance.inDialogue = false;
         PlayerInputController.instance.EnablePlayerControls();
         if(isWashingMachine)
@@ -107,8 +109,8 @@ public class TemperatureController : MonoBehaviour
             }
             else if(tempWashedAt == 40)
             {
-                TrackingController.instance.AddWashingClothesFootprint(TrackingController.TemperatureUsed.Worm);
-                TrackingController.instance.temperatureUsedToWashClothes = TrackingController.TemperatureUsed.Worm;
+                TrackingController.instance.AddWashingClothesFootprint(TrackingController.TemperatureUsed.Warm);
+                TrackingController.instance.temperatureUsedToWashClothes = TrackingController.TemperatureUsed.Warm;
             }
             else
             {
