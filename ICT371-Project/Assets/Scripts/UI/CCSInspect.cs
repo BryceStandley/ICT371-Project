@@ -6,6 +6,7 @@ public class CCSInspect : MonoBehaviour
 {
 
     public GameObject inspectUI;
+    public GameObject backButton;
     public string documentLink;
 
     private void LateUpdate()
@@ -29,6 +30,7 @@ public class CCSInspect : MonoBehaviour
     public void Inspect()
     {
         inspectUI.SetActive(true);
+        PauseMenu.instance.ChangeSelectedItem(backButton);
         PauseMenu.instance.inDialogue = true;
         PlayerInputController.instance.DisablePlayerControls();
         if(this.gameObject.name.Contains("1"))
@@ -48,6 +50,7 @@ public class CCSInspect : MonoBehaviour
     public void CloseInspect()
     {
         inspectUI.SetActive(false);
+        PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
         PauseMenu.instance.inDialogue = false;
         PlayerInputController.instance.EnablePlayerControls();
         ObjectInformationToolTip.HideTip();

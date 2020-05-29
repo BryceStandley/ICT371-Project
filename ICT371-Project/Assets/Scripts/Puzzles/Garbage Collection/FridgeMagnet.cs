@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class FridgeMagnet : MonoBehaviour
 {
 
     public GameObject inspectMagnetUI;
+    public GameObject backButton;
     private void Awake()
     {
         inspectMagnetUI.SetActive(false);
@@ -34,6 +36,7 @@ public class FridgeMagnet : MonoBehaviour
         inspectMagnetUI.SetActive(true);
         PauseMenu.instance.inDialogue = true;
         PlayerInputController.instance.DisablePlayerControls();
+        PauseMenu.instance.ChangeSelectedItem(backButton);
     }
 
     public void CloseInspect()
@@ -43,6 +46,7 @@ public class FridgeMagnet : MonoBehaviour
         PlayerInputController.instance.EnablePlayerControls();
         ObjectInformationToolTip.HideTip();
         ObjectInformationToolTip.HidePrompt();
+        PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
     }
 
 }

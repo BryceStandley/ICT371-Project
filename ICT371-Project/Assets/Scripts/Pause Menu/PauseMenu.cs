@@ -22,22 +22,37 @@ public class PauseMenu : MonoBehaviour
     public Slider volumeSlider;
     public AudioSource audioSource;
     private List<Resolution> resolutions;
-    private EventSystem es;
-    private GameObject origSelectedItem;
 
+    public GameObject pauseFirstButton, optionsDisplayMenuButton;// , displayFirstButton, displayClosedButton, creditsFirstButton, creditsClosedButton, controlsFirstButton, controlsClosedButton;
+    public Button optionsAudioButton, optionsCreditButton, optionsControlsButton;
     void Awake()
     {
         instance = this;
-        es = FindObjectOfType<EventSystem>();
-        resolutions = new List<Resolution>();
     }
 
     private void Start()
     {
-        GetResolutions(); //gets all the resolutions available to the player based on their display
-        LoadSettings();
-        origSelectedItem = es.currentSelectedGameObject;
+        if(Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            optionsDisplayMenuButton.SetActive(false);
 
+            Navigation audioNav = new Navigation();
+            audioNav.selectOnDown = optionsCreditButton;
+            optionsAudioButton.navigation = audioNav;
+
+            Navigation creditsNav = new Navigation();
+            creditsNav.selectOnDown = optionsControlsButton;
+            creditsNav.selectOnUp = optionsAudioButton;
+            optionsCreditButton.navigation = creditsNav;
+
+            LoadVolume();
+        }
+        else
+        {
+            resolutions = new List<Resolution>();
+            GetResolutions(); //gets all the resolutions available to the player based on their display
+            LoadSettings();
+        }
     }
 
     private void LoadSettings()
@@ -46,6 +61,13 @@ public class PauseMenu : MonoBehaviour
         LoadScreenMode();
         LoadResolution();
     }
+
+    public void ChangeSelectedItem(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+
     public void OnPausePressed(InputAction.CallbackContext callback)
     {
         if(callback.performed)
@@ -61,10 +83,6 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public void SetCurrentSelectedItem(GameObject button)//Used when changing menus for controller input
-    {
-        es.SetSelectedGameObject(button);
-    }
 
     public void Resume() //represents changes in the game that occur when the game is resumed
     {
@@ -91,6 +109,12 @@ public class PauseMenu : MonoBehaviour
         //audioSource.Pause(); //Changed to have direct reference to audio source to stop delay
 
         PlayerInputController.instance.DisablePlayerControls(); //ceases player ability to move around in-game
+        ChangeSelectedItem(pauseFirstButton);
+
+    }
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void SaveGame() //Saves Game
@@ -101,13 +125,13 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame() //Quits Game
     {
-        if(Application.platform == RuntimePlatform.WebGLPlayer)
+        if (Application.platform != RuntimePlatform.WebGLPlayer)
         {
-            Application.OpenURL("about:blank");
+            Application.Quit();
         }
         else
         {
-            Application.Quit();
+            Application.OpenURL("https://www.murdoch.edu.au/");
         }
     }
 
@@ -237,5 +261,6 @@ public class PauseMenu : MonoBehaviour
         resolutionDropDown.value = currentResolutionIndex;
         resolutionDropDown.RefreshShownValue();
     }
+
 }
 

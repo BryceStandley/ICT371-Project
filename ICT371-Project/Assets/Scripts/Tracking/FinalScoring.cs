@@ -6,9 +6,6 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
-//To Be removed
-using UnityEngine.InputSystem;
-
 public class FinalScoring : MonoBehaviour
 {
     public static FinalScoring instance;
@@ -29,11 +26,13 @@ public class FinalScoring : MonoBehaviour
     public GameObject statsUI;
     public GameObject nextPageButton;
     public TextMeshProUGUI totalCO2Text, totalObjectivesText, gameplayTimeText, totalCO2AusWide;
+    public GameObject statsButton;
+    public Button statsQuitButton, statsMainMenuButton;
     #endregion
     private void Awake()
     {
         instance = this;
-        FinalScoreUI.SetActive(false);
+        //FinalScoreUI.SetActive(false);
     }
 
     public void TriggerFinalScoring()
@@ -153,6 +152,7 @@ public class FinalScoring : MonoBehaviour
             starImages[i].sprite = fullStarSprite;
         }
         FinalScoreUI.SetActive(true);
+        PauseMenu.instance.ChangeSelectedItem(statsButton);
         FinalScoreUI.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, 0.5f);
         PauseMenu.instance.inDialogue = true;
         PlayerInputController.instance.DisablePlayerControls();
@@ -180,6 +180,7 @@ public class FinalScoring : MonoBehaviour
         GetStats();
         FinalScoreUI.SetActive(false);
         statsUI.SetActive(true);
+        PauseMenu.instance.ChangeSelectedItem(nextPageButton);
     }
     int currentStatsPage = 1;
     public void StatsNextPage()
@@ -192,7 +193,7 @@ public class FinalScoring : MonoBehaviour
             int[] devices = TrackingController.instance.GetTotalUnpluggedDevices();
             totalCO2Text.text = "Unplugged Devices: " +devices[0] +"/" +devices[1];
             totalCO2AusWide.text = "CCS Documents Viewed: " +TrackingController.instance.GetTotalCCSDocumentsLookedAt() +"/2";
-            totalObjectivesText.text = "Correct trash items: " +TrackingController.instance.GetTotalCorrectTrashItems() +"/" +PuzzleManager.instance.garbageItems.Count;
+            totalObjectivesText.text = "Correct trash items: " +TrackingController.instance.GetTotalCorrectTrashItems() +"/9";
         }
         else if(currentStatsPage == 3)
         {
@@ -202,6 +203,16 @@ public class FinalScoring : MonoBehaviour
             totalCO2AusWide.text = "";
             totalCO2AusWide.text = "";
             nextPageButton.SetActive(false);
+
+            Navigation quitNav = new Navigation();
+            quitNav.selectOnRight = statsMainMenuButton;
+            quitNav.selectOnDown = statsMainMenuButton;
+            statsQuitButton.navigation = quitNav;
+
+            Navigation mainMenuNav = new Navigation();
+            mainMenuNav.selectOnUp = statsQuitButton;
+            mainMenuNav.selectOnLeft = statsQuitButton;
+            statsMainMenuButton.navigation = mainMenuNav;
         }
     }
 

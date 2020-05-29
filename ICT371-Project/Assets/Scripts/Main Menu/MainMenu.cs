@@ -17,20 +17,39 @@ public class MainMenu : MonoBehaviour
     public Toggle fullScreenToggle, gamepadControlsToggle, keyboardControlsToggle;
     public Image controlsImage;
     public Sprite gamepadControlsSprite, keyboardControlsSprite;
-    public EventSystem eventSystem;
     public TMP_Dropdown resolutionDropdown, displayDropdown;
     public string[] allowedResolutions;
     public List<Display> displays;
     public List<Resolution> resolutions;
 
+    public GameObject mainMenuFirstButton, optionsDisplayMenuButton;// , displayFirstButton, displayClosedButton, creditsFirstButton, creditsClosedButton, controlsFirstButton, controlsClosedButton;
+    public Button optionsAudioButton, optionsCreditButton, optionsControlsButton;
+
     private void Start()
     {
-        resolutions = new List<Resolution>();
-        GetResolutions(); //gets all the resolutions available to the player based on their display
-        displays = new List<Display>();
-        GetDisplays();
-        LoadSettings();
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            optionsDisplayMenuButton.SetActive(false);
+
+            Navigation audioNav = new Navigation();
+            audioNav.selectOnDown = optionsCreditButton;
+            optionsAudioButton.navigation = audioNav;
+
+            Navigation creditsNav = new Navigation();
+            creditsNav.selectOnDown = optionsControlsButton;
+            creditsNav.selectOnUp = optionsAudioButton;
+            optionsCreditButton.navigation = creditsNav;
+
+            LoadVolume();
+        }
+        else
+        {
+            resolutions = new List<Resolution>();
+            GetResolutions(); //gets all the resolutions available to the player based on their display
+            LoadSettings();
+        }
     }
+
 
     private void LoadSettings()
     {
@@ -65,7 +84,14 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame() //Quits Game
     {
-        Application.Quit();
+        if(Application.platform != RuntimePlatform.WebGLPlayer)
+        {
+            Application.Quit();
+        }
+        else
+        {
+            Application.OpenURL("https://www.murdoch.edu.au/");
+        }
     }
 
     public void SetVolume(float volume) //Sets the volume of the in-game audio
@@ -144,21 +170,15 @@ public class MainMenu : MonoBehaviour
         Application.OpenURL("https://pinevoc.bandcamp.com/album/green-ideas"); //credits the user of the in game music
     }
 
-    public void ToggleKeyboardControlsImage()
-    {
-        if(keyboardControlsToggle.isOn)
-        {
-            gamepadControlsToggle.isOn = false;
-            controlsImage.sprite = keyboardControlsSprite;
-        }
-    }
-
     public void ToggleGamepadControlsImage()
     {
         if(gamepadControlsToggle.isOn)
         {
-            keyboardControlsToggle.isOn = false;
             controlsImage.sprite = gamepadControlsSprite;
+        }
+        else if(!gamepadControlsToggle.isOn)
+        {
+            controlsImage.sprite = keyboardControlsSprite;
         }
     }
 
@@ -184,7 +204,8 @@ public class MainMenu : MonoBehaviour
 
     public void SetSelectedObject(GameObject obj)
     {
-        eventSystem.SetSelectedGameObject(obj);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(obj);
     }
 
     public void GetResolutions() //gets all resolutions user can set and stores them in a list, while also setting the default resolution to best fit the current screen 

@@ -63,6 +63,7 @@ public class DialogueManager : MonoBehaviour
     {
         pauseMenu.inDialogue = true;
         dialogueUIElement.SetActive(true);
+        PauseMenu.instance.ChangeSelectedItem(continueButton);
         dialogueName.text = dialogue.npcName;
 
         PlayerInputController.instance.DisablePlayerControls();//Stopping the player from being able to look and move
@@ -119,6 +120,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueUIElement.SetActive(false);
         pauseMenu.inDialogue = false;
+        PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
 
     }
 
