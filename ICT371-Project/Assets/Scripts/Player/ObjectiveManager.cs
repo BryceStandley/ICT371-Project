@@ -43,8 +43,12 @@ public class ObjectiveManager : MonoBehaviour
     {
         foreach (Objective obj in allObjectives)
         {
-            obj.hasComplete = false;
-            obj.puzzleCompletionPercentage = 0;//Setting to 50% complete for testing
+            if(obj != null)
+			{
+                //Debug.LogError(obj.objective);
+                obj.hasComplete = false;
+                obj.puzzleCompletionPercentage = 0;//Setting to 50% complete for testing
+            }
         }
         SetObjectiveList(TutorialObjectives);
         TrackingController.instance.totalObjectives = TutorialObjectives.Count + MainObjectives.Count + EndObjectives.Count;

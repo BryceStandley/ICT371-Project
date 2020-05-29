@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SideObjective", menuName = "Side Objective", order = 1)]
-[System.Serializable]
+//[System.Serializable]
 public class Objective : ScriptableObject
 {
-    [SerializeField]
+    //[SerializeField]
     public string objective;
     public int objectiveID;
     public bool hasComplete = false;
