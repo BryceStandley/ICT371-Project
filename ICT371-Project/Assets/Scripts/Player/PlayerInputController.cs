@@ -16,23 +16,50 @@ public class PlayerInputController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        
+        //InputSystem.onDeviceChange += InputSystem_onDeviceChange;
     }
+
+    private void OnEnable()
+    {
+        InputSystem.onEvent += InputSystem_onEvent;
+    }
+    private void OnDisable()
+    {
+        InputSystem.onEvent -= InputSystem_onEvent;
+    }
+
+    private void InputSystem_onEvent(UnityEngine.InputSystem.LowLevel.InputEventPtr arg1, InputDevice arg2)
+    {
+        //throw new System.NotImplementedException();
+        //Debug.Log(arg2.name);
+        OnInputChange(arg2.name);
+    }
+
+    private void InputSystem_onDeviceChange(InputDevice arg1, InputDeviceChange arg2)
+    {
+        //throw new System.NotImplementedException();
+        //Debug.Log(arg1.description);
+    }
+
     private void Start()
     {
         DisablePlayerControls();
     }
 
-    public void OnInputChange(PlayerInput input)
+    public void OnInputChange(string inputName)
     {
-        if(input.currentControlScheme == "Gamepad")
+        if(inputName.ToLower().Contains("gamepad") || inputName.ToLower().Contains("dualshock"))
         {
             gamepad = true;
+            //Debug.LogError("Gamepad IN Use.....");
         }
         else
         {
             gamepad = false;
+            //Debug.LogError("Gamepad NOT Use.....");
         }
-        FindObjectOfType<InputUISwitcher>().OnInputChange(input);
+        InputUISwitcher.instance.OnInputChange(inputName);
         //Debug.LogError("Test for controller change");
     }
 

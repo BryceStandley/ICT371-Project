@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Objective
   objective: Buy some food
   objectiveID: 91
-  hasComplete: 1
+  hasComplete: 0
   uiElement: {fileID: 0}
   objectiveType: 1
   objectiveRequirement: 0

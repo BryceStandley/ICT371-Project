@@ -8,7 +8,7 @@ public class InputUISwitcher : MonoBehaviour
     //This is where the global controll of UI prompts are controlled
     //This will check and toggle what controller or input is being used
     //and set values that each ui will find and adjust automaticly
-
+    public static InputUISwitcher instance;
     public bool xbox = false;
     public bool ps = false;
     public bool gamepad = false;
@@ -20,7 +20,9 @@ public class InputUISwitcher : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         prompts = new List<PromptChanger>();
+        
         //input.onControlsChanged += Input_onControlsChanged;
 
         //prompts = FindObjectsOfType<PromptChanger>(); // Finds all prompts in the level and adds them to a array
@@ -32,38 +34,16 @@ public class InputUISwitcher : MonoBehaviour
         prompts.Add(prompt);
     }
 
-    public void OnInputChange(PlayerInput input)// this is triggered when the input device is changed
+    public void OnInputChange(string inputName)// this is triggered when the input device is changed
     {
-        if(input.currentControlScheme == "Gamepad")
+        if(inputName.ToLower().Contains("gamepad") || inputName.ToLower().Contains("dualshock"))
         {
             //Set all ui elements to gamepad
             //Debug.Log("Gamepad in use...");
-            foreach(InputDevice dev in input.devices)
-            {
-                string des = dev.name.ToString();
-                if(des.Contains("Xbox"))
-                {
-                    //Gamepad is Xbox 360 or One Controller
-                    ps = false;
-                    xbox = true;
-                }
-                else if(des.Contains("DualShock"))
-                {
-                    //Gamepad is PlayStation DualShock Controller
-                    xbox = false;
-                    ps = true;
-                }
-                else
-                {
-                    //Unknown Gamepad, Setting to default
-                    xbox = false;
-                    ps = false;
-                }
-            }
             SetGamepad();
             
         }
-        else if(input.currentControlScheme == "PC")
+        else if(!inputName.ToLower().Contains("gamepad") && !inputName.ToLower().Contains("dualshock"))
         {
             //set ui to PC
             SetPC();

@@ -45,11 +45,12 @@ public class FinalScoring : MonoBehaviour
 
     private void GetFinalPercentageOfWeights()
     {
-        float tutorialPercentage = GetPercentages(ObjectiveManager.instance.TutorialObjectives);
-        float mainPercentages = GetPercentages(ObjectiveManager.instance.MainObjectives);
-        float sidePercentages = GetPercentages(ObjectiveManager.instance.SideObjetives);
-        float endPercentages = GetPercentages(ObjectiveManager.instance.EndObjectives);
-        float combinePercentages = tutorialPercentage + mainPercentages + sidePercentages + endPercentages;
+        //float tutorialPercentage = GetPercentages(ObjectiveManager.instance.TutorialObjectives);
+        //float mainPercentages = GetPercentages(ObjectiveManager.instance.MainObjectives);
+        //float sidePercentages = GetPercentages(ObjectiveManager.instance.SideObjetives);
+        //float endPercentages = GetPercentages(ObjectiveManager.instance.EndObjectives);
+        //float combinePercentages = tutorialPercentage + mainPercentages + sidePercentages + endPercentages;
+        float combinePercentages = Mathf.RoundToInt(GetPercentages(ObjectiveManager.instance.allObjectives));
         finalScorePercentage = Mathf.RoundToInt(combinePercentages);
     }
 
