@@ -118,7 +118,7 @@ public class DialogueManager : MonoBehaviour
 
     private void DisableDialogue()
     {
-        dialogueUIElement.SetActive(false);
+        //dialogueUIElement.SetActive(false);
         pauseMenu.inDialogue = false;
         PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
 

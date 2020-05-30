@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Objective
   objective: Throw out the bulbs
   objectiveID: 94
-  hasComplete: 0
+  hasComplete: 1
   uiElement: {fileID: 0}
   objectiveType: 3
   objectiveRequirement: 1

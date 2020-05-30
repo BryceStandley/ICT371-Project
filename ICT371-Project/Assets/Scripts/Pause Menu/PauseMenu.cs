@@ -21,6 +21,7 @@ public class PauseMenu : MonoBehaviour
     public Toggle gamepadControlsToggle;
     public Slider volumeSlider;
     public AudioSource audioSource;
+    public Slider cameraSensitivitySlider;
     private List<Resolution> resolutions;
 
     public GameObject pauseFirstButton, optionsDisplayMenuButton;// , displayFirstButton, displayClosedButton, creditsFirstButton, creditsClosedButton, controlsFirstButton, controlsClosedButton;
@@ -46,6 +47,7 @@ public class PauseMenu : MonoBehaviour
             optionsCreditButton.navigation = creditsNav;
 
             LoadVolume();
+            LoadSensitivity();
         }
         else
         {
@@ -58,8 +60,10 @@ public class PauseMenu : MonoBehaviour
     private void LoadSettings()
     {
         LoadVolume();
+        LoadSensitivity();
         LoadScreenMode();
         LoadResolution();
+
     }
 
     public void ChangeSelectedItem(GameObject button)
@@ -167,6 +171,7 @@ public class PauseMenu : MonoBehaviour
             Debug.Log("NOT Fullscren");
         }
     }
+
     public Image controlsImage;
     public Sprite pcControlsSprite, gamepadControlsSprite;
     public void ToggleGamepadControlsImage()
@@ -232,7 +237,7 @@ public class PauseMenu : MonoBehaviour
     public Resolution[] tempRes;
     public void GetResolutions() //gets all resolutions user can set and stores them in a list, while also setting the default resolution to best fit the current screen 
     {
-        tempRes = Screen.resolutions;
+        Resolution[] tempRes = Screen.resolutions;
         resolutionDropDown.ClearOptions();
 
         List<string> options = new List<string>();
@@ -242,9 +247,9 @@ public class PauseMenu : MonoBehaviour
         for (int i = 0; i < tempRes.Length; i++)
         {
             string option = tempRes[i].width + " x " + tempRes[i].height + " @" + tempRes[i].refreshRate + "Hz"; //represents each resolution by showing their width, height and refresh rate
-            foreach(string st in allowedResolutions)
+            foreach (string st in allowedResolutions)
             {
-                if(option.Contains(st))
+                if (option.Contains(st))
                 {
                     options.Add(option);
                     resolutions.Add(tempRes[i]);
@@ -260,6 +265,13 @@ public class PauseMenu : MonoBehaviour
         resolutionDropDown.AddOptions(options); //adds the list options to the drop down
         resolutionDropDown.value = currentResolutionIndex;
         resolutionDropDown.RefreshShownValue();
+    }
+
+    public void LoadSensitivity()
+    {
+        float sen = PlayerPrefs.GetFloat("GameCameraSensitivity", 20);
+        cameraSensitivitySlider.value = sen;
+        PlayerLook.instance.sensitivity = sen;
     }
 
 }

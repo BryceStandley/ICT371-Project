@@ -37,6 +37,10 @@ public class ObjectiveManager : MonoBehaviour
     private void Start()
     {
         Invoke("DelayedStart", 1f);
+        TutorialObjectives.Clear();
+        MainObjectives.Clear();
+        EndObjectives.Clear();
+        SideObjetives.Clear();
     }
 
     private void DelayedStart()
@@ -48,6 +52,20 @@ public class ObjectiveManager : MonoBehaviour
                 //Debug.LogError(obj.objective);
                 obj.hasComplete = false;
                 obj.puzzleCompletionPercentage = 0;//Setting to 50% complete for testing
+                switch(obj.objectiveType)
+                {
+                    case Objective.ObjectiveType.Tutorial:
+                        TutorialObjectives.Add(obj);
+                        break;
+                    case Objective.ObjectiveType.Main:
+                        MainObjectives.Add(obj);
+                        break;
+                    case Objective.ObjectiveType.End:
+                        EndObjectives.Add(obj);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         SetObjectiveList(TutorialObjectives);
@@ -180,10 +198,14 @@ public class ObjectiveManager : MonoBehaviour
         objectiveUI.Clear();
     }
 
-    private void CheckCompletedDialogue()
+    private int mainObj = 0;
+    private int sideObj = 0;
+    private bool hasSeenCoreAndOptional = false;
+    private bool hasSeenOption = false;
+    private bool hasSeenCore = false;
+    public void CheckCompletedDialogue()
     {
-        int mainObj = 0;
-        int sideObj = 0;
+
         foreach(Objective obj in MainObjectives)
         {
             if(obj.hasComplete)
@@ -202,15 +224,27 @@ public class ObjectiveManager : MonoBehaviour
 
         if(sideObj == 3 && mainObj == 5)
         {
-            DialogueManager.instance.StartDialogue(allCoreAndOptionalObjectivesComplete);
+            if(!hasSeenCoreAndOptional)
+            {
+                DialogueManager.instance.StartDialogue(allCoreAndOptionalObjectivesComplete);
+                hasSeenCoreAndOptional = true;
+            }
         }
         else if(mainObj == 5 && sideObj != 3)
         {
-            DialogueManager.instance.StartDialogue(allMainObjectivesCompleteDialogue);
+            if(!hasSeenCore)
+            {
+                DialogueManager.instance.StartDialogue(allMainObjectivesCompleteDialogue);
+                hasSeenCore = true;
+            }
         }
         else if(sideObj == 3 && mainObj != 5)
         {
-            DialogueManager.instance.StartDialogue(allSideObjectivesCompleteDialogue);
+            if(!hasSeenOption)
+            {
+                DialogueManager.instance.StartDialogue(allSideObjectivesCompleteDialogue);
+                hasSeenOption = true;
+            }
         }
     }
 

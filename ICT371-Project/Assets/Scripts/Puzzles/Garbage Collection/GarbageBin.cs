@@ -12,6 +12,7 @@ public class GarbageBin : MonoBehaviour
     public int numberOfBulbsInBin = 0;
     public bool isCompromised = false;
     public float totalCo2Saved;
+    public Dialogue indisposableItemDialogue;
 
     public int binTotal = 0;
 
@@ -90,6 +91,7 @@ public class GarbageBin : MonoBehaviour
             else if(!other.gameObject.CompareTag("Player"))
             {
                 numberOfIndisposableItemsInBin++;
+                DialogueManager.instance.StartDialogue(indisposableItemDialogue);
                 //Debug.Log("Player placed a puzzle item in the bin");
                 ResetLocation(other.transform.gameObject);
                 TrackingController.instance.totalMistakes++;

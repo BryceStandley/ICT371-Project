@@ -296,6 +296,7 @@ public class TrackingController : MonoBehaviour
         public enum TransportType {Car, Bike};
         public void AddTransportUsage(TransportType type)
         {
+        //Debug.Log(type);
             switch(type)
             {
                 case TransportType.Car:
@@ -334,9 +335,13 @@ public class TrackingController : MonoBehaviour
         return time;
     }
 
-    public void CalculateTotalCO2SavedCountryWide()
+    public string CalculateTotalCO2SavedCountryWide()
     {
-        co2SavedPerAnnumByTotalHouseholdsInKg = co2SavedPerAnnumInKg * (9204.6f * 1000);
+        co2SavedPerAnnumByTotalHouseholdsInKg = (co2SavedPerAnnumInKg * 9204.6f) / 1000000;
+        string temp = co2SavedPerAnnumByTotalHouseholdsInKg.ToString("F1");
+        temp +=  "M";
+        //Debug.Log(temp);
+        return temp;
     }
 
     public int[] GetTotalUnpluggedDevices()

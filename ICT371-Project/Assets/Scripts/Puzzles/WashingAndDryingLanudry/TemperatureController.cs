@@ -27,7 +27,8 @@ public class TemperatureController : MonoBehaviour
     public void MakeDryer()
     {
         dryerTimerUI.gameObject.SetActive(true);
-        StartCoroutine("UpdateDryerTimer");
+        timer = 0;
+        StartDryerTimer();
         DialogueManager.instance.StartDialogue(clothesInDryerDialogue);
         isWashingMachine = false;
         Invoke("EndTimer", machineTimersInSeconds);
@@ -45,7 +46,7 @@ public class TemperatureController : MonoBehaviour
         if(isWashingMachine)
         {
             washingMachineTimerUI.gameObject.SetActive(true);
-            StartCoroutine("UpdateWasherTimer");
+            StartWasherTimer();
             DialogueManager.instance.StartDialogue(clothesInWashingMachineDialogue);
             ObjectPickUp.instance.DropItem(washingMachine.fullBasket);
             //destroy old basket
@@ -73,25 +74,27 @@ public class TemperatureController : MonoBehaviour
     }
 
     float timer = 0;
-    IEnumerator UpdateWasherTimer()
+    private void StartWasherTimer()
     {
-        for(int i = 0; i < machineTimersInSeconds; i++)
+        if(timer < 100)
         {
             timer += 100 / machineTimersInSeconds;
             washingMachineTimerUI.UpdateSliderVal(timer);
-            yield return new WaitForSecondsRealtime(1);
+            Invoke("StartWasherTimer", 1f);
         }
     }
-    IEnumerator UpdateDryerTimer()
+
+    private void StartDryerTimer()
     {
-        timer = 0;
-        for(int i = 0; i < machineTimersInSeconds; i++)
+        if(timer < 100)
         {
             timer += 100 / machineTimersInSeconds;
             dryerTimerUI.UpdateSliderVal(timer);
-            yield return new WaitForSecondsRealtime(1);
+            Invoke("StartDryerTimer", 1f);
         }
     }
+    
+
 
     private void EndTimer()
     {

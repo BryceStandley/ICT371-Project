@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Objective
   objective: Change the lights
   objectiveID: 95
-  hasComplete: 0
+  hasComplete: 1
   uiElement: {fileID: 0}
   objectiveType: 3
   objectiveRequirement: 1

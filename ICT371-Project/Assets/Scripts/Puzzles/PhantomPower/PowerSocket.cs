@@ -15,7 +15,7 @@ public class PowerSocket : MonoBehaviour
     public Dialogue unpluggingWasherDialogue;
     public TrackingController.PhantomType[] phantomTypes;
     public int[] itemPercentages;
-    public bool check = false;
+    public bool cooldown = false;
 
     private void Start()
     {
@@ -32,12 +32,15 @@ public class PowerSocket : MonoBehaviour
                 {
                     if(!isUnplugged)
                     {
-                        PromptChanger.instance.thirdPurpPrompt = true;
-                        PromptChanger.instance.hasCustomName = true;
-                        PromptChanger.instance.customName = "Unplug";
-                        PromptChanger.instance.customNameAction = PromptChanger.CustomNameAction.Third;
-                        PromptChanger.instance.UpdateUI();
-                        ActionManger.instance.SetCurrentAction("Unplug");
+                        if(!cooldown)
+                        {
+                            PromptChanger.instance.thirdPurpPrompt = true;
+                            PromptChanger.instance.hasCustomName = true;
+                            PromptChanger.instance.customName = "Unplug";
+                            PromptChanger.instance.customNameAction = PromptChanger.CustomNameAction.Third;
+                            PromptChanger.instance.UpdateUI();
+                            ActionManger.instance.SetCurrentAction("Unplug");
+                        }
                     }
                 }
             }
@@ -72,11 +75,17 @@ public class PowerSocket : MonoBehaviour
         }
         else
         {
-            //if (!check) 
-            //{
-                DialogueManager.instance.StartDialogue(unpluggingWasherDialogue);
-            //}
-            //check = true;
+            DialogueManager.instance.StartDialogue(unpluggingWasherDialogue);
+            cooldown = true;
+            PromptChanger.instance.thirdPurpPrompt = false;
+            PromptChanger.instance.hasCustomName = false;
+            PromptChanger.instance.UpdateUI();
+            Invoke("Cooldown", 2f);
         }
+    }
+
+    private void Cooldown()
+    {
+        cooldown = false;
     }
 }

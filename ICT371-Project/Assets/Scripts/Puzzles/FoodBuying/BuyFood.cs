@@ -8,6 +8,7 @@ public class BuyFood : MonoBehaviour
     public GameObject foodBuyUI;
     public FoodOrderer foodOrderer;
     public GameObject oldEsItem, fishButton;
+    public Dialogue boughtFoodDialogue;
 
     private void Awake()
     {
@@ -27,9 +28,9 @@ public class BuyFood : MonoBehaviour
         //Debug.Log("buying beef...");
         HideBuyUI();
         foodOrderer.foodBought = true;
-        PuzzleManager.instance.TriggerFoodBuyComplete();
         TrackingController.instance.AddBoughtFood(TrackingController.FoodBoughtType.Beef);
         TrackingController.instance.typeOfFoodThePlayerBought = TrackingController.FoodBoughtType.Beef;
+        PuzzleManager.instance.TriggerFoodBuyComplete();
 
     }
 
@@ -39,9 +40,9 @@ public class BuyFood : MonoBehaviour
         //Debug.Log("buying fish...");
         HideBuyUI();
         foodOrderer.foodBought = true;
-        PuzzleManager.instance.TriggerFoodBuyComplete();
         TrackingController.instance.AddBoughtFood(TrackingController.FoodBoughtType.Fish);
         TrackingController.instance.typeOfFoodThePlayerBought = TrackingController.FoodBoughtType.Fish;
+        PuzzleManager.instance.TriggerFoodBuyComplete();
     }
 
     public void BuyVeggie()
@@ -50,18 +51,16 @@ public class BuyFood : MonoBehaviour
         //Debug.Log("buying veggie...");
         HideBuyUI();
         foodOrderer.foodBought = true;
-        PuzzleManager.instance.TriggerFoodBuyComplete();
         TrackingController.instance.AddBoughtFood(TrackingController.FoodBoughtType.Veggie);
         TrackingController.instance.typeOfFoodThePlayerBought = TrackingController.FoodBoughtType.Veggie;
-
+        PuzzleManager.instance.TriggerFoodBuyComplete();
     }
 
     private void HideBuyUI()
     {
         foodBuyUI.SetActive(false);
         PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
-        PauseMenu.instance.inDialogue = false;
-        PlayerInputController.instance.EnablePlayerControls();
+        DialogueManager.instance.StartDialogue(boughtFoodDialogue);
         ObjectInformationToolTip.HideTip();
         ObjectInformationToolTip.HidePrompt();
     }

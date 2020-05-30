@@ -37,7 +37,7 @@ public class FinalScoring : MonoBehaviour
 
     public void TriggerFinalScoring()
     {
-        CheckIfSideObjectivesAreActive();
+        //CheckIfSideObjectivesAreActive();
         GetFinalPercentageOfWeights();
         finalScore = FindFinalScoreInKgOfCO2Saved();
         FindFinalMark();
@@ -171,9 +171,8 @@ public class FinalScoring : MonoBehaviour
     {
         int[] time = TrackingController.instance.GetGameTime();
         gameplayTimeText.text = "Gametime: " +time[0] +":" +time[1] +":" +time[2];
-        totalCO2Text.text = "Kg of CO2 Saved per year: " +TrackingController.instance.co2SavedPerAnnumInKg;
-        TrackingController.instance.CalculateTotalCO2SavedCountryWide();
-        totalCO2AusWide.text = "Kg Of CO2 Saved Aus Wide: " +TrackingController.instance.co2SavedPerAnnumByTotalHouseholdsInKg;
+        totalCO2Text.text = "Kg of CO2 Saved per year: " +(TrackingController.instance.co2SavedPerAnnumInKg / 1000).ToString("F1") +"K";
+        totalCO2AusWide.text = "Kg Of CO2 Saved Aus Wide: " +TrackingController.instance.CalculateTotalCO2SavedCountryWide(); ;
         totalObjectivesText.text = "Completed Objectives: " +TrackingController.instance.completedObjectives;
     }
     public void ShowStatsUI()
@@ -202,7 +201,7 @@ public class FinalScoring : MonoBehaviour
             gameplayTimeText.text = "Bulbs trashed: " +TrackingController.instance.GetTotalOfBulbsTrashed() +"/" +PuzzleManager.instance.lightHousings.Count;
             totalObjectivesText.text = "Total Compromised Bins: " +TrackingController.instance.GetTotalCompromisedBins() +"/" +PuzzleManager.instance.garbageBins.Count;
             totalCO2AusWide.text = "";
-            totalCO2AusWide.text = "";
+            totalCO2Text.text = "";
             nextPageButton.SetActive(false);
 
             Navigation quitNav = new Navigation();

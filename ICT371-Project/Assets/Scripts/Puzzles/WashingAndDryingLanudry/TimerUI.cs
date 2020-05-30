@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class TimerUI : MonoBehaviour
 {
     public Slider slider;
-    public AudioClip washingCompleteSound;
-    public AudioSource audioSource;
+
     
     public void UpdateSliderVal(float val)
     {

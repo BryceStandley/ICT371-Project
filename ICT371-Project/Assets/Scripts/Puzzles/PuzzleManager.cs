@@ -97,6 +97,7 @@ public class PuzzleManager : MonoBehaviour
             if(ob != null)
             {
                 ob.hasComplete = true;
+                ObjectiveManager.instance.CheckCompletedDialogue();
                 TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                 SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                 if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
@@ -167,6 +168,7 @@ public class PuzzleManager : MonoBehaviour
             if(count == lightHousings.Count)
             {
                 ob.hasComplete = true;
+                ObjectiveManager.instance.CheckCompletedDialogue();
                 TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                 SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                 if (ob.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(ob.hasComplete))
@@ -528,6 +530,7 @@ public class PuzzleManager : MonoBehaviour
             {
                 objective.hasComplete = true;
                 DialogueManager.instance.StartDialogue(allPlugsUnplugged);
+                ObjectiveManager.instance.CheckCompletedDialogue();
                 TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                 SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                 if (objective.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(objective.hasComplete))
@@ -653,7 +656,7 @@ public class PuzzleManager : MonoBehaviour
                     obj.puzzleCompletionPercentage = 100;
                     break;
                 default:
-                    obj.puzzleCompletionPercentage = 0;
+                    //obj.puzzleCompletionPercentage = 0;
                     break;
             }
 

@@ -10,6 +10,7 @@ public class PlayerInputController : MonoBehaviour
     public PlayerLook playerLook;
     public ObjectPickUp objPickUp;
     public GameObject objectiveUI, crossHair;
+    public PlayerInput playerInput;
 
     public bool gamepad = false;
 
@@ -31,9 +32,15 @@ public class PlayerInputController : MonoBehaviour
 
     private void InputSystem_onEvent(UnityEngine.InputSystem.LowLevel.InputEventPtr arg1, InputDevice arg2)
     {
-        //throw new System.NotImplementedException();
-        //Debug.Log(arg2.name);
-        OnInputChange(arg2.name);
+        if(playerInput.currentControlScheme.ToLower().Contains("gamepad"))
+        {
+            gamepad = true;
+        }
+        else
+        {
+            gamepad = false;
+        }
+        InputUISwitcher.instance.OnInputChange(gamepad);
     }
 
     private void InputSystem_onDeviceChange(InputDevice arg1, InputDeviceChange arg2)
@@ -59,7 +66,7 @@ public class PlayerInputController : MonoBehaviour
             gamepad = false;
             //Debug.LogError("Gamepad NOT Use.....");
         }
-        InputUISwitcher.instance.OnInputChange(inputName);
+        InputUISwitcher.instance.OnInputChange(gamepad);
         //Debug.LogError("Test for controller change");
     }
 

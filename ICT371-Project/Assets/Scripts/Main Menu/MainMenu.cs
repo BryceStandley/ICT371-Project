@@ -109,18 +109,20 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void SetFullScreen() //Sets the game window to fullscreen if true and windowed if false
+    public void ToggleFullscreen() //Sets the game window to fullscreen if true and windowed if false
     {
-        if(fullScreenToggle.isOn)
+        if (fullScreenToggle.isOn)
         {
             Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
             PlayerPrefs.SetInt("GameFullscreenMode", 1);
             GetResolutions();
+            Debug.Log("Fullscren");
         }
         else
         {
             Screen.fullScreenMode = FullScreenMode.Windowed;
             PlayerPrefs.SetInt("GameFullscreenMode", -1);
+            Debug.Log("NOT Fullscren");
         }
     }
 

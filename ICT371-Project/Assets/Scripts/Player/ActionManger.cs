@@ -85,19 +85,7 @@ public class ActionManger : MonoBehaviour
                 }
                 else if (actionAvailable.ToLower().Contains(actions[5].ToLower()))
                 {
-                    tookBike = true;
-                    PuzzleManager.instance.TriggerEndObjective();
-                    TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Bike);
-                    TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Bike;
-                    PlayerInputController.instance.DisablePlayerControls();
-                    DialogueManager.instance.StartDialogue(tookBikeDialogue);
-                    SoundEffectsManager.instance.PlayActionClickClip();
-                    ClearCurrentAction();
-                }
-                else if (actionAvailable.ToLower().Contains(actions[6].ToLower()))
-                {
                     tookBike = false;
-                    PuzzleManager.instance.TriggerEndObjective();
                     TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Car);
                     TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Car;
                     PlayerInputController.instance.DisablePlayerControls();
@@ -105,13 +93,20 @@ public class ActionManger : MonoBehaviour
                     SoundEffectsManager.instance.PlayActionClickClip();
                     ClearCurrentAction();
                 }
+                else if (actionAvailable.ToLower().Contains(actions[6].ToLower()))
+                {
+                    tookBike = true;
+                    TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Bike);
+                    TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Bike;
+                    PlayerInputController.instance.DisablePlayerControls();
+                    DialogueManager.instance.StartDialogue(tookBikeDialogue);
+                    SoundEffectsManager.instance.PlayActionClickClip();
+                    ClearCurrentAction();
+                }
             }
         }
     }
 
-    private void LateUpdate()
-    {   
-    }
 
     public void SetCurrentAction(string action)
     {
@@ -231,21 +226,4 @@ public class ActionManger : MonoBehaviour
         FinalScoring.instance.DisplayFinalScoreUI();
     }
 
-    private void TakeBike()
-    {
-        PuzzleManager.instance.TriggerEndObjective();
-        TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Bike);
-        TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Bike;
-        PlayerInputController.instance.DisablePlayerControls();
-        playerCamera.GetComponent<Camera>().enabled = false;
-        playerCamera.GetComponent<AudioListener>().enabled = false;
-        gamePlayUI.SetActive(false);
-        dialogues.SetActive(false);
-        objectHoldPoint.SetActive(false);
-        finalCinematicCamera.SetActive(true);
-        PuzzleManager.instance.TriggerEndObjective();
-        FinalScoring.instance.TriggerFinalScoring();
-        FinalScoring.instance.DisplayFinalScoreUI();
-        
-    }
 }

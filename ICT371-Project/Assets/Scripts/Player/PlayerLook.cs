@@ -5,12 +5,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerLook : MonoBehaviour
 {
+    public static PlayerLook instance;
     public InputMaster controls;
     public InputAction inputAction;
+    public PlayerInput playerInput;
 
     private Vector2 input;
     private Vector2 lastInput;
     private bool onInput = false;
+    private bool gamepad = false;
 
     private Quaternion headOriginOrientation, bodyOriginOrientation;// References to the original Rotation Origins
     private float currentYaw = 0f, currentPitch = 0f; //Base X and Y values
@@ -25,6 +28,7 @@ public class PlayerLook : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         Cursor.lockState = CursorLockMode.Locked;//Locking cursor to the center of the screen and hiding it
         Cursor.visible = false; 
         controls = new InputMaster();//Creating a new inputMaster component
@@ -38,8 +42,27 @@ public class PlayerLook : MonoBehaviour
     private void OnEnable()//Enables camera controls if camera is enabled
     {
         controls.Player.Enable();
+        InputSystem.onEvent += InputSystem_onEvent;
         input = Vector2.zero;
         Invoke("AllowInput", 0.01f); // Adding a small delay to allow the mouse to recenter before getting input data
+    }
+
+    private void InputSystem_onEvent(UnityEngine.InputSystem.LowLevel.InputEventPtr arg1, InputDevice arg2)
+    {
+        //throw new System.NotImplementedException();
+        if(playerInput.currentControlScheme.ToLower().Contains("gamepad"))
+        {
+            //Debug.LogError("Gamepad in use...");
+            //Debug.LogError(playerInput.currentControlScheme);
+            gamepad = true;
+        }
+        else
+        {
+            //Debug.LogError("No gamepad...");
+            //Debug.LogError(playerInput.currentControlScheme);
+            gamepad = false;
+        }
+        
     }
 
     private void OnDisable()//Disables camera controls if camera is disabled
@@ -47,6 +70,7 @@ public class PlayerLook : MonoBehaviour
         allowedInput = false;
         zeroed = false;
         isFirstInput = true;
+        InputSystem.onEvent -= InputSystem_onEvent;
         controls.Player.Disable();
         
     }
@@ -77,7 +101,7 @@ public class PlayerLook : MonoBehaviour
 
             if(isFirstInput)
             {
-                if(!PlayerInputController.instance.gamepad)
+                if(!gamepad)
                 {
                     //Debug.Log("Main input: " +input);
                     if (input.x > 2.5f || input.x < -2.5f)
@@ -133,6 +157,12 @@ public class PlayerLook : MonoBehaviour
         transform.localRotation = headRotation * headOriginOrientation;
         playerBody.localRotation = bodyRotation * bodyOriginOrientation;
         
+    }
+
+    public void UpdateSensitivity(float slider)
+    {
+        sensitivity = slider;
+        PlayerPrefs.SetFloat("GameCameraSensitivity", slider);
     }
 
 }

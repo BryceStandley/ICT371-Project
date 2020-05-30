@@ -34,16 +34,16 @@ public class InputUISwitcher : MonoBehaviour
         prompts.Add(prompt);
     }
 
-    public void OnInputChange(string inputName)// this is triggered when the input device is changed
+    public void OnInputChange(bool gamepad)// this is triggered when the input device is changed
     {
-        if(inputName.ToLower().Contains("gamepad") || inputName.ToLower().Contains("dualshock"))
+        if(gamepad)
         {
             //Set all ui elements to gamepad
             //Debug.Log("Gamepad in use...");
             SetGamepad();
             
         }
-        else if(!inputName.ToLower().Contains("gamepad") && !inputName.ToLower().Contains("dualshock"))
+        else
         {
             //set ui to PC
             SetPC();
