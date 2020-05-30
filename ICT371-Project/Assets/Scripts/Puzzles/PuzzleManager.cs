@@ -31,6 +31,7 @@ public class PuzzleManager : MonoBehaviour
         garbageBins = new List<GarbageBin>();
         lightHousings = new List<GameObject>();
         powerOutlets = new List<PowerSocket>();
+        ccsDocuments = new List<CCSInspect>();
 
     }
 
@@ -667,26 +668,34 @@ public class PuzzleManager : MonoBehaviour
 
     #region Misc Puzzle Items
     public Dialogue firstCCSDocFoundDialogue, secondCCSDocFoundDialogue;
-    private bool shownFirstCCS = false;
-    private bool shownSecondCCS = false;
-    private int d = 0;
+    public List<CCSInspect> ccsDocuments;
+    private bool seenAllDialogue = false;
 
-    public void CheckCCSDocumentDialogues(int doc)
+    public void AddCCSDocument(CCSInspect doc)
     {
-        if(!shownFirstCCS)
-        {
-            DialogueManager.instance.StartDialogue(firstCCSDocFoundDialogue);
-            shownFirstCCS = true;
+        ccsDocuments.Add(doc);
+    }
 
+    public void CheckCCSDocumentDialogues()
+    {
+        int count = 0;
+        foreach(CCSInspect doc in ccsDocuments)
+        {
+            if(doc.viewed)
+            {
+                count++;
+            }
         }
 
-        if(!shownSecondCCS)
+        if(count == 1)
         {
-            if(d != doc)
-            {
-                DialogueManager.instance.StartDialogue(secondCCSDocFoundDialogue);
-                shownSecondCCS = true;
-            }
+            DialogueManager.instance.StartDialogue(firstCCSDocFoundDialogue);
+
+        }
+        else if(count == 2 || !seenAllDialogue)
+        {
+            DialogueManager.instance.StartDialogue(secondCCSDocFoundDialogue);
+            seenAllDialogue = true;
         }
     }
 

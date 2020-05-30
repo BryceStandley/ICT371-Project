@@ -17,6 +17,7 @@ public class TemperatureController : MonoBehaviour
 
     public Dialogue clothesInWashingMachineDialogue;
     public Dialogue clothesInDryerDialogue;
+
     public void MakeWashingMachine()
     {
         machineName.text = "Washing Machine";
@@ -36,6 +37,7 @@ public class TemperatureController : MonoBehaviour
     {   
         tempWashedAt = temp;
         temperatureUI.SetActive(false);
+        PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
         ObjectInformationToolTip.HideTip();
         ObjectInformationToolTip.HidePrompt();
         PauseMenu.instance.inDialogue = false;

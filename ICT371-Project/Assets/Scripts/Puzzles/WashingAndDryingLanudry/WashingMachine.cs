@@ -14,6 +14,7 @@ public class WashingMachine : MonoBehaviour
     public PowerSocket powerSocket;
     public bool delayTakingWashing = false;
     public bool showedUI = false;
+    public GameObject firstSelectedButton;
 
     public void TakeWashing(GameObject other)
     {
@@ -49,6 +50,7 @@ public class WashingMachine : MonoBehaviour
         //display washing machine ui
         temperatureController.MakeWashingMachine();
         temperatureUI.SetActive(true);
+        PauseMenu.instance.ChangeSelectedItem(firstSelectedButton);
         ObjectInformationToolTip.HideTip();
         ObjectInformationToolTip.HidePrompt();
         showedUI = true;

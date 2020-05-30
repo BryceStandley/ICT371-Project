@@ -7,18 +7,16 @@ public class BuyFood : MonoBehaviour
 {
     public GameObject foodBuyUI;
     public FoodOrderer foodOrderer;
-    public GameObject oldEsItem, beefButton;
-    public EventSystem eventSystem;
+    public GameObject oldEsItem, fishButton;
 
     private void Awake()
     {
         foodBuyUI.SetActive(false);
-        oldEsItem = eventSystem.currentSelectedGameObject;
     }
     public void OpenFoodBuyUI()
     {
         foodBuyUI.SetActive(true);
-        eventSystem.SetSelectedGameObject(beefButton);
+        PauseMenu.instance.ChangeSelectedItem(fishButton);
         PauseMenu.instance.inDialogue = true;
         PlayerInputController.instance.DisablePlayerControls();
     }
@@ -61,7 +59,7 @@ public class BuyFood : MonoBehaviour
     private void HideBuyUI()
     {
         foodBuyUI.SetActive(false);
-        eventSystem.SetSelectedGameObject(oldEsItem);
+        PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
         PauseMenu.instance.inDialogue = false;
         PlayerInputController.instance.EnablePlayerControls();
         ObjectInformationToolTip.HideTip();
