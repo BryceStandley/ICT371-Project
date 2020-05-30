@@ -15,6 +15,7 @@ public class PowerSocket : MonoBehaviour
     public Dialogue unpluggingWasherDialogue;
     public TrackingController.PhantomType[] phantomTypes;
     public int[] itemPercentages;
+    public bool check = false;
 
     private void Start()
     {
@@ -71,7 +72,11 @@ public class PowerSocket : MonoBehaviour
         }
         else
         {
-            DialogueManager.instance.StartDialogue(unpluggingWasherDialogue);
+            //if (!check) 
+            //{
+                DialogueManager.instance.StartDialogue(unpluggingWasherDialogue);
+            //}
+            //check = true;
         }
     }
 }

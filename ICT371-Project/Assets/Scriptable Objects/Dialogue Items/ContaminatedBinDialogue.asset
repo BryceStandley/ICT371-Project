@@ -15,6 +15,6 @@ MonoBehaviour:
   dialogueTriggerName: Contaminated Bin Dialogue
   npcName: GOV Bot
   sentences:
-  - '"By using the wrong bin for different items can cause the bin to become contaminated!"'
-  - '"When a bin is contaminated, the contets of the bin is treated as general waste
-    and put into land fill "'
+  - '"By placing items in the wrong bin, you can cause the bin to become contaminated!"'
+  - '"When a bin is contaminated, the contents of the bin is treated as general waste
+    and is put into land fill "'
