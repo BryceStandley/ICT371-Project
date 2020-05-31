@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Objective
   objective: Dry your clothes
   objectiveID: 93
-  hasComplete: 0
+  hasComplete: 1
   uiElement: {fileID: 0}
   objectiveType: 1
   objectiveRequirement: 0
-  puzzleCompletionPercentage: 0
+  puzzleCompletionPercentage: 100
   objectiveWeight: 5

@@ -15,7 +15,7 @@ public class ObjectPickUp : MonoBehaviour
     public float holdDistance = 5f;
 
     private Ray centerRay;
-    private Camera cam;
+    public Camera cam;
     public bool holding = false;
     private bool canPickUp = false;
 
@@ -36,7 +36,7 @@ public class ObjectPickUp : MonoBehaviour
     {
         UpdateScreenSize();
 
-        cam = Camera.main;  
+        //cam = Camera.main;  
     }
 
     public void UpdateScreenSize()

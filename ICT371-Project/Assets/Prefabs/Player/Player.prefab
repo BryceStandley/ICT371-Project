@@ -19346,6 +19346,7 @@ GameObject:
   - component: {fileID: 8976060821009833535}
   - component: {fileID: 3016532291426839643}
   - component: {fileID: 8459111026998170204}
+  - component: {fileID: 6565198636156027678}
   m_Layer: 0
   m_Name: backButton
   m_TagString: Untagged
@@ -19430,9 +19431,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
+    m_PressedColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+    m_SelectedColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -19463,6 +19464,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6565198636156027678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6586698997317071541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4935e3f2f52f646b6fabd3e585ec82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6623736932644002387
 GameObject:
   m_ObjectHideFlags: 0
@@ -23772,6 +23785,7 @@ MonoBehaviour:
   objPickUp: {fileID: 8269289810949244988}
   objectiveUI: {fileID: 8024292388621183794}
   crossHair: {fileID: 3071566549368071340}
+  playerInput: {fileID: 0}
   gamepad: 0
 --- !u!114 &8269289810949244988
 MonoBehaviour:
@@ -23792,6 +23806,7 @@ MonoBehaviour:
   disabledInput: 0
   pickupDistance: 3
   holdDistance: 3
+  cam: {fileID: 8135916888646205455}
   holding: 0
   lookedAtItem: {fileID: 0}
   lastLookedAtItem: {fileID: 0}
@@ -25870,6 +25885,9 @@ MonoBehaviour:
   docToInspect: {fileID: 0}
   tookBikeDialogue: {fileID: 11400000, guid: bd8f64cdbf5f8d243bacdcb5addcc33b, type: 2}
   tookCarDialogue: {fileID: 11400000, guid: 6c6ac304682f3d54abf175c2b44b323d, type: 2}
+  bikeCollider: {fileID: 0}
+  carCollider: {fileID: 0}
+  finalTrigger: 0
   finalCinematicCamera: {fileID: 0}
   playerCamera: {fileID: 8135916888646205449}
   playerModel: {fileID: 8135916888335338909}

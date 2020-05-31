@@ -73,7 +73,7 @@ public class MainMenu : MonoBehaviour
     public void NewGame() //starts a new game by loading in the game scene
     {
         //Debug.Log("Loading New Game...");
-        SceneManager.LoadScene("MenuToGame");
+        SceneManager.LoadScene((int)SceneIndex.LevelLoader);
     }
 
     public void LoadGame() //loads in a game save

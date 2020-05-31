@@ -23,7 +23,7 @@ public class PlayerInputController : MonoBehaviour
 
     private void OnEnable()
     {
-        InputSystem.onEvent += InputSystem_onEvent;
+        InputSystem.onEvent += InputSystem_onEvent; ;
     }
     private void OnDisable()
     {
@@ -32,21 +32,18 @@ public class PlayerInputController : MonoBehaviour
 
     private void InputSystem_onEvent(UnityEngine.InputSystem.LowLevel.InputEventPtr arg1, InputDevice arg2)
     {
-        if(playerInput.currentControlScheme.ToLower().Contains("gamepad"))
+
+        if (playerInput.currentControlScheme.ToLower().Contains("gamepad"))
         {
             gamepad = true;
+            
         }
         else
         {
             gamepad = false;
         }
+        //Debug.LogError(playerInput.currentControlScheme);
         InputUISwitcher.instance.OnInputChange(gamepad);
-    }
-
-    private void InputSystem_onDeviceChange(InputDevice arg1, InputDeviceChange arg2)
-    {
-        //throw new System.NotImplementedException();
-        //Debug.Log(arg1.description);
     }
 
     private void Start()

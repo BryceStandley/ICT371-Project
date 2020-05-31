@@ -7,6 +7,6 @@ public class MenuToGame : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("MainGame");
+        LevelLoader.instance.LoadGame();
     }
 }

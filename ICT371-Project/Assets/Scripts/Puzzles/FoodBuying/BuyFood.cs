@@ -59,6 +59,7 @@ public class BuyFood : MonoBehaviour
     private void HideBuyUI()
     {
         foodBuyUI.SetActive(false);
+        ActionManger.instance.ClearCurrentAction();
         PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
         DialogueManager.instance.StartDialogue(boughtFoodDialogue);
         ObjectInformationToolTip.HideTip();

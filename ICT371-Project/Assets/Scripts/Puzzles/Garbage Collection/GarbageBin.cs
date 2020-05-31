@@ -80,6 +80,7 @@ public class GarbageBin : MonoBehaviour
                     {
                         Destroy(gi.gameObject);
                         numberOfIncorrectItemsInBin++;
+                        numberOfBulbsInBin++;
                         CheckItem(gi);
                         TrackingController.instance.totalMistakes++;
                         SoundEffectsManager.instance.PlayIncorrectBinItemClip();
@@ -94,7 +95,7 @@ public class GarbageBin : MonoBehaviour
                 DialogueManager.instance.StartDialogue(indisposableItemDialogue);
                 //Debug.Log("Player placed a puzzle item in the bin");
                 ResetLocation(other.transform.gameObject);
-                TrackingController.instance.totalMistakes++;
+                //TrackingController.instance.totalMistakes++;
                 SoundEffectsManager.instance.PlayInDisposableBinItemClip();
             }
         }
@@ -103,7 +104,7 @@ public class GarbageBin : MonoBehaviour
             numberOfIndisposableItemsInBin++;
             //Debug.Log("Player placed a puzzle item in the bin");
             ResetLocation(other.transform.gameObject);
-            TrackingController.instance.totalMistakes++;
+            //TrackingController.instance.totalMistakes++;
             SoundEffectsManager.instance.PlayInDisposableBinItemClip();
         }
 

@@ -19,6 +19,8 @@ public class ActionManger : MonoBehaviour
     public CCSInspect docToInspect;
 
     public Dialogue tookBikeDialogue, tookCarDialogue;
+    public Collider bikeCollider, carCollider;
+    public bool finalTrigger = false;
     private bool endTriggered = false;
 
     private void Awake()//using clear function to set up empty string
@@ -85,23 +87,28 @@ public class ActionManger : MonoBehaviour
                 }
                 else if (actionAvailable.ToLower().Contains(actions[5].ToLower()))
                 {
+                    finalTrigger = true;
                     tookBike = false;
+                    carCollider.enabled = false;
+                    ClearCurrentAction();
                     TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Car);
                     TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Car;
                     PlayerInputController.instance.DisablePlayerControls();
                     DialogueManager.instance.StartDialogue(tookCarDialogue);
                     SoundEffectsManager.instance.PlayActionClickClip();
-                    ClearCurrentAction();
+                    
                 }
                 else if (actionAvailable.ToLower().Contains(actions[6].ToLower()))
                 {
+                    finalTrigger = true;
                     tookBike = true;
+                    bikeCollider.enabled = false;
+                    ClearCurrentAction();
                     TrackingController.instance.AddTransportUsage(TrackingController.TransportType.Bike);
                     TrackingController.instance.typeOfTransportThePlayerUsed = TrackingController.TransportType.Bike;
                     PlayerInputController.instance.DisablePlayerControls();
                     DialogueManager.instance.StartDialogue(tookBikeDialogue);
                     SoundEffectsManager.instance.PlayActionClickClip();
-                    ClearCurrentAction();
                 }
             }
         }

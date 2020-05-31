@@ -118,7 +118,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene((int)SceneIndex.MainMenu);
     }
 
     public void SaveGame() //Saves Game

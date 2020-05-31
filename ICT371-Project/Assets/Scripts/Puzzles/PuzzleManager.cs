@@ -248,6 +248,7 @@ public class PuzzleManager : MonoBehaviour
                             obj.puzzleCompletionPercentage = 0;
                             break;
                     }
+                    ObjectiveManager.instance.CheckCompletedDialogue();
                     TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                     SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                     if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
@@ -283,6 +284,7 @@ public class PuzzleManager : MonoBehaviour
                     {
                         obj.puzzleCompletionPercentage = 100;
                     }
+                    ObjectiveManager.instance.CheckCompletedDialogue();
                     TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                     SoundEffectsManager.instance.PlayObjectiveCompleteClip();
                     if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))
@@ -383,6 +385,7 @@ public class PuzzleManager : MonoBehaviour
             if (total == garbageItems.Count)
             {
                 obj.hasComplete = true;
+                ObjectiveManager.instance.CheckCompletedDialogue();
                 DialogueManager.instance.StartDialogue(allRubbishCompletedDialogue);
                 TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
                 SoundEffectsManager.instance.PlayObjectiveCompleteClip();
@@ -450,6 +453,7 @@ public class PuzzleManager : MonoBehaviour
             //get objective manager and update ui
             ob.hasComplete = true;
             ob.puzzleCompletionPercentage = 100;
+            ObjectiveManager.instance.CheckCompletedDialogue();
             DialogueManager.instance.StartDialogue(allTreesPlantedDialogue);
             TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
             TrackingController.instance.AddTreePlantingFootprint();
@@ -584,6 +588,7 @@ public class PuzzleManager : MonoBehaviour
                     break;
             }
             //DialogueManager.instance.StartDialogue(allPlugsUnplugged);
+            ObjectiveManager.instance.CheckCompletedDialogue();
             TrackingController.instance.completedObjectives = TrackingController.instance.completedObjectives + 1;
             SoundEffectsManager.instance.PlayObjectiveCompleteClip();
             if (obj.uiElement.GetComponent<ObjectiveUIElement>().UpdateObjective(obj.hasComplete))

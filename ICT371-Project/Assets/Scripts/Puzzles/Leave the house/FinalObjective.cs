@@ -13,23 +13,26 @@ public class FinalObjective : MonoBehaviour
             {
                 if(ObjectPickUp.instance.lookedAtItem == this.gameObject)
                 {
-                    if(isCar)
+                    if(!ActionManger.instance.finalTrigger)
                     {
-                        PromptChanger.instance.thirdPurpPrompt = true;
-                        PromptChanger.instance.hasCustomName = true;
-                        PromptChanger.instance.customName = "Take Car";
-                        PromptChanger.instance.customNameAction = PromptChanger.CustomNameAction.Third;
-                        PromptChanger.instance.UpdateUI();
-                        ActionManger.instance.SetCurrentAction("TakeCar");
-                    }
-                    else
-                    {
-                        PromptChanger.instance.thirdPurpPrompt = true;
-                        PromptChanger.instance.hasCustomName = true;
-                        PromptChanger.instance.customName = "Take Bike";
-                        PromptChanger.instance.customNameAction = PromptChanger.CustomNameAction.Third;
-                        PromptChanger.instance.UpdateUI();
-                        ActionManger.instance.SetCurrentAction("TakeBike");
+                        if (isCar)
+                        {
+                            PromptChanger.instance.thirdPurpPrompt = true;
+                            PromptChanger.instance.hasCustomName = true;
+                            PromptChanger.instance.customName = "Take Car";
+                            PromptChanger.instance.customNameAction = PromptChanger.CustomNameAction.Third;
+                            PromptChanger.instance.UpdateUI();
+                            ActionManger.instance.SetCurrentAction("TakeCar");
+                        }
+                        else
+                        {
+                            PromptChanger.instance.thirdPurpPrompt = true;
+                            PromptChanger.instance.hasCustomName = true;
+                            PromptChanger.instance.customName = "Take Bike";
+                            PromptChanger.instance.customNameAction = PromptChanger.CustomNameAction.Third;
+                            PromptChanger.instance.UpdateUI();
+                            ActionManger.instance.SetCurrentAction("TakeBike");
+                        }
                     }
                 }
             }
