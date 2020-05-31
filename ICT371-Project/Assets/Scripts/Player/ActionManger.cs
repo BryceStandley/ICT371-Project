@@ -186,9 +186,10 @@ public class ActionManger : MonoBehaviour
             FridgeMagnet magnet = ObjectPickUp.instance.lookedAtItem.GetComponent<FridgeMagnet>();
             if(magnet != null)
             {
-                magnet.Inspect();
                 ObjectInformationToolTip.HidePrompt();
                 ObjectInformationToolTip.HideTip();
+                magnet.Inspect();
+                
             }
             else
             {
@@ -228,7 +229,7 @@ public class ActionManger : MonoBehaviour
         dialogues.SetActive(false);
         objectHoldPoint.SetActive(false);
         finalCinematicCamera.SetActive(true);
-        PuzzleManager.instance.TriggerEndObjective();
+        //PuzzleManager.instance.TriggerEndObjective();
         FinalScoring.instance.TriggerFinalScoring();
         FinalScoring.instance.DisplayFinalScoreUI();
     }

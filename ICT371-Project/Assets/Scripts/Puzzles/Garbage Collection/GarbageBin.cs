@@ -81,6 +81,7 @@ public class GarbageBin : MonoBehaviour
                         Destroy(gi.gameObject);
                         numberOfIncorrectItemsInBin++;
                         numberOfBulbsInBin++;
+                        isCompromised = true;
                         CheckItem(gi);
                         TrackingController.instance.totalMistakes++;
                         SoundEffectsManager.instance.PlayIncorrectBinItemClip();

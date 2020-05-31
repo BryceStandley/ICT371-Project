@@ -22,7 +22,14 @@ public class LevelLoader : MonoBehaviour
     {
         loadingScreen.SetActive(true);
         scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndex.MenuToGame));
-        scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndex.MainGame, LoadSceneMode.Additive));
+        if(Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndex.MainGameWebGL, LoadSceneMode.Additive));
+        }
+        else
+        {
+            scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndex.MainGame, LoadSceneMode.Additive));
+        }
 
         StartCoroutine(GetSceneLoadProgress());
     }

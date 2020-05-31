@@ -7,11 +7,8 @@ public class FridgeMagnet : MonoBehaviour
 {
 
     public GameObject inspectMagnetUI;
-    public GameObject backButton;
-    private void Awake()
-    {
-        inspectMagnetUI.SetActive(false);
-    }
+    public GameObject closeButton;
+
     private void LateUpdate()
     {
         if(ObjectiveManager.instance.objectiveListType == ObjectiveManager.ObjectiveListType.Main)
@@ -34,19 +31,21 @@ public class FridgeMagnet : MonoBehaviour
     public void Inspect()
     {
         inspectMagnetUI.SetActive(true);
+        PauseMenu.instance.ChangeSelectedItem(closeButton);
         PauseMenu.instance.inDialogue = true;
         PlayerInputController.instance.DisablePlayerControls();
-        PauseMenu.instance.ChangeSelectedItem(backButton);
+        
     }
 
     public void CloseInspect()
     {
         inspectMagnetUI.SetActive(false);
         PauseMenu.instance.inDialogue = false;
+        PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
         PlayerInputController.instance.EnablePlayerControls();
         ObjectInformationToolTip.HideTip();
         ObjectInformationToolTip.HidePrompt();
-        PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
+        
     }
 
 }

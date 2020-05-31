@@ -29,7 +29,8 @@ public class ObjectInformationToolTip : MonoBehaviour
     }
     private void ShowToolTipPrompt()
     {
-        promptObject.SetActive(true);
+        //promptObject.SetActive(true);
+        promptObject.transform.localScale = Vector3.one;
     }
 
     private void HideTooltip()
@@ -40,7 +41,9 @@ public class ObjectInformationToolTip : MonoBehaviour
 
     private void HideToolTipPrompt()
     {
-        promptObject.SetActive(false);
+        //promptObject.SetActive(false);
+        //Making the prompt invisible by making it have 0 scale
+        promptObject.transform.localScale = Vector3.zero;
     }
 
     private GameObject GetPrompt()

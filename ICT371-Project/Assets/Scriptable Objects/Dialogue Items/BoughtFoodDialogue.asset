@@ -15,4 +15,8 @@ MonoBehaviour:
   dialogueTriggerName: BoughtFoodDialogue
   npcName: GOV Bot
   sentences:
-  - '"This Dialogue hasn''t been written yet"'
+  - '"Did you know that the livestock sector generates more greenhouse gas emissions
+    than cars, trucks and automobiles combined?"'
+  - '"Reducing the amount of meat in your diet and opting for plant-based meals can
+    combat carbon emissions, alongside other issues such as soil, air, and water
+    pollution"'

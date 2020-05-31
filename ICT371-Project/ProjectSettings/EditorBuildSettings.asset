@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelLoader.unity
     guid: 6a115f0c485d0443ea900c26f107f187
+  - enabled: 1
+    path: Assets/Scenes/MainGame/MainGame-WebGl.unity
+    guid: c1d47650ddfe94bb7adcbb6733697036
   m_configObjects: {}

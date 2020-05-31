@@ -156,17 +156,8 @@ public class ObjectiveManager : MonoBehaviour
     {
         foreach (Objective obj in objList)
         {
-            GameObject objective = Object.Instantiate(objectiveUIElement as GameObject);
-            if(obj.objectiveRequirement == Objective.ObjectiveRequirement.Required)
-            {
-                objective.transform.SetParent(objectiveList.transform);
-            }
-            else
-            {
-                objective.transform.SetParent(optionalObjectiveList.transform);
-            }
+            GameObject objective = CreateNewObjectiveUIElement(obj.objectiveRequirement);// Object.Instantiate(objectiveUIElement as GameObject);
             obj.uiElement = objective;
-            objective.transform.localScale = Vector3.one;//resetting the scale to be correct
             ObjectiveUIElement uIElement = objective.GetComponent<ObjectiveUIElement>();
             uIElement.UpdateObjective(obj.objective);
             if(obj.hasComplete)
@@ -174,17 +165,24 @@ public class ObjectiveManager : MonoBehaviour
                 uIElement.UpdateObjective(obj.hasComplete);
             }
             
-            objectiveUI.Add(objective);
+            //objectiveUI.Add(objective);
         }
     }
     public GameObject CreateNewObjectiveUIElement(Objective.ObjectiveRequirement requirement)
     {
         GameObject uiElement = Object.Instantiate(objectiveUIElement as GameObject);
+        if(requirement == Objective.ObjectiveRequirement.Required)
+        {
+            uiElement.transform.SetParent(objectiveList.transform);
+
+        }
+        else
+        {
+            uiElement.transform.SetParent(optionalObjectiveList.transform);
+        }
         uiElement.transform.localScale = Vector3.one;
         uiElement.transform.position = Vector3.zero;
-        uiElement.transform.localRotation = new Quaternion(0,0,0,0); //resetiing rotation of object incase it didnt spawn with the correct values
-        uiElement.transform.SetParent(objectiveList.transform);
-        uiElement.transform.SetParent(optionalObjectiveList.transform);
+        uiElement.transform.localRotation = new Quaternion(0, 0, 0, 0); //resetiing rotation of object incase it didnt spawn with the correct values
         objectiveUI.Add(uiElement);
         return uiElement;
     }
@@ -198,27 +196,30 @@ public class ObjectiveManager : MonoBehaviour
         objectiveUI.Clear();
     }
 
-    private int mainObj = 0;
-    private int sideObj = 0;
+    private int mainObj;
+    private int sideObj;
     private bool hasSeenCoreAndOptional = false;
     private bool hasSeenOption = false;
     private bool hasSeenCore = false;
     public void CheckCompletedDialogue()
     {
-
-        foreach(Objective obj in MainObjectives)
+        mainObj = 0;
+        sideObj = 0;
+        foreach(Objective obj in allObjectives)
         {
             if(obj.hasComplete)
             {
-                mainObj++;
-            }
-        }
-
-        foreach(Objective obj in SideObjetives)
-        {
-            if(obj.hasComplete)
-            {
-                sideObj++;
+                switch (obj.objectiveType)
+                {
+                    case Objective.ObjectiveType.Main:
+                        mainObj++;
+                        break;
+                    case Objective.ObjectiveType.Side:
+                        sideObj++;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

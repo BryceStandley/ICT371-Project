@@ -153,9 +153,9 @@ public class FinalScoring : MonoBehaviour
             starImages[i].sprite = fullStarSprite;
         }
         FinalScoreUI.SetActive(true);
-        PauseMenu.instance.ChangeSelectedItem(statsButton);
         FinalScoreUI.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, 0.5f);
         PauseMenu.instance.inDialogue = true;
+        PauseMenu.instance.ChangeSelectedItem(statsButton);
         PlayerInputController.instance.DisablePlayerControls();
     }
 

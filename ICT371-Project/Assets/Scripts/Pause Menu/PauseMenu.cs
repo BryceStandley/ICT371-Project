@@ -68,6 +68,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ChangeSelectedItem(GameObject button)
     {
+        Debug.Log(button.name);
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(button);
     }

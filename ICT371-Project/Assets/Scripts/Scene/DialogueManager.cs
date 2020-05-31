@@ -102,25 +102,28 @@ public class DialogueManager : MonoBehaviour
         PlayerInputController.instance.EnablePlayerControls();
         ObjectInformationToolTip.HidePrompt();
         ObjectInformationToolTip.HideTip();
-        Invoke("DisableDialogue",0.6f);
-        if(currentDialogue == tookCarDialogue || currentDialogue == tookBikeDialogue)
+        //Invoke("DisableDialogue",0.6f);
+        
+        if (currentDialogue == tookCarDialogue || currentDialogue == tookBikeDialogue)
         {
             ActionManger.instance.endDialogueFinished = true;
+
         }
         else
         {
             currentDialogue = null;
         }
-        
-        
-        
+        DisableDialogue();
     }
 
     private void DisableDialogue()
     {
         //dialogueUIElement.SetActive(false);
         pauseMenu.inDialogue = false;
-        PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
+        if(!ActionManger.instance.endDialogueFinished)
+        {
+            PauseMenu.instance.ChangeSelectedItem(PauseMenu.instance.pauseFirstButton);
+        }
 
     }
 
